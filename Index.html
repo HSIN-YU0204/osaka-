@@ -3,143 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Osaka Bloom | 櫻花漫遊版</title>
+    <title>Osaka Bloom | 2026 櫻花漫步版</title>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        :root {
+            --jp-red: #D73C3E;
+            --fuji-blue: #6C8EBF;
+            --paper-bg: #FAF9F6;
+        }
         body { 
             font-family: 'Zen Maru Gothic', sans-serif; 
-            background-color: #FFF5F7; /* 淡粉色背景 */
-            background-image: radial-gradient(#FFD1DC 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-            color: #4A4A4A; 
+            background-color: var(--paper-bg); 
+            color: #4A4A4A;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(215, 60, 62, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(108, 142, 191, 0.05) 0%, transparent 25%);
+            -webkit-tap-highlight-color: transparent;
         }
-        .fuji-blue { color: #6C8EBF; }
-        .bg-fuji-blue { background-color: #6C8EBF; }
-        .glass-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); }
-        .tab-active { background-color: #6C8EBF; color: white; box-shadow: 0 4px 6px -1px rgba(108, 142, 191, 0.3); }
-        .page-content { display: none; }
+        
+        .jp-decoration { position: fixed; z-index: -1; opacity: 0.15; pointer-events: none; }
+        .fuji-blue { color: var(--fuji-blue); }
+        .bg-fuji-blue { background-color: var(--fuji-blue); }
+        .glass-header { background: rgba(250, 249, 246, 0.85); backdrop-filter: blur(10px); }
+        
+        .tab-active { 
+            background-color: var(--fuji-blue) !important; 
+            color: white !important; 
+            box-shadow: 0 4px 12px rgba(108, 142, 191, 0.3); 
+        }
+        
+        .page-content { display: none; animation: fadeIn 0.4s ease-out; }
         .page-active { display: block; }
-        .nav-active { color: #6C8EBF !important; font-weight: bold; }
+        .nav-active { color: var(--fuji-blue) !important; font-weight: bold; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 分類標籤樣式 */
+        .cat-tag { font-size: 9px; padding: 2px 8px; border-radius: 99px; font-weight: bold; }
         .cat-tag-景點 { background-color: #E0F2FE; color: #0369A1; }
         .cat-tag-美食 { background-color: #FFEDD5; color: #9A3412; }
         .cat-tag-交通 { background-color: #F1F5F9; color: #475569; }
         .cat-tag-住宿 { background-color: #F3E8FF; color: #7E22CE; }
-        
-        /* 導遊彈窗樣式 */
-        #story-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
-        .modal-card { background: white; border-radius: 24px; padding: 24px; max-width: 90%; width: 400px; position: relative; animation: slideUp 0.3s ease-out; }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .deco-icon { position: absolute; opacity: 0.1; pointer-events: none; }
+
+        #story-modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background: white; border-radius: 28px; max-width: 400px; width: 100%;
+            padding: 28px; position: relative; animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes modalPop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .scroll-hide::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="pb-32">
 
-    <!-- 裝飾小圖示 -->
-    <span class="deco-icon text-4xl" style="top: 10%; left: 5%;">🌸</span>
-    <span class="deco-icon text-4xl" style="top: 30%; right: 5%;">⛩️</span>
-    <span class="deco-icon text-4xl" style="top: 60%; left: 8%;">🗼</span>
-    <span class="deco-icon text-4xl" style="top: 85%; right: 10%;">🍡</span>
+    <!-- 背景裝飾 -->
+    <div class="jp-decoration text-4xl" style="top: 15%; left: 5%;">🗻</div>
+    <div class="jp-decoration text-4xl" style="top: 45%; right: 8%;">🍣</div>
+    <div class="jp-decoration text-4xl" style="top: 75%; left: 10%;">🏮</div>
+    <div class="jp-decoration text-4xl" style="bottom: 10%; right: 5%;">🌸</div>
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 glass-header px-6 py-4 border-b border-pink-100">
+    <header class="sticky top-0 z-50 glass-header px-6 py-4 border-b border-gray-100">
         <div class="flex justify-between items-center">
             <div>
-                <h1 class="text-xl font-bold fuji-blue">Osaka Bloom 🌸</h1>
-                <p id="countdown-text" class="text-[10px] text-gray-400 font-medium">載入中...</p>
+                <h1 class="text-xl font-bold fuji-blue leading-tight">Osaka Bloom</h1>
+                <p id="countdown-text" class="text-[10px] text-gray-400 font-medium">Loading...</p>
             </div>
             <div id="countdown-badge" class="hidden">
-                <span class="text-[10px] bg-red-100 text-red-500 px-2 py-1 rounded-full font-bold animate-pulse">USJ 快通搶票</span>
+                <span class="text-[10px] bg-red-100 text-red-500 px-3 py-1 rounded-full font-bold animate-pulse">USJ 快速通關提醒</span>
             </div>
         </div>
     </header>
 
-    <!-- 1. 行程頁面 -->
+    <!-- 行程頁面 -->
     <div id="page-itinerary" class="page-content page-active">
-        <nav id="date-nav" class="flex overflow-x-auto px-4 py-4 space-x-3 sticky top-[68px] z-40 bg-pink-50/50 scroll-hide"></nav>
+        <nav id="date-nav" class="flex overflow-x-auto px-4 py-4 space-x-3 sticky top-[68px] z-40 bg-[#FAF9F6]/95 backdrop-blur-sm border-b border-gray-50 scroll-hide"></nav>
         <main id="itinerary-content" class="px-5 mt-4"></main>
     </div>
 
-    <!-- 2. 指南頁面 -->
+    <!-- 指南頁面 -->
     <div id="page-guide" class="page-content px-5 pt-6">
-        <div class="bg-[#8D775F] text-white p-6 mb-6 rounded-[32px] shadow-sm">
-            <div class="flex items-center gap-3 mb-4"><span class="text-2xl">🧮</span><h2 class="text-lg font-bold">旅行記帳</h2></div>
-            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block w-full bg-white text-[#8D775F] text-center py-4 rounded-2xl font-bold shadow-md italic">
-                開啟 LINE 記帳小工具
-            </a>
+        <div class="bg-[#8D775F] text-white p-6 mb-8 rounded-[32px] shadow-lg relative overflow-hidden">
+            <div class="relative z-10">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">🧮</span>
+                    <h2 class="text-lg font-bold">旅行記帳</h2>
+                </div>
+                <p class="text-xs opacity-90 mb-4">點擊下方按鈕開啟 LINE 群組記帳工具</p>
+                <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block w-full bg-white text-[#8D775F] text-center py-4 rounded-2xl font-bold text-sm shadow-md active:scale-95 transition-transform">
+                    開啟 LINE 記帳小工具
+                </a>
+            </div>
+            <span class="absolute -right-4 -bottom-4 text-7xl opacity-20">💰</span>
         </div>
-        <!-- 住宿周邊 -->
-        <h3 class="font-bold text-gray-700 mb-4 px-2">🏠 住宿附近商家</h3>
+        
+        <h3 class="font-bold text-gray-700 mb-4 px-2 flex items-center gap-2">
+            <span>🏠</span> 住宿附近商家 & 宵夜
+        </h3>
         <div class="space-y-4">
-             <div class="bg-white p-4 rounded-3xl shadow-sm border border-pink-50 flex items-center gap-4">
+            <!-- 商家卡片 -->
+            <div class="bg-white/80 backdrop-blur-sm p-4 rounded-3xl border border-gray-100 shadow-sm flex items-center gap-4">
                 <div class="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center text-2xl">🏪</div>
-                <div class="flex-1"><h4 class="font-bold text-sm">LAWSON 瓦屋町店</h4><p class="text-[10px] text-gray-400">最近的便利店</p></div>
-                <a href="https://maps.app.goo.gl/ZUxzKoPJthb9Lkgc7" class="text-xs fuji-blue font-bold px-3 py-2 bg-blue-50 rounded-full">地圖</a>
+                <div class="flex-1">
+                    <h4 class="font-bold text-sm">LAWSON 瓦屋町三丁目店</h4>
+                    <p class="text-[10px] text-gray-400">24小時營業・最近便利店</p>
+                </div>
+                <a href="https://maps.app.goo.gl/ZUxzKoPJthb9Lkgc7" class="text-xs fuji-blue font-bold px-4 py-2 bg-blue-50 rounded-full">地圖</a>
+            </div>
+            <div class="bg-white/80 backdrop-blur-sm p-4 rounded-3xl border border-gray-100 shadow-sm flex items-center gap-4">
+                <div class="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center text-2xl">🍜</div>
+                <div class="flex-1">
+                    <h4 class="font-bold text-sm text-red-600">野口太郎拉麵店</h4>
+                    <p class="text-[10px] text-gray-400">推薦宵夜・營業至 04:00</p>
+                </div>
+                <a href="https://maps.app.goo.gl/nALJy2Jkg6ZX6qB18" class="text-xs fuji-blue font-bold px-4 py-2 bg-blue-50 rounded-full">地圖</a>
             </div>
         </div>
     </div>
 
-    <!-- 導遊故事彈窗 -->
+    <!-- 故事彈窗 -->
     <div id="story-modal" onclick="closeStory()">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <div class="text-3xl mb-2">🎙️</div>
-            <h4 id="modal-title" class="text-lg font-bold mb-2 fuji-blue"></h4>
-            <p id="modal-content" class="text-sm text-gray-600 leading-relaxed"></p>
-            <button onclick="closeStory()" class="mt-6 w-full py-3 bg-gray-100 rounded-xl font-bold text-gray-500">關閉</button>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-2xl" id="modal-icon">🚩</span>
+                <h3 id="modal-title" class="font-bold text-lg text-gray-800"></h3>
+            </div>
+            <div id="modal-body" class="text-sm leading-relaxed text-gray-600 mb-8 max-h-[60vh] overflow-y-auto"></div>
+            <button onclick="closeStory()" class="w-full bg-gray-800 text-white py-4 rounded-2xl font-bold text-sm active:scale-95 transition-transform">
+                我知道了
+            </button>
         </div>
     </div>
 
-    <!-- 下方導航 -->
-    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-white/90 backdrop-blur-md rounded-[32px] shadow-2xl border border-pink-100 p-2 z-[100] flex justify-around items-center">
+    <!-- 底部導航 -->
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-white/90 backdrop-blur-md rounded-[32px] shadow-2xl border border-gray-100 p-2 z-[100] flex justify-around items-center">
         <button onclick="showPage('itinerary')" id="btn-itinerary" class="flex flex-col items-center p-3 text-gray-400 nav-active">
-            <span class="text-2xl">🗓️</span><span class="text-[10px]">行程</span>
+            <span class="text-xl">🗓️</span><span class="text-[10px]">行程預覽</span>
         </button>
         <button onclick="showPage('guide')" id="btn-guide" class="flex flex-col items-center p-3 text-gray-400">
-            <span class="text-2xl">🗺️</span><span class="text-[10px]">指南</span>
+            <span class="text-xl">🗺️</span><span class="text-[10px]">在地指南</span>
         </button>
         <button onclick="window.open('https://maps.app.goo.gl/1zug2gTcfbfFptLx9')" class="flex flex-col items-center p-3 text-gray-400">
-            <span class="text-2xl">🎢</span><span class="text-[10px]">USJ</span>
+            <span class="text-xl">🎢</span><span class="text-[10px]">USJ導航</span>
         </button>
     </nav>
 
     <script>
         const itineraryData = {
-            "7/22": { title: "啟程大阪", items: [
-                { time: "18:20", cat: "交通", name: "桃園機場起飛", desc: "捷星航空GK054 (6A6B)", map: "#", img: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=600", trans: "⬇️ 機場接駁 (車程47分)", story: "捷星是我們這次的座駕，記得檢查行李重量喔！下飛機後我們要趕末班接駁車。" },
-                { time: "22:00", cat: "交通", name: "關西機場 T1", desc: "換取周遊券並搭車", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6", img: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=600", trans: "⬇️ 步行9分鐘", story: "關西機場是填海造陸的奇蹟！這裡也是我們正式踏上日本國土的第一站。" },
-                { time: "00:00", cat: "住宿", name: "住一八號店", desc: "簽到碼: 22280049", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18", img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=600", story: "住一飯店位於熱鬧的心齋橋周邊，地理位置極佳，是我們這幾天的溫馨小窩。" }
+            "7/22": { title: "抵達大阪", items: [
+                { time: "18:20", cat: "交通", name: "桃園機場起飛", desc: "捷星航空GK054 (6A6B)", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6", img: "https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=600", story: "冒險開始！桃園機場是台灣的門戶。記得在機上休息，落地後還有一段機場快線的路程喔！", trans: "⬇️ 機場接駁 (車程47分)" },
+                { time: "22:00", cat: "交通", name: "關西機場 T1", desc: "辦理入境與領取行李", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6", img: "https://images.unsplash.com/photo-1570610155223-66279ba81b41?w=600", story: "關西機場是填海造陸建成的海上機場。我們要趕往市區，感受日本鐵道的安靜節奏。", trans: "⬇️ 南海電鐵直達難波" },
+                { time: "00:00", cat: "住宿", name: "住一八號店", desc: "簽到碼: 22280049", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18", img: "https://images.unsplash.com/photo-1621266592285-05574581297e?w=600", story: "今晚入住難波區域。離道頓堀很近，如果肚子餓了，周邊還有不少深夜食堂！" }
             ]},
-            "7/23": { title: "市區風情", items: [
-                { time: "08:15", cat: "景點", name: "心齋橋筋", desc: "預計停留3小時", map: "https://maps.app.goo.gl/Foh3iYSnCBJzmCvD8", img: "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=600", trans: "⬇️ 步行4分鐘", story: "心齋橋是大阪最大的購物區，這裡的頂棚設計讓妳下雨也能逛得盡興，固力果跑跑人就在不遠處！" },
-                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼飯", desc: "人氣爆棚的和牛堆疊", map: "https://maps.app.goo.gl/fYdFXyDovHwkYsze6", img: "https://images.unsplash.com/photo-1529692236671-61f66c787e70?w=600", trans: "⬇️ 車程19分鐘", story: "這家店的烤牛肉丼像座小山一樣，是IG必打卡的平價美食！" },
-                { time: "12:19", cat: "景點", name: "難波八阪神社", desc: "巨型獅子殿", map: "https://maps.app.goo.gl/xaEeLvwv8URWLmDJ7", img: "https://images.unsplash.com/photo-1590333746437-0105370246a4?w=600", trans: "⬇️ 車程21分鐘", story: "巨大的獅子頭會張開大嘴吸走妳的厄運，帶走妳的好運與成功的學業/事業！" },
-                { time: "14:00", cat: "景點", name: "通天閣 & 新世界", desc: "停留2小時 (含滑梯)", map: "https://maps.google.com?q=通天閣", img: "https://images.unsplash.com/photo-1590252611442-5f653459e944?w=600", trans: "⬇️ 車程14分鐘", story: "這裡保留了昭和時代的老大阪氛圍，通天閣上還有守護神比利肯可以摸腳底祈求幸運。" },
-                { time: "18:52", cat: "景點", name: "道頓堀商圈", desc: "21:00 預約搭船", map: "https://maps.app.goo.gl/FHS79DD4FvMirG1c6", img: "https://images.unsplash.com/photo-1542931237-323a19592c34?w=600", trans: "⬇️ 步行10分鐘", story: "大阪的廚房！在這裡妳可以看到全世界最巨大的螃蟹和章魚招牌。" }
+            "7/23": { title: "市區巡禮", items: [
+                { time: "08:15", cat: "景點", name: "心齋橋筋商店街", desc: "藥妝、服飾、雜貨天堂", map: "https://maps.app.goo.gl/Foh3iYSnCBJzmCvD8", img: "https://images.unsplash.com/photo-1590559899731-a382839e5549?w=600", story: "三百多年歷史的商圈。拱廊設計讓你在晴雨天都能優雅購物！記得看抬頭看看屋頂建築設計。", trans: "⬇️ 步行5分鐘" },
+                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", desc: "肉食控必吃的火山丼飯", map: "https://maps.app.goo.gl/fYdFXyDovHwkYsze6", img: "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600", story: "這家店以『堆得像山一樣高』的烤牛肉丼聞名。日本白米飯配上特製優格醬與半熟蛋，絕對美味！", trans: "⬇️ 車程15分鐘" },
+                { time: "12:19", cat: "景點", name: "難波八阪神社", desc: "巨大獅子殿・消災招福", map: "https://maps.app.goo.gl/xaEeLvwv8URWLmDJ7", img: "https://images.unsplash.com/photo-1605051873138-02837332c021?w=600", story: "巨大的獅子頭高 12 公尺，據說能吸走厄運。這是一個祈求勝負運、商賣繁盛非常有名的神社！", trans: "⬇️ 地鐵直達" },
+                { time: "18:52", cat: "景點", name: "道頓堀商圈", desc: "21:00 預約觀光船", map: "https://maps.app.goo.gl/FHS79DD4FvMirG1c6", img: "https://images.unsplash.com/photo-1542931237-323a19592c34?w=600", story: "大阪『吃倒文化』起源地。浮誇招牌、巨型章魚，一定要站在戎橋上和固力果跑跑人合影！" }
             ]},
-            "7/24": { title: "京都之旅", items: [
-                { time: "08:46", cat: "景點", name: "清水寺", desc: "全木造的清水舞台", map: "https://maps.app.goo.gl/YgaEiF9KVgoMikGW6", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600", trans: "⬇️ 步行5分鐘", story: "清水寺建於懸崖邊，完全沒用一顆釘子！傳說從舞台跳下去（雖然現在禁止）如果沒事，願望就會實現。" },
-                { time: "10:46", cat: "景點", name: "三年坂 & 二年坂", desc: "特色星巴克就在這", map: "https://maps.app.goo.gl/PMQURRynLwm7R9vG6", img: "https://images.unsplash.com/photo-1605315250481-80f8363768ba?w=600", trans: "⬇️ 步行10分鐘", story: "古色古香的小路，相傳在這裡摔倒會倒霉三年，所以一定要牽好手慢慢走喔！" },
-                { time: "14:30", cat: "美食", name: "錦市場", desc: "京都的廚房", map: "https://maps.app.goo.gl/tNME93m7qocw65yK8", img: "https://images.unsplash.com/photo-1533759413974-9e15f3b745ac?w=600", story: "這條街有400年歷史，妳可以吃到最道地的漬物、章魚鵪鶉蛋和京都甜點。" }
+            "7/24": { title: "古都京都", items: [
+                { time: "08:46", cat: "景點", name: "清水寺", desc: "世界文化遺產，懸空舞台", map: "https://maps.app.goo.gl/YgaEiF9KVgoMikGW6", img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600", story: "清水舞台完全沒用一根釘子。這裡祈求健康、學業與姻緣非常靈驗，記得去音羽瀑布喝一口清泉。", trans: "⬇️ 沿著二年坂步行" },
+                { time: "14:30", cat: "美食", name: "錦市場", desc: "京都的廚房・庶民美食", map: "https://maps.app.goo.gl/tNME93m7qocw65yK8", img: "https://images.unsplash.com/photo-1542641728-6ca359b085f4?w=600", story: "四百多年歷史，集中了京都所有的美味。從漬物、玉子燒到新鮮海鮮，體驗最真實的京都生活。" }
             ]},
-            "7/25": { title: "奈良鹿境", items: [
-                { time: "10:26", cat: "美食", name: "中谷堂麻糬", desc: "現搗麻糬表演", map: "https://maps.app.goo.gl/LbrH28M2ookAbWwKA", img: "https://images.unsplash.com/photo-1582392233158-7ca836926066?w=600", trans: "⬇️ 步行10分鐘", story: "這裡的職人搗麻糬速度快到像在變魔術！趁熱吃最好吃。" },
-                { time: "12:30", cat: "景點", name: "東大寺 & 奈良公園", desc: "看大佛餵小鹿", map: "https://maps.app.goo.gl/mMWPJMPBzfXd4Ch79", img: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=600", story: "小鹿是神靈的使者，雖然很可愛，但如果妳手裡有仙貝，牠們可是會一直點頭（或咬衣服）催促妳的！" }
-            ]},
-            "7/26": { title: "深海與高空", items: [
-                { time: "09:30", cat: "景點", name: "海遊館", desc: "巨大鯨鯊 (停留3.5小時)", map: "https://maps.app.goo.gl/JfUhUieCd7P7uoxV7", img: "https://images.unsplash.com/photo-1509230996901-83183577114b?w=600", trans: "⬇️ 車程20分鐘", story: "這是世界最大等級的水族館，我們將從樓頂一路環繞著巨大的中央水槽向下走，像在深海散步。" },
-                { time: "13:04", cat: "景點", name: "空庭溫泉", desc: "浴衣拍照之旅", map: "https://maps.app.goo.gl/j3edoGchXqA2caVX7", img: "https://images.unsplash.com/photo-1598254425313-0f7223b1236b?w=600", trans: "⬇️ 捷運30分鐘", story: "這裡結合了安土桃山時代風格，可以穿著漂亮的浴衣在天空庭園足浴。" },
-                { time: "00:00", cat: "交通", name: "‼️搶 USJ 快通", desc: "準備搶購快通票", map: "#", img: "https://images.unsplash.com/photo-1542281286-9e0a16bb7366?w=600", story: "這是一場戰爭！請準備好快速的手速與穩定的網路。" }
-            ]},
-            "7/27": { title: "環球影城", items: [
-                { time: "06:30", cat: "景點", name: "日本環球影城 USJ", desc: "一整天冒險", map: "https://maps.app.goo.gl/1zug2gTcfbfFptLx9", img: "https://images.unsplash.com/photo-1620055271810-77a82649b828?w=600", story: "不管是哈利波特、馬力歐還是小小兵，今天要釋放內心的小孩，玩到瘋掉為止！" }
-            ]},
-            "7/28": { title: "大阪巡禮", items: [
-                { time: "09:00", cat: "美食", name: "木津市場", desc: "推47號、75號攤位", map: "https://maps.app.goo.gl/datyTF3jcNTh5Kxe8", img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600", trans: "⬇️ 車程25分鐘", story: "這裡比黑門市場更在地！爺爺親手切的海鮮絕對新鮮到妳驚訝。" },
-                { time: "10:00", cat: "景點", name: "大阪城公園", desc: "歷史巡禮", map: "https://maps.app.goo.gl/oWiZNWghcuYemcst7", img: "https://images.unsplash.com/photo-1590252611442-5f653459e944?w=600", story: "豐臣秀吉建造的堅固城堡，這裡的石牆大到不可思議，是大阪的精神標誌。" }
-            ]},
-            "7/29": { title: "回家之路", items: [
-                { time: "10:00", cat: "交通", name: "退房與移動", desc: "準備前往機場", map: "#", img: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=600", story: "美好的時光總是特別快，把回憶裝滿行李箱，我們回家囉！" }
+            "7/25": { title: "環球冒險", items: [
+                { time: "07:30", cat: "景點", name: "日本環球影城", desc: "USJ 冒險一整天", map: "https://maps.app.goo.gl/1zug2gTcfbfFptLx9", img: "https://images.unsplash.com/photo-1621252179027-94459d278660?w=600", story: "準備進入馬力歐與哈利波特的魔法世界！記得穿雙好走的鞋。今日是戰鬥日！" }
             ]}
         };
 
@@ -148,12 +180,12 @@
             document.querySelectorAll('nav button').forEach(el => el.classList.remove('nav-active'));
             document.getElementById('page-' + p).classList.add('page-active');
             document.getElementById('btn-' + p).classList.add('nav-active');
-            window.scrollTo(0,0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function openStory(title, text) {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-content').innerText = text;
+        function showStory(name, storyText) {
+            document.getElementById('modal-title').innerText = name;
+            document.getElementById('modal-body').innerText = storyText || "內容準備中...";
             document.getElementById('story-modal').style.display = 'flex';
         }
 
@@ -164,45 +196,42 @@
         function renderDay(dayKey) {
             const data = itineraryData[dayKey];
             const content = document.getElementById('itinerary-content');
-            let html = `<div class="space-y-4 relative"><div class="absolute left-4 top-0 bottom-0 w-0.5 bg-pink-100"></div>`;
+            let html = `<div class="space-y-4 relative"><div class="absolute left-4 top-0 bottom-0 w-0.5 bg-gray-100"></div>`;
             
             data.items.forEach((item) => {
                 html += `
-                    <div class="relative pl-10 mb-8">
-                        <div class="absolute left-2 top-1 w-4 h-4 bg-fuji-blue rounded-full border-4 border-white shadow-sm z-10"></div>
-                        <div class="bg-white rounded-[28px] shadow-sm overflow-hidden border border-pink-50">
-                            <div class="h-40 overflow-hidden">
-                                <img src="${item.img}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" alt="${item.name}">
-                            </div>
+                    <div class="relative pl-10">
+                        <div class="absolute left-2 top-2 w-4 h-4 bg-fuji-blue rounded-full border-4 border-white shadow-sm z-10"></div>
+                        <div class="bg-white rounded-[28px] shadow-sm overflow-hidden border border-gray-50">
+                            <img src="${item.img}" class="w-full h-32 object-cover" loading="lazy">
                             <div class="p-4">
-                                <div class="flex justify-between items-center mb-1">
-                                    <span class="text-xs font-bold text-gray-400">${item.time}</span>
-                                    <span class="cat-tag-${item.cat} text-[10px] px-2 py-0.5 rounded-md font-bold">${item.cat}</span>
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="cat-tag cat-tag-${item.cat}">${item.cat}</span>
+                                    <span class="text-xs font-bold text-gray-300">${item.time}</span>
                                 </div>
-                                <h3 class="font-bold text-base mb-2">${item.name}</h3>
-                                <p class="text-xs text-gray-500 mb-4 leading-relaxed">${item.desc}</p>
-                                
-                                <div class="flex gap-2">
-                                    <a href="${item.map}" target="_blank" class="flex-1 bg-fuji-blue text-white text-center py-2.5 rounded-xl text-xs font-bold shadow-sm">🗺️ 地圖</a>
-                                    <button onclick="openStory('${item.name}', '${item.story}')" class="flex-1 bg-pink-50 text-pink-500 text-center py-2.5 rounded-xl text-xs font-bold border border-pink-100">🎙️ 導遊說故事</button>
+                                <h3 class="font-bold text-base mb-1">${item.name}</h3>
+                                <p class="text-[11px] text-gray-400 mb-4">${item.desc}</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <a href="${item.map}" target="_blank" class="bg-blue-50 text-fuji-blue text-center py-2.5 rounded-xl text-[11px] font-bold">📍 導航</a>
+                                    <button onclick="showStory('${item.name}', '${item.story}')" class="bg-red-50 text-red-400 text-center py-2.5 rounded-xl text-[11px] font-bold">🚩 故事</button>
                                 </div>
                             </div>
                         </div>
                     </div>`;
-                
                 if (item.trans) {
-                    html += `<div class="pl-14 mb-8 text-gray-400 font-bold italic text-xs flex items-center gap-2"><span>${item.trans}</span></div>`;
+                    html += `<div class="pl-14 py-2 text-gray-400 font-bold italic text-[10px]">${item.trans}</div>`;
                 }
             });
             content.innerHTML = html + "</div>";
-            document.getElementById('countdown-badge').classList.toggle('hidden', dayKey !== '7/26');
+            document.getElementById('countdown-badge').classList.toggle('hidden', dayKey !== '7/25');
         }
 
         // 初始化
         const dateNav = document.getElementById('date-nav');
         Object.keys(itineraryData).forEach((day, idx) => {
             const btn = document.createElement('button');
-            btn.className = `flex-shrink-0 px-6 py-2 rounded-full border border-pink-100 text-sm font-bold bg-white text-gray-500 ${idx === 1 ? 'tab-active' : ''}`;
+            btn.className = `flex-shrink-0 px-6 py-2 rounded-full border border-gray-100 text-sm font-bold bg-white text-gray-400 transition-all`;
+            if(idx === 1) btn.classList.add('tab-active'); // 預設顯示第二天
             btn.innerText = day;
             btn.onclick = () => {
                 document.querySelectorAll('#date-nav button').forEach(b => b.classList.remove('tab-active'));
@@ -213,11 +242,14 @@
             dateNav.appendChild(btn);
         });
 
-        const startDate = new Date('2026-07-22');
-        const today = new Date();
-        const diff = Math.ceil((startDate - today) / (1000 * 60 * 60 * 24));
-        document.getElementById('countdown-text').innerText = `距離出發還有 ${diff} 天`;
-
+        // 倒計時 (目標 2026/07/22)
+        const target = new Date('2026-07-22');
+        const updateCountdown = () => {
+            const now = new Date();
+            const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+            document.getElementById('countdown-text').innerText = diff > 0 ? `距離出發還有 ${diff} 天` : "冒險進行中！";
+        };
+        updateCountdown();
         renderDay("7/23");
     </script>
 </body>
