@@ -183,8 +183,8 @@
         <div class="nav-item" onclick="switchTab(this, '7/27')">7/27 (一)</div>
         <div class="nav-item" onclick="switchTab(this, '7/28')">7/28 (二)</div>
         <div class="nav-item" onclick="switchTab(this, '7/29')">7/29 (三)</div>
-        <div class="nav-item" onclick="switchTab(this, 'emergency')" style="background:#FFEBEE; color:#C62828;">緊急聯絡</div>
         <div class="nav-item" onclick="switchTab(this, 'tools')" style="background:#E0F7FA; color:#006064;">小工具</div>
+        <div class="nav-item" onclick="switchTab(this, 'emergency')" style="background:#FFEBEE; color:#C62828;">緊急聯絡</div>
         <div class="h-20"></div>
     </aside>
 
@@ -202,11 +202,6 @@
         <div id="tools-area" class="hidden">
             <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🧮 旅行小工具</h2>
             <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-6 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-2xl mb-8 text-center font-bold text-xl shadow-lg">開啟 LINE 記帳</a>
-
-            <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🇯🇵 大阪即時天氣</h2>
-            <div class="tool-box">
-                <iframe src="https://www.meteoblue.com/en/weather/widget/three/osaka_japan_1853909?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=light" frameborder="0" scrolling="NO" style="width: 100%; height: 230px; border-radius: 12px;"></iframe>
-            </div>
 
             <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🏪 住宿附近商家</h2>
             <div class="tool-box flex justify-between items-center">
@@ -352,7 +347,7 @@
                 { time: "13:00", cat: "景點", name: "京都八阪神社", img: "yasaka-shrine-kyoto", info: "祈求美貌與良緣", tags: ["snap"], story: "停留 40 分鐘。在祇園地區漫步，感受古都靈氣。", commute: "🚗 車程 4 分鐘", map: "https://maps.app.goo.gl/7vELtUAvgWqt1oSz9", note: "正門（西樓門）是拍照聖地。這裡的美御前社「美容水」滴兩滴在臉上保佑變漂亮。" },
                 { time: "14:30", cat: "美食", name: "錦市場", img: "nishiki-market-food", info: "京都的廚房", tags: ["eat", "buy"], story: "推薦庶民美食。沿路吃吃喝喝最道地。", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/tNME93m7qocw65yK8", note: "⚠️重要：嚴禁邊走邊吃！請在店家攤位前吃完再移動。推薦豆乳甜甜圈。" },
                 { time: "16:05", cat: "美食", name: "名代とんかつ", img: "tonkatsu-set", info: "かつくら 四條寺町店", tags: ["eat"], story: "營業至 22:00。京都超人氣炸豬排。", commute: "🚗 車程 1 小時 (回大阪)", map: "https://maps.app.goo.gl/wfaxa7duPjBA2zwb7", note: "麥飯、高麗菜、味噌湯都可無限續。推薦自己磨芝麻加入特製豬排醬。" },
-                { time: "19:14", cat: "酒店", name: "住一飯店", img: "okonomiyaki-cooking", info: "住宿回程", tags: ["eat"], story: "宵夜：美月大阪燒。回到大阪繼續吃！", map: "https://maps.app.goo.gl/jg4GAeS9uX3ExRyx5", note: "如果胃還有空間，這裡的大阪燒配一杯梅酒是今日最棒的 Ending。" }
+                { time: "19:14", cat: "酒店", name: "住一飯店", img: "okonomiyaki-cooking", info: "住宿回程", tags: ["eat"], story: "宵夜：美月大阪燒。回到大阪繼續吃！", map: "https://maps.app.goo.gl/jg4GAeS9uX3ExRyx5", note: "如果胃還有空間，這裡的大阪燒配一杯維梅酒是今日最棒的 Ending。" }
             ]},
             "7/25": { desc: "奈良尋鹿", items: [
                 { time: "10:26", cat: "美食", name: "中谷堂", img: "japanese-mochi", info: "高速搗麻糬", tags: ["eat"], story: "停留 30 分鐘。運氣好可以看到震撼的搗麻糬表演。", commute: "👣 步行 2 分鐘", map: "https://maps.app.goo.gl/LbrH28M2ookAbWwKA", note: "艾草麻糬（Yomogi Mochi）超軟 Q。剛搗好的口感最棒，不要帶回飯店吃。" },
@@ -420,19 +415,16 @@
             
             // 使用特定的高品質圖片 ID 以確保精確度與不重複
             const imageLibrary = {
-                // 7/22
                 "airplane-flight": "https://images.unsplash.com/photo-1436491865332-7a61a109c0f2",
                 "kansai-airport": "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b",
                 "hotel-room-japan": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af",
-                // 7/23
                 "shinsaibashi-neon": "https://images.unsplash.com/photo-1571401835393-8c5f35328320",
-                "wagyu-bowl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836", // Steak/Bowl
+                "wagyu-bowl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
                 "namba-yasaka": "https://images.unsplash.com/photo-1624253321171-1be53e12f5f4",
                 "tsutenkaku-tower": "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b",
                 "sukiyaki-pot": "https://images.unsplash.com/photo-1591814448473-7f47c215c2c0",
                 "dotonbori-canal": "https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12",
                 "takoyaki-osaka": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec",
-                // 7/24
                 "kiyomizu-dera": "https://images.unsplash.com/photo-1604897443392-1662c8aa7512",
                 "sannenzaka-kyoto": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e",
                 "starbucks-yasaka": "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93",
@@ -440,30 +432,25 @@
                 "nishiki-market-food": "https://images.unsplash.com/photo-1555529733-0e670560f7e1",
                 "tonkatsu-set": "https://images.unsplash.com/photo-1650308253100-384be8f75f92",
                 "okonomiyaki-cooking": "https://images.unsplash.com/photo-1617112848923-cc2234396a8d",
-                // 7/25
-                "japanese-mochi": "https://images.unsplash.com/photo-1582236521748-0959196b0394", // Mochi
+                "japanese-mochi": "https://images.unsplash.com/photo-1582236521748-0959196b0394",
                 "udon-noodle-soup": "https://images.unsplash.com/photo-1618841557871-b4664fbf0c5a",
                 "todaiji-temple-daibutsu": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9",
                 "nara-park-deer": "https://images.unsplash.com/photo-1569062335122-3843f550970a",
                 "japanese-tea-house": "https://images.unsplash.com/photo-1558238211-137b77708573",
                 "kasuga-shrine-lanterns": "https://images.unsplash.com/photo-1621210141977-802521c76ec7",
                 "chicken-ramen-white": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624",
-                // 7/26
                 "osaka-aquarium-whale-shark": "https://images.unsplash.com/photo-1502419639531-3312674e1d1c",
                 "osaka-onsen-yukata": "https://images.unsplash.com/photo-1590559899731-a382839e5549",
                 "strawberry-mille-feuille": "https://images.unsplash.com/photo-1488477181946-6428a0291777",
                 "sushi-conveyor": "https://images.unsplash.com/photo-1553621042-f6e147245754",
                 "umeda-sky-building-night": "https://images.unsplash.com/photo-1578314675249-a6910f80cc4e",
                 "osaka-night-street": "https://images.unsplash.com/photo-1614051062061-0b5c907106df",
-                // 7/27
                 "universal-studios-japan": "https://images.unsplash.com/photo-1501446529957-6226bd447c46",
                 "japan-hotel-bed": "https://images.unsplash.com/photo-1590490359683-658d3d23f972",
-                // 7/28
                 "kizu-market-seafood": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb",
                 "osaka-castle-tower": "https://images.unsplash.com/photo-1542931287-023b922fa89b",
                 "umeda-shopping": "https://images.unsplash.com/photo-1519452635265-7b1fbfd1e4e0",
                 "japanese-yakiniku-bbq": "https://images.unsplash.com/photo-1544025162-d76694265947",
-                // 7/29
                 "suitcases-travel": "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87",
                 "kix-airport-interior": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d",
                 "airplane-window-view": "https://images.unsplash.com/photo-1496950866446-3253e1470e8e",
@@ -474,7 +461,6 @@
                 const typeClass = { '交通': 'card-transport', '美食': 'card-food', '活動': 'card-activity', '景點': 'card-spot', '購物': 'card-shop', '酒店': 'card-hotel', '住宿': 'card-hotel' }[item.cat] || 'card-spot';
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag}">${tag.toUpperCase()}</span>`).join('');
                 
-                // 從圖庫中根據 key 抓取圖，若無則使用通用隨機圖
                 const imgKey = item.img;
                 const finalImg = (imageLibrary[imgKey] || "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e") + "?q=80&w=600&auto=format&fit=crop";
 
