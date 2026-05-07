@@ -143,7 +143,7 @@
 
     <main class="main-content">
         <header class="mb-6">
-            <h1 class="text-4xl font-bold text-white drop-shadow-md" id="current-date">7/22</h1>
+            <h1 class="text-4xl font-bold text-white drop-shadow-md" id="current-date">7/22 水曜日</h1>
             <p id="day-desc" class="text-lg text-pink-100 font-bold mt-1 drop-shadow-sm">Osaka Trip Start!</p>
         </header>
 
@@ -210,6 +210,18 @@
         function initSakura() { sakuraArray = []; for (let i = 0; i < 50; i++) { sakuraArray.push(new Sakura()); } }
         function animateSakura() { ctx.clearRect(0, 0, canvas.width, canvas.height); sakuraArray.forEach(s => { s.draw(); s.update(); }); requestAnimationFrame(animateSakura); }
         initSakura(); animateSakura();
+
+        // --- 曜日映射表 ---
+        const yobiMap = {
+            "7/22": "7/22 水曜日",
+            "7/23": "7/23 木曜日",
+            "7/24": "7/24 金曜日",
+            "7/25": "7/25 土曜日",
+            "7/26": "7/26 日曜日",
+            "7/27": "7/27 月曜日",
+            "7/28": "7/28 火曜日",
+            "7/29": "7/29 水曜日"
+        };
 
         // --- 行程資料 ---
         const itineraryData = {
@@ -278,9 +290,11 @@
             const tools = document.getElementById('tools-area');
             const emergency = document.getElementById('emergency-area');
             area.classList.add('hidden'); tools.classList.add('hidden'); emergency.classList.add('hidden');
+            
             if (itineraryData[tabId]) {
                 area.classList.remove('hidden');
-                document.getElementById('current-date').innerText = tabId;
+                // 這裡使用 yobiMap 來顯示帶有曜日的日期
+                document.getElementById('current-date').innerText = yobiMap[tabId] || tabId;
                 document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
                 renderCards(tabId);
             } else if (tabId === 'tools') {
@@ -323,7 +337,6 @@
                         </div>
                         ${item.map ? `<a href="${item.map}" target="_blank" class="block w-full bg-gray-800 text-white text-center py-3 rounded-xl text-sm font-bold active:bg-black transition-colors" onclick="event.stopPropagation()">🧭 開啟 Google Map 導航</a>` : ''}
                         
-                        <!-- 憑證按鈕區塊 -->
                         ${item.voucher ? `<a href="${item.voucher}" target="_blank" class="block w-full bg-blue-600 text-white text-center py-3 rounded-xl text-sm font-bold active:bg-blue-800 transition-colors mt-2" onclick="event.stopPropagation()">📄 查看電子憑證 / 截圖</a>` : ''}
 
                         ${item.commute ? `<div class="mt-4 text-xs text-blue-500 font-bold flex items-center"><span class="mr-1">➡️</span> 下一站：${item.commute}</div>` : ''}
