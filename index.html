@@ -19,6 +19,7 @@
             --cat-shop: #EB3B5A;      
             --cat-hotel: #8854D0;     
             --cat-activity: #0FB9B1;  
+            --milktea-bg: #E7D7C1; /* 奶茶色 */
         }
 
         body {
@@ -119,6 +120,42 @@
             margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.6);
             color: #333;
         }
+
+        /* 新增：右上方按鈕與工具卡片樣式 */
+        .quick-tool-btn {
+            background: rgba(255, 249, 196, 0.9); /* 淡黃色 */
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            padding: 8px 12px;
+            color: #856404;
+            font-weight: bold;
+            font-size: 13px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        #tool-modal {
+            position: fixed;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 85%; max-width: 350px;
+            background: var(--milktea-bg);
+            border-radius: 24px;
+            padding: 24px;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 999;
+        }
+
+        .tool-input {
+            width: 100%; background: rgba(255,255,255,0.5);
+            border: none; border-radius: 10px; padding: 10px;
+            margin-top: 5px; font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -142,9 +179,12 @@
     </aside>
 
     <main class="main-content">
-        <header class="mb-6">
-            <h1 class="text-4xl font-bold text-white drop-shadow-md" id="current-date">7/22 水曜日</h1>
-            <p id="day-desc" class="text-lg text-pink-100 font-bold mt-1 drop-shadow-sm">Osaka Trip Start!</p>
+        <header class="mb-6 flex justify-between items-start">
+            <div>
+                <h1 class="text-4xl font-bold text-white drop-shadow-md" id="current-date">7/22 水曜日</h1>
+                <p id="day-desc" class="text-lg text-pink-100 font-bold mt-1 drop-shadow-sm">Osaka Trip Start!</p>
+            </div>
+            <button class="quick-tool-btn" onclick="toggleToolModal()">🔤 翻譯/匯率</button>
         </header>
 
         <div id="itinerary-area"></div>
@@ -195,7 +235,63 @@
         </div>
     </main>
 
+    <div id="modal-container" class="hidden">
+        <div class="modal-overlay" onclick="toggleToolModal()"></div>
+        <div id="tool-modal">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-amber-900">🧳 旅行工具箱</h3>
+                <button onclick="toggleToolModal()" class="text-2xl text-amber-900">×</button>
+            </div>
+            
+            <div class="mb-6">
+                <p class="text-sm font-bold text-amber-800 mb-1">🗣️ 翻譯 (中/日)</p>
+                <textarea class="tool-input" placeholder="輸入文字..." id="trans-input" rows="2"></textarea>
+                <div class="flex gap-2 mt-2">
+                    <button onclick="openTranslate('zh-TW','ja')" class="flex-1 bg-white/50 py-1 rounded-md text-xs font-bold">中翻日</button>
+                    <button onclick="openTranslate('ja','zh-TW')" class="flex-1 bg-white/50 py-1 rounded-md text-xs font-bold">日翻中</button>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <p class="text-sm font-bold text-amber-800 mb-1">💴 匯率換算 (1 JPY ≈ 0.21 TWD)</p>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-xs font-bold w-10">日幣</span>
+                    <input type="number" class="tool-input mt-0" id="jpy-input" oninput="convertCurrency('jpy')" placeholder="0">
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold w-10">台幣</span>
+                    <input type="number" class="tool-input mt-0" id="twd-input" oninput="convertCurrency('twd')" placeholder="0">
+                </div>
+            </div>
+
+            <button onclick="toggleToolModal()" class="w-full mt-6 bg-amber-800 text-white py-3 rounded-xl font-bold">返回行程</button>
+        </div>
+    </div>
+
     <script>
+        // --- 工具箱邏輯 ---
+        function toggleToolModal() {
+            document.getElementById('modal-container').classList.toggle('hidden');
+        }
+
+        function openTranslate(from, to) {
+            const text = document.getElementById('trans-input').value;
+            if(!text) return alert('請輸入文字');
+            const url = `https://translate.google.com/?sl=${from}&tl=${to}&text=${encodeURIComponent(text)}&op=translate`;
+            window.open(url, '_blank');
+        }
+
+        function convertCurrency(type) {
+            const rate = 0.21; // 假設匯率，可自行調整
+            const jpyIn = document.getElementById('jpy-input');
+            const twdIn = document.getElementById('twd-input');
+            if(type === 'jpy') {
+                twdIn.value = (jpyIn.value * rate).toFixed(0);
+            } else {
+                jpyIn.value = (twdIn.value / rate).toFixed(0);
+            }
+        }
+
         // --- 櫻花效果 ---
         const canvas = document.getElementById('sakura-canvas');
         const ctx = canvas.getContext('2d');
@@ -293,7 +389,6 @@
             
             if (itineraryData[tabId]) {
                 area.classList.remove('hidden');
-                // 這裡使用 yobiMap 來顯示帶有曜日的日期
                 document.getElementById('current-date').innerText = yobiMap[tabId] || tabId;
                 document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
                 renderCards(tabId);
