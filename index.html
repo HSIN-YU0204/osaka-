@@ -194,7 +194,7 @@
                 <h1 class="text-4xl font-bold text-white drop-shadow-md" id="current-date">7/22 水曜日</h1>
                 <p id="day-desc" class="text-lg text-pink-100 font-bold mt-1 drop-shadow-sm">Osaka Trip Start!</p>
             </div>
-            <button class="quick-tool-btn" onclick="toggleToolModal()">🔤 翻譯蒟蒻</button>
+            <button class="quick-tool-btn" onclick="toggleToolModal()">蒟蒻</button>
         </header>
 
         <div id="itinerary-area"></div>
@@ -417,13 +417,26 @@
         function renderCards(day) {
             const items = itineraryData[day].items;
             let html = '';
-            items.forEach((item) => {
+            items.forEach((item, index) => {
                 const typeClass = { '交通': 'card-transport', '美食': 'card-food', '活動': 'card-activity', '景點': 'card-spot', '購物': 'card-shop', '酒店': 'card-hotel', '住宿': 'card-hotel' }[item.cat] || 'card-spot';
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag}">${tag.toUpperCase()}</span>`).join('');
                 
-                // 圖片 URL 邏輯：使用 Unsplash Source API 根據關鍵字搜尋，若無則用隨機風景圖
-                const imageUrl = item.img ? `https://source.unsplash.com/featured/400x250?${item.img}` : null;
-                const imageHtml = imageUrl ? `<img src="${imageUrl}" class="spot-img" alt="${item.name}">` : '';
+                // 修正：使用 images.unsplash.com 取代 source.unsplash.com
+                // sig 參數確保同一地點在同一天顯示相同的隨機圖
+                const randomSeed = day.replace('/', '') + index;
+                const imageUrl = item.img ? `https://images.unsplash.com/photo-1528164344705-4754268799af?q=80&w=400&auto=format&fit=crop&sig=${randomSeed}&search=${item.img}` : null;
+                
+                // 如果是特定知名景點，直接給對應的固定美圖以保證載入
+                let finalImg = `https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=400&auto=format&fit=crop&sig=${randomSeed}`; // 預設圖
+                if(item.img.includes('airport')) finalImg = `https://images.unsplash.com/photo-1530521954074-e64f6810b32d?q=80&w=400&auto=format&fit=crop`;
+                if(item.img.includes('shinsaibashi') || item.img.includes('dotonbori')) finalImg = `https://images.unsplash.com/photo-1590559899731-a382839e5549?q=80&w=400&auto=format&fit=crop`;
+                if(item.img.includes('temple') || item.img.includes('kyoto')) finalImg = `https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=400&auto=format&fit=crop`;
+                if(item.img.includes('deer') || item.img.includes('nara')) finalImg = `https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=400&auto=format&fit=crop`;
+                if(item.img.includes('mario') || item.img.includes('usj')) finalImg = `https://images.unsplash.com/photo-1501446529957-6226bd447c46?q=80&w=400&auto=format&fit=crop`;
+                if(item.img.includes('ramen') || item.img.includes('food') || item.img.includes('eat')) finalImg = `https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=400&auto=format&fit=crop`;
+                if(item.img.includes('hotel')) finalImg = `https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=400&auto=format&fit=crop`;
+
+                const imageHtml = `<img src="${finalImg}" class="spot-img" alt="${item.name}">`;
 
                 html += `
                 <div class="spot-card ${typeClass}" onclick="this.classList.toggle('expanded')">
