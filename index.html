@@ -139,25 +139,6 @@
                 <h4 class="font-bold text-lg mb-4 text-blue-600">🇯🇵 大阪即時天氣</h4>
                 <iframe src="https://www.meteoblue.com/en/weather/widget/three/osaka_japan_1853909?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=light" frameborder="0" scrolling="NO" style="width: 100%; height: 230px; border-radius: 12px;"></iframe>
             </div>
-            <div class="tool-box">
-                <h4 class="font-bold text-lg mb-4 text-green-600">💰 財務記帳</h4>
-                <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-4 bg-green-500 text-white rounded-xl text-center font-bold">開啟 LINE 記帳群組</a>
-            </div>
-            <div class="tool-box">
-                <h4 class="font-bold text-lg mb-4 text-orange-600">🍜 住宿周邊與宵夜</h4>
-                <div class="mb-4 border-b pb-2">
-                    <p class="font-bold">LAWSON 瓦屋町三丁目店</p>
-                    <a href="https://www.google.com/maps/search/LAWSON+瓦屋町三丁目店" target="_blank" class="text-blue-500 text-sm">🧭 開啟地圖導航</a>
-                </div>
-                <div class="mb-4 border-b pb-2">
-                    <p class="font-bold">野口太郎拉麵店 (04:00 打烊)</p>
-                    <a href="https://www.google.com/maps/search/野口太郎拉麵店" target="_blank" class="text-blue-500 text-sm">🧭 開啟地圖導航</a>
-                </div>
-                <div>
-                    <p class="font-bold">Men-no-Yoji 麺のようじ (20:35 打烊)</p>
-                    <a href="https://www.google.com/maps/search/麺のようじ" target="_blank" class="text-blue-500 text-sm">🧭 開啟地圖導航</a>
-                </div>
-            </div>
         </div>
 
         <div id="emergency-area" class="hidden">
@@ -174,39 +155,39 @@
     <script>
         const itineraryData = {
             "7/22": { desc: "啟程：抵達關西機場", items: [
-                { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "預約代號: GK054", story: "第一航廈辦理登機。", commute: "✈️ 飛行約 3小時40分" },
-                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "入境手續", story: "記得出示 Visit Japan Web QR Code。", commute: "🚌 接駁巴士前往市區" },
-                { time: "23:00", cat: "酒店", name: "住一八號店", info: "入住密碼詳見郵件", story: "位於瓦屋町，放行李後可去 Lawson。", map: "住一八號店" }
+                { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", story: "第一航廈辦理登機。預約代號: GK054", commute: "✈️ 飛行約 3小時40分" },
+                { time: "22:00", cat: "交通", name: "關西機場 T1", story: "入境手續。記得出示 Visit Japan Web QR Code。", commute: "🚌 接駁巴士前往市區" },
+                { time: "23:00", cat: "酒店", name: "住一八號店", story: "入住密碼詳見郵件。位於瓦屋町，放行李後可去 Lawson。", map: "住一八號店" }
             ]},
             "7/23": { desc: "大阪：心齋橋與道頓堀", items: [
-                { time: "08:15", cat: "活動", name: "心齋橋筋商店街", info: "藥妝採買", tags: [{t:"必買", c:"must-buy"}], story: "松本清、大國藥妝集中地。", menu: "必買：合利他命、止痛藥", commute: "👣 步行 4 分鐘" },
-                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", info: "美國村名店", tags: [{t:"必吃", c:"must-eat"}], story: "火山造型的烤牛肉蓋飯。", menu: "必點：Roast Beef Don", map: "Red Rock Amemura" }
+                { time: "08:15", cat: "購物", name: "心齋橋筋商店街", tags: [{t:"必買", c:"must-buy"}], story: "松本清、大國藥妝集中地。", commute: "👣 步行前往用餐" },
+                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", tags: [{t:"必吃", c:"must-eat"}], story: "火山造型的烤牛肉蓋飯。", menu: "推薦：Roast Beef Don", map: "Red Rock Amemura" }
             ]},
             "7/24": { desc: "京都：清水寺漫步", items: [
-                { time: "09:00", cat: "景點", name: "清水寺", info: "世界遺產", tags: [{t:"必拍", c:"must-go"}], story: "全木造清水舞台，京都象徵。", commute: "👣 步行前往二年坂" },
-                { time: "14:30", cat: "美食", name: "錦市場", info: "京都廚房", tags: [{t:"必吃", c:"must-eat"}], story: "體驗在地庶民美食文化。", menu: "三木雞卵、章魚鵪鶉蛋", map: "錦市場" }
+                { time: "09:00", cat: "景點", name: "清水寺", tags: [{t:"必拍", c:"must-go"}], story: "全木造清水舞台，京都象徵。", commute: "👣 步行前往二年坂" },
+                { time: "14:30", cat: "美食", name: "錦市場", tags: [{t:"必吃", c:"must-eat"}], story: "體驗在地庶民美食文化。", menu: "三木雞卵、章魚鵪鶉蛋", map: "錦市場" }
             ]},
             "7/25": { desc: "奈良：東大寺與小鹿", items: [
-                { time: "10:30", cat: "景點", name: "東大寺/奈良公園", info: "餵食小鹿", tags: [{t:"必拍", c:"must-go"}], story: "世界上最大的木造建築。", commute: "👣 步行至春日大社" },
-                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "人氣拉麵", tags: [{t:"必吃", c:"must-eat"}], story: "濃郁雞白湯，牛蒡絲是精髓。", map: "雞 Soba 座銀" }
+                { time: "10:30", cat: "景點", name: "東大寺/奈良公園", tags: [{t:"必拍", c:"must-go"}], story: "世界上最大的木造建築與餵食小鹿。", commute: "👣 步行至周邊神社" },
+                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", tags: [{t:"必吃", c:"must-eat"}], story: "濃郁雞白湯，牛蒡絲是精髓。", map: "雞 Soba 座銀" }
             ]},
             "7/26": { desc: "大阪：海遊館與梅田", items: [
-                { time: "09:30", cat: "活動", name: "海遊館", info: "鯨鯊壯觀", tags: [{t:"必拍", c:"must-go"}], story: "世界最大級水族館。", commute: "🚇 轉往天保山" },
-                { time: "13:00", cat: "活動", name: "空庭溫泉", info: "日式庭園溫泉", tags: [{t:"放鬆", c:"must-go"}], story: "可以換上浴衣在屋頂庭園拍照。", map: "空庭溫泉" },
-                { time: "19:00", cat: "景點", name: "梅田藍天大廈", info: "百萬夜景", story: "全透明圓形自動扶梯非常刺激。", map: "Umeda Sky Building" }
+                { time: "09:30", cat: "景點", name: "海遊館", tags: [{t:"必拍", c:"must-go"}], story: "世界最大級水族館，看鯨鯊。", commute: "🚇 轉往天保山" },
+                { time: "13:00", cat: "活動", name: "空庭溫泉", tags: [{t:"放鬆", c:"must-go"}], story: "換上浴衣在屋頂庭園拍照放鬆。", map: "空庭溫泉" },
+                { time: "19:00", cat: "景點", name: "梅田藍天大廈", story: "全透明圓形自動扶梯與百萬夜景。", map: "Umeda Sky Building" }
             ]},
             "7/27": { desc: "全日：環球影城 USJ", items: [
-                { time: "07:30", cat: "活動", name: "環球影城 USJ", info: "全天狂歡", tags: [{t:"必衝", c:"must-go"}], story: "任天堂世界與哈利波特必去。", menu: "必喝：奶油啤酒", map: "Universal Studios Japan" }
+                { time: "07:30", cat: "活動", name: "環球影城 USJ", tags: [{t:"必衝", c:"must-go"}], story: "任天堂世界與哈利波特必去。", menu: "推薦：奶油啤酒", map: "Universal Studios Japan" }
             ]},
             "7/28": { desc: "大阪：市場採買與黑門", items: [
-                { time: "08:30", cat: "美食", name: "木津市場", info: "海鮮早市", tags: [{t:"必吃", c:"must-eat"}], story: "比黑門市場更在地，海鮮非常新鮮。", menu: "海鮮丼、生蠔", map: "木津市場" },
-                { time: "13:00", cat: "購物", name: "黑門市場/梅田商圈", info: "最後衝刺", story: "買齊所有伴手禮與電器。", map: "黑門市場" },
-                { time: "18:00", cat: "美食", name: "燒肉力丸", info: "吃到飽慶功宴", tags: [{t:"必吃", c:"must-eat"}], story: "高 CP 值國產牛燒肉。", map: "燒肉力丸 心齋橋店" }
+                { time: "08:30", cat: "美食", name: "木津市場", tags: [{t:"必吃", c:"must-eat"}], story: "海鮮早市，比黑門更在地新鮮。", menu: "海鮮丼、生蠔", map: "木津市場" },
+                { time: "13:00", cat: "購物", name: "黑門市場/梅田商圈", story: "買齊所有伴手禮與電器。", map: "黑門市場" },
+                { time: "18:00", cat: "美食", name: "燒肉力丸", tags: [{t:"必吃", c:"must-eat"}], story: "高 CP 值國產牛燒肉吃到飽。", map: "燒肉力丸 心齋橋店" }
             ]},
             "7/29": { desc: "返程：回台灣", items: [
-                { time: "10:00", cat: "交通", name: "Check-out 寄行李", story: "確認房內無遺留物品。", commute: "🚌 搭車前往機場" },
-                { time: "12:00", cat: "活動", name: "關西機場免稅店", info: "採購遺珠", story: "最後購買白色戀人、薯條三兄弟。", commute: "✈️ 搭乘 GK055 回台" },
-                { time: "15:20", cat: "交通", name: "GK055 起飛", info: "回台灣囉！", story: "預計傍晚抵達桃園機場。" }
+                { time: "10:00", cat: "酒店", name: "Check-out 寄行李", story: "確認房內無遺留物品。", commute: "🚌 搭車前往機場" },
+                { time: "12:00", cat: "活動", name: "關西機場免稅店", story: "採購遺珠，如白色戀人、薯條三兄弟。", commute: "✈️ 搭乘 GK055 回台" },
+                { time: "15:20", cat: "交通", name: "GK055 起飛", story: "回台灣囉！預計傍晚抵達桃園機場。", map: "桃園機場" }
             ]}
         };
 
@@ -250,7 +231,7 @@
                 
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag.c}">${tag.t}</span>`).join('');
                 const encodedMap = encodeURIComponent(item.map || item.name);
-                const mapLink = `https://www.google.com/maps/search/${encodedMap}`;
+                const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodedMap}`;
 
                 html += `
                 <div class="spot-card ${typeClass}" onclick="this.classList.toggle('expanded')">
@@ -284,7 +265,6 @@
             document.getElementById('itinerary-area').innerHTML = html;
         }
 
-        // 初始化
         window.onload = () => {
             renderCards("7/22");
         };
