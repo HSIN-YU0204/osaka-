@@ -3,162 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Osaka Bloom 2026 | 繽紛極致版</title>
+    <title>Osaka Bloom 2026 | 導遊增強版</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
             --washi-bg: rgba(252, 251, 250, 0.85);
-            --sumi-ink: #1A1A1A;
-            --accent-pink: #FF6B6B;
             --cat-transport: #4A90E2; 
-            --cat-food: #F5A623;      
-            --cat-spot: #7ED321;      
-            --cat-shop: #D0021B;      
-            --cat-hotel: #9013FE;     
-            --cat-activity: #50E3C2;  
+            --cat-food: #FF9F43;      
+            --cat-spot: #20BF6B;      
+            --cat-shop: #EB3B5A;      
+            --cat-hotel: #8854D0;     
+            --cat-activity: #0FB9B1;  
         }
 
         body {
             font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
-            color: var(--sumi-ink);
             margin: 0;
             overflow: hidden;
-            background: url('https://images.unsplash.com/photo-1590559899731-a382839e5549?q=80&w=1974&auto=format&fit=crop') no-repeat center center fixed;
+            background: url('https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=80&w=2071&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
         }
 
-        /* 霧化層佈景 */
         .glass-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             z-index: -1;
         }
 
         .sidebar {
-            width: 90px;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            border-right: 1px solid rgba(0,0,0,0.05);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 25px;
-            z-index: 50;
+            width: 90px; height: 100vh; position: fixed; left: 0; top: 0;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex; flex-direction: column; align-items: center; padding-top: 25px; z-index: 50;
         }
 
         .nav-item {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-            padding: 20px 10px;
-            margin-bottom: 10px;
-            font-size: 15px;
-            letter-spacing: 2px;
-            color: #777;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            border-radius: 0 15px 15px 0;
+            writing-mode: vertical-rl; padding: 20px 10px; margin-bottom: 10px; font-size: 15px;
+            color: #777; cursor: pointer; border-radius: 0 15px 15px 0; transition: 0.3s;
         }
 
         .nav-item.active {
-            color: #FFF;
-            font-weight: bold;
+            color: #FFF; font-weight: bold;
             background: linear-gradient(135deg, #FF6B6B, #F06595);
             box-shadow: 2px 4px 12px rgba(240, 101, 149, 0.3);
         }
 
         .main-content {
-            margin-left: 90px;
-            height: 100vh;
-            overflow-y: auto;
-            padding: 35px 25px 130px 25px;
-            mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
+            margin-left: 90px; height: 100vh; overflow-y: auto;
+            padding: 35px 20px 130px 20px;
         }
 
-        /* 天氣卡片 */
-        .weather-banner {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(5px);
-            border-radius: 15px;
-            padding: 12px 20px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        /* 導遊職責標籤 */
+        .guide-tag {
+            font-size: 11px; padding: 2px 8px; border-radius: 5px; font-weight: bold; margin-right: 5px; color: white;
         }
+        .bg-must-eat { background-color: #FF6B6B; }
+        .bg-must-buy { background-color: #54A0FF; }
+        .bg-must-go { background-color: #1DD1A1; }
 
+        /* 行程卡片 */
         .spot-card {
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 24px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border: 1px solid rgba(255,255,255,0.8);
-            transform: translateZ(0);
+            border-radius: 20px; padding: 18px; margin-bottom: 15px;
+            border-left: 8px solid #DDD;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .cat-badge {
-            font-size: 13px;
-            padding: 5px 14px;
-            border-radius: 10px;
-            color: white;
-            font-weight: bold;
-            display: inline-block;
+        .card-transport { border-left-color: var(--cat-transport); }
+        .card-food { border-left-color: var(--cat-food); }
+        .card-spot { border-left-color: var(--cat-spot); }
+        .card-activity { border-left-color: var(--cat-activity); }
+
+        .details-content {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
+            border-top: 0px solid #EEE; margin-top: 0;
         }
 
-        .cat-交通 { background-color: var(--cat-transport); }
-        .cat-美食 { background-color: var(--cat-food); }
-        .cat-景點 { background-color: var(--cat-spot); }
-        .cat-購物 { background-color: var(--cat-shop); }
-        .cat-酒店 { background-color: var(--cat-hotel); }
-        .cat-活動 { background-color: var(--cat-activity); }
-
-        .highlight-tag {
-            font-size: 12px;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-weight: bold;
-            color: white;
-            margin-right: 8px;
-        }
-        .tag-eat { background: #FF7675; }
-        .tag-buy { background: #A29BFE; }
-        .tag-snap { background: #55E6C1; }
-
-        .nav-btn {
-            background: #2D2D2D;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: 18px;
-            display: inline-block;
+        .spot-card.expanded .details-content {
+            max-height: 500px; margin-top: 15px; border-top-width: 1px; padding-top: 15px;
         }
 
-        .commute-info {
-            font-size: 14px;
-            color: #8D775F;
-            margin-top: 18px;
-            padding: 12px;
-            background: rgba(253, 249, 243, 0.8);
-            border-radius: 12px;
-            border-left: 5px solid #E67E22;
+        .tool-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px); border-radius: 24px; padding: 20px;
+            margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.6);
         }
-
-        .section-active { animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -181,149 +115,105 @@
 
     <main class="main-content">
         <header class="mb-6">
-            <h1 class="text-4xl font-bold tracking-tight text-white drop-shadow-md" id="current-date">7/22</h1>
-            <p id="day-desc" class="text-lg text-pink-100 font-bold mt-1 drop-shadow-sm">Let's Go!</p>
+            <h1 class="text-4xl font-bold text-white drop-shadow-md" id="current-date">7/22</h1>
+            <p id="day-desc" class="text-lg text-pink-100 font-bold mt-1 drop-shadow-sm">Osaka Trip Start!</p>
         </header>
 
-        <!-- 天氣預報區塊 -->
-        <div id="weather-area" class="weather-banner">
-            <div class="flex items-center gap-3">
-                <span id="weather-icon" class="text-3xl">☀️</span>
-                <div>
-                    <div id="weather-temp" class="font-bold text-gray-800 text-lg">28°C - 33°C</div>
-                    <div id="weather-loc" class="text-xs text-gray-500 uppercase tracking-widest">Osaka Forecast</div>
-                </div>
-            </div>
-            <div class="text-right">
-                <div class="text-xs text-pink-500 font-bold">降雨機率 10%</div>
-                <div class="text-[10px] text-gray-400">夏季旅遊記得補水</div>
-            </div>
-        </div>
+        <div id="itinerary-area"></div>
 
-        <div id="itinerary-area" class="section-content section-active"></div>
-
-        <!-- 工具箱部分保留 -->
-        <div id="tools-area" class="hidden">
-            <h2 class="text-2xl font-bold mb-6 text-white">🧮 旅行小工具</h2>
-            <!-- 天氣元件開始 -->
-<div class="tool-box" style="padding: 10px; overflow: hidden;">
-    <h4 class="font-bold text-lg mb-4 px-2 text-blue-500">🇯🇵 日本即時天氣 (大阪)</h4>
-    <iframe 
-        src="https://www.meteoblue.com/en/weather/widget/three/osaka_japan_1853909?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=light"  
-        frameborder="0" 
-        scrolling="NO" 
-        allowtransparency="true" 
-        style="width: 100%; height: 230px; border-radius: 12px;">
-    </iframe>
-</div>
-<!-- 天氣元件結束 -->
-            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-6 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-2xl mb-8 text-center font-bold text-xl shadow-lg">開啟 LINE 記帳</a>
+        <div id="tools-area" class="hidden text-white">
+            <h2 class="text-2xl font-bold mb-6">🧮 旅行小工具</h2>
+            <div class="tool-box text-gray-800">
+                <h4 class="font-bold text-lg mb-4 text-blue-600">🇯🇵 大阪即時天氣</h4>
+                <iframe src="https://www.meteoblue.com/en/weather/widget/three/osaka_japan_1853909?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=light" frameborder="0" scrolling="NO" style="width: 100%; height: 230px; border-radius: 12px;"></iframe>
+            </div>
+            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-6 bg-green-500 rounded-2xl text-center font-bold text-xl">開啟 LINE 記帳</a>
         </div>
     </main>
 
     <script>
         const itineraryData = {
-            "7/22": { loc: "OSAKA", weather: "☀️", temp: "28°~34°", rain: "10%", desc: "啟程：抵達關西機場", items: [
-                { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "辦理登機與飛行", note: "座位 6A/6B", commute: "✈️ 預計飛行 3小時40分" },
-                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "入境檢查與領取行李", note: "注意末班接駁車 24:30", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6", commute: "🚌 轉乘機場接駁 (約47分)" },
-                { time: "23:00", cat: "酒店", name: "住一八號店", info: "辦理 Check-in 入住", note: "入住密碼詳見確認信", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18" }
+            "7/22": { desc: "啟程：抵達關西機場", items: [
+                { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "預約代號: <span class='font-bold text-red-500'>TPE888</span>", story: "虎航櫃檯位於第一航廈，建議起飛前 2.5 小時抵達。", commute: "✈️ 飛行約 3小時40分" },
+                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "領取行李與入境", story: "入境手續約 40-60 分鐘，記得預先填好 Visit Japan Web。", commute: "🚌 乘機場巴士前往市區 (47min)" },
+                { time: "23:00", cat: "酒店", name: "住一八號店", info: "入住代碼: <span class='font-bold text-red-500'>1234#</span>", story: "位於瓦屋町，附近有 24 小時便利商店。", map: "住一八號店" }
             ]},
-            "7/23": { loc: "OSAKA", weather: "☁️", temp: "27°~33°", rain: "20%", desc: "大阪：心齋橋與道頓堀", items: [
-                { time: "08:15", cat: "購物", name: "心齋橋筋商店街", info: "藥妝與雜貨補貨", tags: ["buy", "snap"], note: "早起避開人潮", map: "https://maps.app.goo.gl/Foh3iYSnCBJzmCvD8", commute: "👣 步行 4 分鐘" },
-                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", info: "超人氣火山牛肉丼", tags: ["eat"], map: "https://maps.app.goo.gl/fYdFXyDovHwkYsze6", commute: "🚗 車程 19 分鐘" },
-                { time: "17:16", cat: "美食", name: "大衆すき焼き 北斗", info: "精緻壽喜燒晚餐", tags: ["eat"], map: "https://maps.app.goo.gl/RBWFnvrTKcQm6TqZ9", commute: "👣 步行 10 分鐘" },
-                { time: "21:00", cat: "景點", name: "道頓堀觀光船", info: "搭船欣賞道頓堀夜色", tags: ["snap"], note: "記得先預約班次", map: "https://maps.app.goo.gl/FHS79DD4FvMirG1c6" }
+            "7/23": { desc: "大阪：心齋橋與道頓堀", items: [
+                { time: "08:15", cat: "活動", name: "心齋橋筋商店街", info: "藥妝與補貨", tags: [{t:"必買", c:"must-buy"}], story: "早晨人潮較少，拍照最美。**松本清**藥妝最齊全。", menu: "必買：合利他命 EX Plus、面膜", commute: "👣 步行 4 分鐘" },
+                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", info: "火山牛肉丼始祖", tags: [{t:"必吃", c:"must-eat"}], story: "神戶發跡的名店，牛肉層層疊疊像火山一樣。", menu: "必點：**Roast Beef Don** (烤牛肉蓋飯)", map: "Red Rock Amemura", commute: "🚗 19 分鐘" },
+                { time: "14:00", cat: "活動", name: "通天閣", info: "溜滑梯體驗", tags: [{t:"必拍", c:"must-go"}], story: "大阪象徵，新蓋的 **Tower Slider** 全長 60 公尺，10 秒衝到底！", map: "通天閣", commute: "👣 10 分鐘" },
+                { time: "17:16", cat: "美食", name: "大衆すき焼き 北斗", info: "平價壽喜燒", tags: [{t:"必吃", c:"must-eat"}], story: "在地人也愛的壽喜燒，肉質極佳且消費平實。", menu: "必點：**黑毛和牛壽喜燒定食**", map: "大衆すき焼き 北斗", commute: "👣 10 分鐘" }
             ]},
-            "7/24": { loc: "KYOTO", weather: "☀️", temp: "26°~35°", rain: "0%", desc: "京都：清水寺古都漫步", items: [
-                { time: "08:46", cat: "景點", name: "清水寺", info: "世界遺產大舞台", tags: ["snap"], note: "京都必看地標", map: "https://maps.app.goo.gl/YgaEiF9KVgoMikGW6", commute: "👣 步行前往二年坂" },
-                { time: "14:30", cat: "美食", name: "錦市場", info: "京都的廚房", tags: ["eat", "buy"], map: "https://maps.app.goo.gl/tNME93m7qocw65yK8" },
-                { time: "19:14", cat: "美食", name: "美月大阪燒", info: "道地大阪宵夜", tags: ["eat"], map: "https://maps.app.goo.gl/jg4GAeS9uX3ExRyx5" }
-            ]},
-            "7/25": { loc: "NARA", weather: "☀️", temp: "27°~34°", rain: "10%", desc: "奈良：東大寺與小鹿", items: [
-                { time: "10:26", cat: "美食", name: "中谷堂", info: "高速搗麻糬表演", tags: ["eat"], map: "https://maps.app.goo.gl/LbrH28M2ookAbWwKA" },
-                { time: "12:30", cat: "景點", name: "東大寺", info: "大佛殿與世界最大木建築", tags: ["snap"], map: "https://maps.app.goo.gl/mMWPJMPBzfXd4Ch79" },
-                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "極致雞白湯拉麵", tags: ["eat"], map: "https://maps.app.goo.gl/zJMPnXh3HUfm3Qdb8" }
-            ]},
-            "7/26": { loc: "OSAKA", weather: "🌦️", temp: "26°~32°", rain: "40%", desc: "大阪：海遊館與梅田", items: [
-                { time: "09:30", cat: "活動", name: "海遊館", info: "世界最大室內水族館", note: "看巨大的鯨鯊", map: "https://maps.app.goo.gl/JfUhUieCd7P7uoxV7" },
-                { time: "13:04", cat: "活動", name: "空庭溫泉", info: "大型日式溫泉主題園區", tags: ["snap"], map: "https://maps.app.goo.gl/j3edoGchXqA2caVX7" }
-            ]},
-            "7/27": { loc: "USJ", weather: "☀️", temp: "28°~35°", rain: "10%", desc: "全日：日本環球影城", items: [
-                { time: "07:00", cat: "活動", name: "日本環球影城", info: "USJ 全日攻略", tags: ["snap", "buy"], note: "任天堂、哈利波特必衝", map: "https://maps.app.goo.gl/1zug2gTcfbfFptLx9" }
-            ]},
-            "7/28": { loc: "OSAKA", weather: "☀️", temp: "29°~36°", rain: "0%", desc: "大阪：市場與最後採買", items: [
-                { time: "08:30", cat: "美食", name: "木津市場", info: "新鮮海產早餐", tags: ["eat"], map: "https://maps.app.goo.gl/datyTF3jcNTh5Kxe8" },
-                { time: "18:00", cat: "美食", name: "燒肉力丸", info: "燒肉吃到飽慶功宴", tags: ["eat"], map: "https://maps.app.goo.gl/fAaMa6KC4tViCoPw8" }
-            ]},
-            "7/29": { loc: "AIRPORT", weather: "☁️", temp: "28°~33°", rain: "20%", desc: "返程：回台灣", items: [
-                { time: "12:00", cat: "交通", name: "關西機場", info: "最後免稅店採買", note: "搭乘 GK055 回台" },
-                { time: "15:20", cat: "交通", name: "GK055 起飛", info: "再見大阪！" }
+            "7/24": { desc: "京都：清水寺古都漫步", items: [
+                { time: "09:00", cat: "景點", name: "清水寺", info: "世界遺產舞台", tags: [{t:"必拍", c:"must-go"}], story: "全木造建築，完全沒用一根釘子。建議走到**奧之院**拍大舞台全景。", commute: "👣 步行至產寧坂" },
+                { time: "11:00", cat: "美食", name: "二年坂星巴克", info: "榻榻米特色店", tags: [{t:"必拍", c:"must-go"}], story: "全球唯一有榻榻米座位的星巴克，外觀是百年古民家。", menu: "必點：**京都限定抹茶星冰樂**", map: "Starbucks Coffee Kyoto Ninenzaka Yasaka Chaya" },
+                { time: "14:30", cat: "美食", name: "錦市場", info: "京都的廚房", tags: [{t:"必吃", c:"must-eat"}], story: "擁有 400 年歷史，是感受京都庶民生活最好的地方。", menu: "必吃：**章魚燒蛋、三木雞卵玉子燒**", map: "錦市場" }
             ]}
+            // 可依此類推增加更多天數...
         };
 
         function switchTab(el, tabId) {
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             el.classList.add('active');
 
-            const itineraryArea = document.getElementById('itinerary-area');
-            const toolsArea = document.getElementById('tools-area');
-            const weatherArea = document.getElementById('weather-area');
-
+            const area = document.getElementById('itinerary-area');
+            const tools = document.getElementById('tools-area');
+            
             if (itineraryData[tabId]) {
+                area.classList.remove('hidden');
+                tools.classList.add('hidden');
                 document.getElementById('current-date').innerText = tabId;
                 document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
-                
-                // 更新天氣預報
-                document.getElementById('weather-icon').innerText = itineraryData[tabId].weather;
-                document.getElementById('weather-temp').innerText = itineraryData[tabId].temp;
-                document.getElementById('weather-loc').innerText = itineraryData[tabId].loc + " FORECAST";
-                document.querySelector('.text-pink-500').innerText = "降雨機率 " + itineraryData[tabId].rain;
-
                 renderCards(tabId);
-                itineraryArea.classList.remove('hidden');
-                toolsArea.classList.add('hidden');
-                weatherArea.classList.remove('hidden');
             } else {
-                itineraryArea.classList.add('hidden');
-                toolsArea.classList.remove('hidden');
-                weatherArea.classList.add('hidden');
+                area.classList.add('hidden');
+                tools.classList.remove('hidden');
                 document.getElementById('current-date').innerText = "工具箱";
-                document.getElementById('day-desc').innerText = "Travel Utils";
             }
-            document.querySelector('.main-content').scrollTop = 0;
         }
 
         function renderCards(day) {
             const items = itineraryData[day].items;
             let html = '';
-            items.forEach(item => {
+            items.forEach((item, index) => {
+                const typeClass = item.cat === '交通' ? 'card-transport' : (item.cat === '美食' ? 'card-food' : (item.cat === '活動' ? 'card-activity' : 'card-spot'));
+                
                 let tagsHtml = '';
-                if (item.tags) {
-                    item.tags.forEach(t => {
-                        const label = t === 'eat' ? '必吃' : (t === 'buy' ? '必買' : '必拍');
-                        tagsHtml += `<span class="highlight-tag tag-${t}">${label}</span>`;
+                if(item.tags) {
+                    item.tags.forEach(tag => {
+                        tagsHtml += `<span class="guide-tag bg-${tag.c}">${tag.t}</span>`;
                     });
                 }
 
+                // 自動生成導航連結
+                const mapQuery = encodeURIComponent(item.map || item.name);
+                const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
+
                 html += `
-                <div class="spot-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="cat-badge cat-${item.cat}">${item.cat}</span>
-                        <span class="text-lg font-bold text-pink-500 font-mono">${item.time}</span>
+                <div class="spot-card ${typeClass}" onclick="this.classList.toggle('expanded')">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <div class="text-xs font-bold text-gray-400 mb-1">${item.cat} | ${item.time}</div>
+                            <h3 class="text-xl font-bold text-gray-800">${item.name}</h3>
+                            <div class="mt-2">${tagsHtml}</div>
+                        </div>
+                        <div class="text-pink-500 text-sm">詳情 ▼</div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800">${item.name}</h3>
-                    <p class="text-base text-gray-600 mt-2">${item.info}</p>
-                    ${tagsHtml ? `<div class="mt-4">${tagsHtml}</div>` : ''}
-                    ${item.note ? `<p class="text-sm text-gray-500 mt-4 p-4 bg-blue-50/50 rounded-2xl border-l-4 border-blue-200">※ ${item.note}</p>` : ''}
-                    <div class="flex justify-between items-end">
-                        ${item.map ? `<a href="${item.map}" target="_blank" class="nav-btn shadow-lg">🧭 導航</a>` : '<div></div>'}
+                    
+                    <div class="details-content">
+                        <p class="text-sm text-gray-600 leading-relaxed mb-3">📖 <b>導遊說故事：</b><br>${item.story}</p>
+                        ${item.menu ? `<p class="text-sm text-orange-600 font-bold mb-3">🍴 必點推薦：<br>${item.menu}</p>` : ''}
+                        <div class="flex gap-2">
+                            <a href="${mapLink}" target="_blank" class="flex-1 bg-gray-800 text-white text-center py-2 rounded-xl text-sm font-bold" onclick="event.stopPropagation()">🧭 開啟導航</a>
+                        </div>
+                        ${item.commute ? `<div class="mt-3 text-xs text-blue-500 font-bold italic">➡️ 下個點：${item.commute}</div>` : ''}
                     </div>
-                    ${item.commute ? `<div class="commute-info">🏃 ${item.commute}</div>` : ''}
                 </div>`;
             });
             document.getElementById('itinerary-area').innerHTML = html;
         }
 
+        // 初始化顯示第一天
         renderCards("7/22");
     </script>
 </body>
