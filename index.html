@@ -324,7 +324,7 @@
             "7/29": "7/29 水曜日"
         };
 
-        // --- 行程資料 (優化 img 關鍵字以對應正確圖片) ---
+        // --- 行程資料 ---
         const itineraryData = {
             "7/22": { desc: "啟程：抵達關西機場", items: [
                 { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", img: "airplane-flight", info: "飛行約 3h 40m", story: "座位 6A/6B。帶著期待的心情出發！", commute: "✈️ 飛行中", note: "建議起飛前 2.5 小時抵達櫃檯。記得在機上填寫 Visit Japan Web 截圖。", voucher: "https://drive.google.com/file/d/1IeZ-IKcyThnSy0YcHWSLAR13V5uf5AHv/view?usp=drivesdk" },
@@ -377,7 +377,7 @@
                 { time: "18:00", cat: "美食", name: "燒肉力丸", img: "japanese-yakiniku-bbq", info: "燒肉吃到飽", tags: ["eat"], story: "千日前店。旅行最後一晚大口吃肉就對了！", map: "https://maps.app.goo.gl/fAaMa6KC4tViCoPw8", note: "推薦『牛舌』跟『厚切橫隔膜』。這家人氣極高，一定要先在網路預約。" }
             ]},
             "7/29": { desc: "返程返家", items: [
-                { time: "10:00", cat: "交通", name: "辦理退房", img: "suitcases-travel", info: "可加價延後一小時", story: "確認行李跟護照，準備前往機場。", commute: "🚗 前往機場 (1h)", note: "最後檢查充電頭、水杯跟雨傘。房間鑰匙依指示歸還，不要帶走了喔。" },
+                { time: "10:00", cat: "交通", name: "辦理退房", img: "suitcases-travel", info: "可加價延後一小時", story: "確認行李跟護照，準備前往機場。", commute: "🚗 前往機場 (1h)", note: "最後檢查充電頭、水杯跟雨傘。房間鑰鑰依指示歸還，不要帶走了喔。" },
                 { time: "12:00", cat: "交通", name: "關西國際機場", img: "kix-airport-interior", info: "報到與最後免稅", story: "捷星航空 GK055。買最後的伴手禮吧。", commute: "✈️ 飛行中", note: "入關後還有免稅店可以買薯條三兄弟跟白色戀人，液體伴手禮記得托運。" },
                 { time: "15:20", cat: "交通", name: "GK055 起飛", img: "airplane-window-view", info: "回程航班", story: "座位 7F/7E。再見大阪！", commute: "✈️ 回程", note: "捷星限重較嚴格，若超重可現場買額度。航行中可以整理照片消磨時間。" },
                 { time: "17:20", cat: "交通", name: "桃園機場", img: "taiwan-airport-gate", info: "抵達家鄉", story: "辛苦了，這是一段美好的旅行！", note: "回家後記得喝碗熱湯，好好休息。期待下一趟冒險！" }
@@ -413,23 +413,22 @@
             const items = itineraryData[day].items;
             let html = '';
             
-            // 使用特定的高品質圖片 ID 以確保精確度與不重複
             const imageLibrary = {
                 "airplane-flight": "https://images.unsplash.com/photo-1436491865332-7a61a109c0f2",
                 "kansai-airport": "https://images.unsplash.com/photo-1570710891163-6d3b5c47248b",
                 "hotel-room-japan": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af",
                 "shinsaibashi-neon": "https://images.unsplash.com/photo-1571401835393-8c5f35328320",
-                "wagyu-bowl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-                "namba-yasaka": "https://images.unsplash.com/photo-1624253321171-1be53e12f5f4",
+                "wagyu-bowl": "https://images.unsplash.com/photo-1626082896492-766af4eb6501", // 修正：Red Rock 和牛丼
+                "namba-yasaka": "https://images.unsplash.com/photo-1624253321171-1be53e12f5f4", // 修正：難波八阪神社
                 "tsutenkaku-tower": "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b",
-                "sukiyaki-pot": "https://images.unsplash.com/photo-1591814448473-7f47c215c2c0",
+                "sukiyaki-pot": "https://images.unsplash.com/photo-1616031036657-3a116b490d18", // 修正：壽喜燒
                 "dotonbori-canal": "https://images.unsplash.com/photo-1605276373954-0c4a0dac5b12",
                 "takoyaki-osaka": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec",
-                "kiyomizu-dera": "https://images.unsplash.com/photo-1604897443392-1662c8aa7512",
-                "sannenzaka-kyoto": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e",
-                "starbucks-yasaka": "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93",
+                "kiyomizu-dera": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e", // 修正：清水寺
+                "sannenzaka-kyoto": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9", // 修正：三年坂
+                "starbucks-yasaka": "https://images.unsplash.com/photo-1528114039533-df39856974a7", // 修正：二年坂星巴克
                 "yasaka-shrine-kyoto": "https://images.unsplash.com/photo-1616162816999-53e346577364",
-                "nishiki-market-food": "https://images.unsplash.com/photo-1555529733-0e670560f7e1",
+                "nishiki-market-food": "https://images.unsplash.com/photo-1555529733-0e670560f7e1", // 修正：錦市場
                 "tonkatsu-set": "https://images.unsplash.com/photo-1650308253100-384be8f75f92",
                 "okonomiyaki-cooking": "https://images.unsplash.com/photo-1617112848923-cc2234396a8d",
                 "japanese-mochi": "https://images.unsplash.com/photo-1582236521748-0959196b0394",
