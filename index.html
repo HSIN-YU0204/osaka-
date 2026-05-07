@@ -1,270 +1,50 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Osaka Bloom 2026 | 完整導遊版</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        :root {
-            --washi-bg: rgba(252, 251, 250, 0.85);
-            --cat-transport: #4A90E2; 
-            --cat-food: #FF9F43;      
-            --cat-spot: #20BF6B;      
-            --cat-shop: #EB3B5A;      
-            --cat-hotel: #8854D0;     
-            --cat-activity: #0FB9B1;  
-        }
-
-        body {
-            font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
-            margin: 0;
-            overflow: hidden;
-            background: url('https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=80&w=2071&auto=format&fit=crop') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        .glass-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            z-index: -1;
-        }
-
-        /* 修正側邊欄：增加 overflow-y: auto 確保可以滾動 */
-        .sidebar {
-            width: 90px; height: 100vh; position: fixed; left: 0; top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            display: flex; flex-direction: column; align-items: center; 
-            padding-top: 25px; z-index: 50;
-            overflow-y: auto; 
-            scrollbar-width: none; /* Firefox */
-        }
-        .sidebar::-webkit-scrollbar { display: none; } /* Chrome/Safari */
-
-        .nav-item {
-            writing-mode: vertical-rl; padding: 20px 10px; margin-bottom: 10px; font-size: 14px;
-            color: #777; cursor: pointer; border-radius: 0 15px 15px 0; transition: 0.3s;
-            flex-shrink: 0; /* 確保項目不會被壓縮 */
-        }
-
-        .nav-item.active {
-            color: #FFF; font-weight: bold;
-            background: linear-gradient(135deg, #FF6B6B, #F06595);
-            box-shadow: 2px 4px 12px rgba(240, 101, 149, 0.3);
-        }
-
-        .main-content {
-            margin-left: 90px; height: 100vh; overflow-y: auto;
-            padding: 35px 20px 130px 20px;
-        }
-
-        .guide-tag { font-size: 11px; padding: 2px 8px; border-radius: 5px; font-weight: bold; margin-right: 5px; color: white; }
-        .bg-must-eat { background-color: #FF6B6B; }
-        .bg-must-buy { background-color: #54A0FF; }
-        .bg-must-go { background-color: #1DD1A1; }
-
-        .spot-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px; padding: 18px; margin-bottom: 15px;
-            border-left: 8px solid #DDD;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .card-transport { border-left-color: var(--cat-transport); }
-        .card-food { border-left-color: var(--cat-food); }
-        .card-spot { border-left-color: var(--cat-spot); }
-        .card-activity { border-left-color: var(--cat-activity); }
-        .card-shop { border-left-color: var(--cat-shop); }
-        .card-hotel { border-left-color: var(--cat-hotel); }
-
-        .details-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .spot-card.expanded .details-content { max-height: 800px; margin-top: 15px; border-top: 1px solid #EEE; padding-top: 15px; }
-
-        .tool-box {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px); border-radius: 24px; padding: 20px;
-            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.6);
-            color: #333;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="glass-overlay"></div>
-
-    <aside class="sidebar">
-        <div class="mb-6 font-bold text-3xl">🌸</div>
-        <div class="nav-item active" onclick="switchTab(this, '7/22')">7/22 (三)</div>
-        <div class="nav-item" onclick="switchTab(this, '7/23')">7/23 (四)</div>
-        <div class="nav-item" onclick="switchTab(this, '7/24')">7/24 (五)</div>
-        <div class="nav-item" onclick="switchTab(this, '7/25')">7/25 (六)</div>
-        <div class="nav-item" onclick="switchTab(this, '7/26')">7/26 (日)</div>
-        <div class="nav-item" onclick="switchTab(this, '7/27')">7/27 (一)</div>
-        <div class="nav-item" onclick="switchTab(this, '7/28')">7/28 (二)</div>
-        <div class="nav-item" onclick="switchTab(this, '7/29')">7/29 (三)</div>
-        <div class="nav-item" onclick="switchTab(this, 'emergency')" style="background:#FFEBEE; color:#C62828;">緊急聯絡</div>
-        <div class="nav-item" onclick="switchTab(this, 'tools')" style="background:#E0F7FA; color:#006064;">小工具</div>
-        <div class="h-20"></div> </aside>
-
-    <main class="main-content">
-        <header class="mb-6">
-            <h1 class="text-4xl font-bold text-white drop-shadow-md" id="current-date">7/22</h1>
-            <p id="day-desc" class="text-lg text-pink-100 font-bold mt-1 drop-shadow-sm">Osaka Trip Start!</p>
-        </header>
-
-        <div id="itinerary-area"></div>
-
-        <div id="tools-area" class="hidden">
-            <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🧮 旅遊小工具</h2>
-            <div class="tool-box">
-                <h4 class="font-bold text-lg mb-4 text-blue-600">🇯🇵 大阪即時天氣</h4>
-                <iframe src="https://www.meteoblue.com/en/weather/widget/three/osaka_japan_1853909?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=light" frameborder="0" scrolling="NO" style="width: 100%; height: 230px; border-radius: 12px;"></iframe>
-            </div>
-
-            <div class="tool-box">
-                <h4 class="font-bold text-lg mb-4 text-green-600">💰 財務記帳</h4>
-                <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-4 bg-green-500 text-white rounded-xl text-center font-bold">開啟 LINE 記帳群組</a>
-            </div>
-
-            <div class="tool-box">
-                <h4 class="font-bold text-lg mb-4 text-orange-600">🍜 住宿周邊與宵夜</h4>
-                <div class="mb-4 border-b pb-2">
-                    <p class="font-bold">LAWSON 瓦屋町三丁目店</p>
-                    <a href="https://maps.app.goo.gl/ZUxzKoPJthb9Lkgc7?g_st=ic" target="_blank" class="text-blue-500 text-sm">🧭 開啟地圖導航</a>
-                </div>
-                <div class="mb-4 border-b pb-2">
-                    <p class="font-bold">野口太郎拉麵店 (04:00 打烊)</p>
-                    <a href="https://maps.app.goo.gl/nALJy2Jkg6ZX6qB18?g_st=ic" target="_blank" class="text-blue-500 text-sm">🧭 開啟地圖導航</a>
-                </div>
-                <div>
-                    <p class="font-bold">Men-no-Yoji 麺のようじ (20:35 打烊)</p>
-                    <a href="https://maps.app.goo.gl/4V9pxbb8UpMRe9jk6?g_st=ic" target="_blank" class="text-blue-500 text-sm">🧭 開啟地圖導航</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="emergency-area" class="hidden">
-            <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🆘 緊急聯絡資訊</h2>
-            <div class="tool-box">
-                <p class="font-bold text-red-600 mb-2">外交部領事事務局</p>
-                <p class="text-sm">+886-2-2343-2888</p>
-                <p class="font-bold text-red-600 mt-4 mb-2">駐大阪辦事處</p>
-                <p class="text-sm">+81-6-6443-8481</p>
-            </div>
-        </div>
-    </main>
-
-    <script>
         const itineraryData = {
             "7/22": { desc: "啟程：抵達關西機場", items: [
-                { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "預約代號: GK054", story: "第一航廈辦理登機。", commute: "✈️ 飛行約 3小時40分" },
-                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "入境手續", story: "記得出示 Visit Japan Web QR Code。", commute: "🚌 接駁巴士前往市區" },
-                { time: "23:00", cat: "酒店", name: "住一八號店", info: "入住密碼詳見郵件", story: "位於瓦屋町，放行李後可去 Lawson。", map: "住一八號店" }
+                { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "預約代號: GK054", story: "第一航廈辦理登機，開啟關西之旅。", commute: "✈️ 飛行約 3小時40分" },
+                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "入境手續", story: "記得出示 Visit Japan Web QR Code，關西機場為人工島建築。", commute: "🚌 接駁巴士前往市區" },
+                { time: "23:00", cat: "酒店", name: "住一八號店", info: "入住密碼詳見郵件", story: "位於瓦屋町，典型的日本公寓式住宅，生活機能便利。", map: "住一八號店" }
             ]},
             "7/23": { desc: "大阪：心齋橋與道頓堀", items: [
-                { time: "08:15", cat: "活動", name: "心齋橋筋商店街", info: "藥妝採買", tags: [{t:"必買", c:"must-buy"}], story: "松本清、大國藥妝集中地。", menu: "必買：合利他命、止痛藥", commute: "👣 步行 4 分鐘" },
-                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", info: "美國村名店", tags: [{t:"必吃", c:"must-eat"}], story: "火山造型的烤牛肉蓋飯。", menu: "必點：Roast Beef Don", map: "Red Rock Amemura" }
+                { time: "08:15", cat: "活動", name: "心齋橋筋商店街", info: "藥妝採買", tags: [{t:"必買", c:"must-buy"}], story: "大阪最具代表性的購物街，擁有遮雨棚，大熱天或雨天都好逛。", menu: "攻略：松本清、大國藥妝重點掃貨", commute: "🚗 19 分鐘" },
+                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", info: "美國村名店", tags: [{t:"必吃", c:"must-eat"}], story: "神戶發跡的名店，以疊得像火山一樣的烤牛肉丼聞名。", menu: "必點：Roast Beef Don (烤牛肉蓋飯)", map: "Red Rock Amemura", commute: "🚗 21 分鐘" },
+                { time: "12:19", cat: "景點", name: "難波八阪神社", info: "巨大獅子殿", tags: [{t:"必拍", c:"must-go"}], story: "巨大的獅子頭張開大口，象徵將厄運吸走，帶來好運與學業進步。", commute: "🚗 14 分鐘" },
+                { time: "14:00", cat: "活動", name: "通天閣", info: "溜滑梯體驗", tags: [{t:"必拍", c:"must-go"}], story: "大阪地標，除了展望台，新蓋的滑梯 Tower Slider 是必玩項目。", menu: "備註：使用樂享周遊券", map: "通天閣", commute: "🚗 13 分鐘" },
+                { time: "17:16", cat: "美食", name: "大衆すき焼き 北斗", info: "平價壽喜燒", tags: [{t:"必吃", c:"must-eat"}], story: "主打日本產牛，環境舒適，是體驗日式壽喜燒的高CP值選擇。", menu: "必點：黑毛和牛壽喜燒定食", map: "大衆すき焼き 北斗", commute: "👣 10 分鐘" },
+                { time: "21:00", cat: "景點", name: "道頓堀水上觀光船", info: "夜遊道頓堀", tags: [{t:"必玩", c:"must-go"}], story: "從道頓堀川看著固力果跑跑人，感受大阪最熱鬧的夜晚氛圍。", menu: "備註：先到櫃台兌換船票", commute: "🏠 回飯店" }
             ]},
             "7/24": { desc: "京都：清水寺漫步", items: [
-                { time: "09:00", cat: "景點", name: "清水寺", info: "世界遺產", tags: [{t:"必拍", c:"must-go"}], story: "全木造清水舞台，京都象徵。", commute: "👣 步行前往二年坂" },
-                { time: "14:30", cat: "美食", name: "錦市場", info: "京都廚房", tags: [{t:"必吃", c:"must-eat"}], story: "體驗在地庶民美食文化。", menu: "三木雞卵、章魚鵪鶉蛋", map: "錦市場" }
+                { time: "08:46", cat: "景點", name: "清水寺", info: "世界遺產", tags: [{t:"必拍", c:"must-go"}], story: "京都最古老的寺院，全木造舞台未使用一顆釘子，四季皆美。", commute: "👣 步行前往二年坂" },
+                { time: "11:50", cat: "景點", name: "二年坂星巴克", info: "榻榻米特色店", tags: [{t:"必拍", c:"must-go"}], story: "全球唯一有榻榻米座位的星巴克，位於傳統日式古民家建築中。", menu: "必點：京都限定口味、體驗榻榻米座", map: "星巴克 二年坂" },
+                { time: "13:00", cat: "景點", name: "八阪神社", info: "消災解厄", tags: [{t:"必拍", c:"must-go"}], story: "京都總本社，以求姻緣與美貌聞名（美御前社）。", commute: "👣 前往錦市場" },
+                { time: "14:30", cat: "美食", name: "錦市場", info: "京都廚房", tags: [{t:"必吃", c:"must-eat"}], story: "擁有四百年歷史，可以品嚐到各種京都特色小吃、醬菜與海鮮。", menu: "推薦：三木雞卵、章魚鵪鶉蛋、豆乳甜甜圈", map: "錦市場" },
+                { time: "16:05", cat: "美食", name: "名代とんかつ かつくら", info: "名代炸豬排", tags: [{t:"必吃", c:"must-eat"}], story: "選用嚴選豬肉與特製麵包粉，沾醬可以自己DIY研磨芝麻。", menu: "必點：厚切三元豬豬排、嚴選大海老", map: "名代とんかつ 三條本店" },
+                { time: "19:14", cat: "美食", name: "美月大阪燒", info: "道地大阪味", tags: [{t:"必吃", c:"must-eat"}], story: "傳統的大阪燒名店，現點現做，感受熱氣騰騰的鐵板魅力。", map: "美月大阪燒" }
             ]},
             "7/25": { desc: "奈良：東大寺與小鹿", items: [
-                { time: "10:30", cat: "景點", name: "東大寺/奈良公園", info: "餵食小鹿", tags: [{t:"必拍", c:"must-go"}], story: "世界上最大的木造建築。", commute: "👣 步行至春日大社" },
-                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "人氣拉麵", tags: [{t:"必吃", c:"must-eat"}], story: "濃郁雞白湯，牛蒡絲是精髓。", map: "雞 Soba 座銀" }
+                { time: "10:26", cat: "美食", name: "中谷堂", info: "高速搗麻糬", tags: [{t:"必吃", c:"must-eat"}], story: "觀看充滿震撼力的高速搗麻糬表演，麻糬口感Q彈柔軟。", menu: "必點：艾草麻糬", commute: "👣 前往奈良公園" },
+                { time: "11:00", cat: "美食", name: "釜粋 釜飯烏龍麵", info: "奈良名物", tags: [{t:"必吃", c:"must-eat"}], story: "位於東大寺商圈，可以同時吃到釜飯與手打烏龍麵。", map: "釜粋" },
+                { time: "12:30", cat: "景點", name: "東大寺", info: "世界最大木造建築", tags: [{t:"必拍", c:"must-go"}], story: "供奉著名的奈良大佛，大佛殿宏偉壯觀，氣勢逼人。", commute: "👣 步行至春日大社" },
+                { time: "14:50", cat: "美食", name: "水谷茶屋", info: "森林下午茶", tags: [{t:"必拍", c:"must-go"}], story: "隱身在春日大社森林中的茅草屋建築，非常具備古意氛圍。", menu: "推薦：抹茶與日式和菓子", map: "水谷茶屋" },
+                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "極致雞白湯", tags: [{t:"必吃", c:"must-eat"}], story: "以濃郁細緻的雞白湯底著稱，配上酥脆牛蒡，是拉麵界的高級體驗。", map: "雞 Soba 座銀" }
             ]},
             "7/26": { desc: "大阪：海遊館與梅田", items: [
-                { time: "09:30", cat: "活動", name: "海遊館", info: "鯨鯊壯觀", tags: [{t:"必拍", c:"must-go"}], story: "世界最大級水族館。", commute: "🚇 轉往天保山" },
-                { time: "13:00", cat: "活動", name: "空庭溫泉", info: "日式庭園溫泉", tags: [{t:"放鬆", c:"must-go"}], story: "可以換上浴衣在屋頂庭園拍照。", map: "空庭溫泉" },
-                { time: "19:00", cat: "景點", name: "梅田藍天大廈", info: "百萬夜景", story: "全透明圓形自動扶梯非常刺激。", map: "Umeda Sky Building" }
+                { time: "09:30", cat: "活動", name: "海遊館", info: "巨型鯨鯊", tags: [{t:"必看", c:"must-go"}], story: "世界最大等級的水族館，垂直環繞式水槽，鯨鯊是鎮館之寶。", commute: "🚇 前往天保山/空庭溫泉" },
+                { time: "13:00", cat: "活動", name: "空庭溫泉", info: "日式主題溫泉", tags: [{t:"放鬆", c:"must-go"}], story: "關西最大的溫泉主題樂園，提供多種浴衣選擇，頂樓有大型足湯庭園。", map: "空庭溫泉" },
+                { time: "16:43", cat: "美食", name: "grenier 梅田店", info: "布雷派名店", tags: [{t:"必吃", c:"must-eat"}], story: "超人氣排隊甜點，派皮酥脆，內餡充滿濃郁香草卡士達。", menu: "必點：焦糖布雷派", map: "grenier 梅田" },
+                { time: "19:00", cat: "景點", name: "梅田藍天大廈", info: "百萬夜景", tags: [{t:"必拍", c:"must-go"}], story: "在 173 公尺高的露天觀景台俯瞰大阪全景，地板還有螢光點綴。", map: "Umeda Sky Building" }
             ]},
             "7/27": { desc: "全日：環球影城 USJ", items: [
-                { time: "07:30", cat: "活動", name: "環球影城 USJ", info: "全天狂歡", tags: [{t:"必衝", c:"must-go"}], story: "任天堂世界與哈利波特必去。", menu: "必喝：奶油啤酒", map: "Universal Studios Japan" }
+                { time: "07:30", cat: "活動", name: "環球影城 USJ", info: "任天堂世界", tags: [{t:"必衝", c:"must-go"}], story: "必看瑪利歐園區與哈利波特禁忌之旅，建議提早入園。", menu: "備註：確認快速通關/提早整理券", map: "Universal Studios Japan" }
             ]},
-            "7/28": { desc: "大阪：市場採買與黑門", items: [
-                { time: "08:30", cat: "美食", name: "木津市場", info: "海鮮早市", tags: [{t:"必吃", c:"must-eat"}], story: "比黑門市場更在地，海鮮非常新鮮。", menu: "海鮮丼、生蠔", map: "木津市場" },
-                { time: "13:00", cat: "購物", name: "黑門市場/梅田商圈", info: "最後衝刺", story: "買齊所有伴手禮與電器。", map: "黑門市場" },
-                { time: "18:00", cat: "美食", name: "燒肉力丸", info: "吃到飽慶功宴", tags: [{t:"必吃", c:"must-eat"}], story: "高 CP 值國產牛燒肉。", map: "燒肉力丸 心齋橋店" }
+            "7/28": { desc: "大阪：市場採買與燒肉", items: [
+                { time: "08:30", cat: "美食", name: "木津市場", info: "海鮮早市", tags: [{t:"必吃", c:"must-eat"}], story: "深受在地餐廳信賴的果菜海鮮市場，比黑門市場更具生活氣息。", menu: "必點：海鮮丼、當季水果", map: "木津市場" },
+                { time: "10:00", cat: "景點", name: "大阪城公園", info: "天守閣", tags: [{t:"必拍", c:"must-go"}], story: "豐臣秀吉所建，是大阪的象徵。天守閣內的博物館詳述大阪歷史。", map: "大阪城天守閣" },
+                { time: "13:00", cat: "購物", name: "梅田商圈/大丸百貨", info: "最後衝刺", story: "買齊所有伴手禮、任天堂旗艦店、Pokemon Center。", commute: "🚇 回飯店放行李" },
+                { time: "18:00", cat: "美食", name: "燒肉力丸", info: "國產牛吃到飽", tags: [{t:"必吃", c:"must-eat"}], story: "提供高品質國產牛肉，心齋橋、道頓堀皆有分店。", menu: "推薦：牛排肉、生牛肉", map: "燒肉力丸" }
             ]},
             "7/29": { desc: "返程：回台灣", items: [
-                { time: "10:00", cat: "交通", name: "Check-out 寄行李", story: "確認房內無遺留物品。", commute: "🚌 搭車前往機場" },
-                { time: "12:00", cat: "活動", name: "關西機場免稅店", info: "採購遺珠", story: "最後購買白色戀人、薯條三兄弟。", commute: "✈️ 搭乘 GK055 回台" },
-                { time: "15:20", cat: "交通", name: "GK055 起飛", info: "回台灣囉！", story: "預計傍晚抵達桃園機場。" }
+                { time: "10:00", cat: "酒店", name: "Check-out 寄行李", story: "整理行囊，最後巡禮。", commute: "🚌 搭乘巴士/捷運前往機場" },
+                { time: "12:00", cat: "活動", name: "關西機場免稅店", info: "最後買好買滿", story: "入關後還有薯條三兄弟、白色戀人等精品伴手禮。", commute: "✈️ 搭乘 GK055 回台" },
+                { time: "15:20", cat: "交通", name: "GK055 起飛", info: "珍重再見", story: "帶著滿滿的回憶與戰利品回台灣囉！" }
             ]}
         };
-
-        function switchTab(el, tabId) {
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            el.classList.add('active');
-
-            const area = document.getElementById('itinerary-area');
-            const tools = document.getElementById('tools-area');
-            const emergency = document.getElementById('emergency-area');
-            
-            // 隱藏所有
-            area.classList.add('hidden');
-            tools.classList.add('hidden');
-            emergency.classList.add('hidden');
-
-            if (itineraryData[tabId]) {
-                area.classList.remove('hidden');
-                document.getElementById('current-date').innerText = tabId;
-                document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
-                renderCards(tabId);
-            } else if (tabId === 'tools') {
-                tools.classList.remove('hidden');
-                document.getElementById('current-date').innerText = "小工具";
-                document.getElementById('day-desc').innerText = "Travel Utils";
-            } else if (tabId === 'emergency') {
-                emergency.classList.remove('hidden');
-                document.getElementById('current-date').innerText = "緊急聯絡";
-                document.getElementById('day-desc').innerText = "Safety First";
-            }
-            document.querySelector('.main-content').scrollTop = 0;
-        }
-
-        function renderCards(day) {
-            const items = itineraryData[day].items;
-            let html = '';
-            items.forEach((item) => {
-                const typeClass = {
-                    '交通': 'card-transport', '美食': 'card-food', '活動': 'card-activity', 
-                    '景點': 'card-spot', '購物': 'card-shop', '酒店': 'card-hotel'
-                }[item.cat] || 'card-spot';
-                
-                let tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag.c}">${tag.t}</span>`).join('');
-                const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.map || item.name)}`;
-
-                html += `
-                <div class="spot-card ${typeClass}" onclick="this.classList.toggle('expanded')">
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="text-xs font-bold text-gray-400 mb-1">${item.cat} | ${item.time}</div>
-                            <h3 class="text-xl font-bold text-gray-800">${item.name}</h3>
-                            <div class="mt-2">${tagsHtml}</div>
-                        </div>
-                        <div class="text-pink-500 text-sm font-bold">詳情 ▼</div>
-                    </div>
-                    <div class="details-content">
-                        <p class="text-sm text-gray-600 leading-relaxed mb-3">📖 <b>導遊說故事：</b><br>${item.story}</p>
-                        ${item.menu ? `<p class="text-sm text-orange-600 font-bold mb-3">🍴 必點推薦：<br>${item.menu}</p>` : ''}
-                        <div class="flex gap-2">
-                            <a href="${mapLink}" target="_blank" class="flex-1 bg-gray-800 text-white text-center py-2 rounded-xl text-sm font-bold" onclick="event.stopPropagation()">🧭 開啟導航</a>
-                        </div>
-                        ${item.commute ? `<div class="mt-3 text-xs text-blue-500 font-bold italic">➡️ 交通提示：${item.commute}</div>` : ''}
-                    </div>
-                </div>`;
-            });
-            document.getElementById('itinerary-area').innerHTML = html;
-        }
-
-        renderCards("7/22");
-    </script>
-</body>
-</html>
