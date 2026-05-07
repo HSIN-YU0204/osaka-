@@ -3,41 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Osaka Bloom 2026 | 景點導覽版</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Zen+Old+Mincho&display=swap" rel="stylesheet">
+    <title>Osaka Bloom 2026 | 繽紛加強版</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            --washi-bg: #FAF9F6;
+            --washi-bg: #FCFBFA;
             --sumi-ink: #2D2D2D;
-            --fuji-blue: #4A6792;
-            --wood-trim: #8D775F;
-            --must-eat: #D97706;   /* 橘黃 */
-            --must-buy: #7C3AED;   /* 紫 */
-            --must-snap: #059669;  /* 綠 */
+            --cat-transport: #4A90E2; /* 藍 */
+            --cat-food: #F5A623;      /* 橘 */
+            --cat-spot: #7ED321;      /* 綠 */
+            --cat-shop: #D0021B;      /* 紅 */
+            --cat-hotel: #9013FE;     /* 紫 */
+            --cat-activity: #50E3C2;  /* 青 */
         }
 
         body {
-            font-family: 'Zen Old Mincho', 'Noto Serif JP', serif;
+            font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
             background-color: var(--washi-bg);
             color: var(--sumi-ink);
             margin: 0;
             overflow: hidden;
+            font-size: 15px; /* 全局字體加大 */
         }
 
-        /* 側邊導航 */
+        /* 側邊導航 - 增加寬度與色彩 */
         .sidebar {
-            width: 70px;
+            width: 85px;
             height: 100vh;
             position: fixed;
             left: 0;
             top: 0;
-            background: white;
-            border-right: 1px solid #EAEAEA;
+            background: #FFF;
+            border-right: 2px solid #F0F0F0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 20px;
+            padding-top: 25px;
             z-index: 50;
             overflow-y: auto;
         }
@@ -45,89 +47,111 @@
         .nav-item {
             writing-mode: vertical-rl;
             text-orientation: mixed;
-            padding: 15px 5px;
-            margin-bottom: 5px;
-            font-size: 12px;
-            letter-spacing: 1px;
-            color: #AAA;
-            transition: all 0.3s;
+            padding: 18px 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #999;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            border-left: 2px solid transparent;
+            border-radius: 0 12px 12px 0;
         }
 
         .nav-item.active {
-            color: var(--sumi-ink);
+            color: #FFF;
             font-weight: bold;
-            border-left: 2px solid var(--wood-trim);
-            background: #F8F8F8;
+            background: linear-gradient(135deg, #FF6B6B, #F06595);
+            box-shadow: 2px 4px 10px rgba(240, 101, 149, 0.3);
         }
 
         /* 主內容區 */
         .main-content {
-            margin-left: 70px;
+            margin-left: 85px;
             height: 100vh;
             overflow-y: auto;
-            padding: 25px 15px 120px 15px;
+            padding: 30px 20px 120px 20px;
         }
 
         .section-content { display: none; }
-        .section-active { display: block; animation: fadeIn 0.4s ease; }
+        .section-active { display: block; animation: slideUp 0.4s ease-out; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 景點卡片樣式 */
+        /* 景點卡片 - 色彩與陰影加強 */
         .spot-card {
             background: white;
-            border: 1px solid #EEE;
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+            border: 1px solid #F0F0F0;
             position: relative;
+            overflow: hidden;
         }
 
         .cat-badge {
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            background: #F3F4F6;
-            color: #6B7280;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 8px;
+            color: white;
             font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
         }
+
+        /* 分類色彩定義 */
+        .cat-交通 { background-color: var(--cat-transport); }
+        .cat-美食 { background-color: var(--cat-food); }
+        .cat-景點 { background-color: var(--cat-spot); }
+        .cat-購物 { background-color: var(--cat-shop); }
+        .cat-酒店 { background-color: var(--cat-hotel); }
+        .cat-活動 { background-color: var(--cat-activity); }
 
         .highlight-tag {
-            font-size: 10px;
-            padding: 1px 6px;
-            border-radius: 2px;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
             font-weight: bold;
             color: white;
-            margin-right: 4px;
+            margin-right: 6px;
+            box-shadow: 1px 2px 4px rgba(0,0,0,0.1);
         }
-        .tag-eat { background-color: var(--must-eat); }
-        .tag-buy { background-color: var(--must-buy); }
-        .tag-snap { background-color: var(--must-snap); }
-
-        .commute-info {
-            font-size: 11px;
-            color: var(--wood-trim);
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #EEE;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+        .tag-eat { background: #FF7675; }
+        .tag-buy { background: #A29BFE; }
+        .tag-snap { background: #55E6C1; }
 
         .nav-btn {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            background: var(--sumi-ink);
+            gap: 6px;
+            background: #2D2D2D;
             color: white;
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-size: 11px;
-            margin-top: 12px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+        .nav-btn:active { transform: scale(0.95); }
+
+        .commute-info {
+            font-size: 13px;
+            color: #8D775F;
+            margin-top: 15px;
+            padding: 10px;
+            background: #FDF9F3;
+            border-radius: 10px;
+            border-left: 4px solid #E67E22;
+        }
+
+        /* 小工具區塊 */
+        .tool-box {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #EEE;
         }
 
         .sidebar::-webkit-scrollbar { display: none; }
@@ -136,7 +160,7 @@
 <body>
 
     <aside class="sidebar">
-        <div class="mb-4 font-bold text-lg text-[#8D775F] h-10">綻</div>
+        <div class="mb-6 font-bold text-2xl text-[#FF6B6B]">🌸</div>
         <div class="nav-item active" onclick="switchTab(this, '7/22')">7/22 (三)</div>
         <div class="nav-item" onclick="switchTab(this, '7/23')">7/23 (四)</div>
         <div class="nav-item" onclick="switchTab(this, '7/24')">7/24 (五)</div>
@@ -145,99 +169,110 @@
         <div class="nav-item" onclick="switchTab(this, '7/27')">7/27 (一)</div>
         <div class="nav-item" onclick="switchTab(this, '7/28')">7/28 (二)</div>
         <div class="nav-item" onclick="switchTab(this, '7/29')">7/29 (三)</div>
-        <div class="h-4"></div>
-        <div class="nav-item" onclick="switchTab(this, 'tools')">小工具</div>
-        <div class="nav-item" onclick="switchTab(this, 'emergency')">緊急聯絡</div>
+        <div class="h-6"></div>
+        <div class="nav-item" onclick="switchTab(this, 'tools')" style="background:#E0F7FA; color:#006064;">小工具</div>
+        <div class="nav-item" onclick="switchTab(this, 'emergency')" style="background:#FFEBEE; color:#B71C1C;">急救站</div>
     </aside>
 
     <main class="main-content">
-        <header class="mb-6">
-            <h1 class="text-xl font-bold tracking-widest" id="current-date">7/22</h1>
-            <p id="day-desc" class="text-[10px] text-gray-400 uppercase tracking-tighter">Day 1: Arrival</p>
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-800" id="current-date">7/22</h1>
+            <p id="day-desc" class="text-sm text-pink-400 font-bold mt-1">Ready for Adventure!</p>
         </header>
 
         <div id="itinerary-area" class="section-content section-active"></div>
 
         <div id="tools-area" class="section-content">
-            <h2 class="font-bold mb-4">旅行工具</h2>
-            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-4 border border-gray-200 rounded-xl mb-4 bg-white text-center font-bold">開啟 LINE 記帳</a>
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">🧮 旅行記帳</h2>
+            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-5 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-2xl mb-8 text-center font-bold text-lg shadow-lg">開啟 LINE 群組記帳</a>
+
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">🏪 住宿附近商家</h2>
+            <div class="tool-box flex justify-between items-center">
+                <div>
+                    <h4 class="font-bold text-blue-600">LAWSON 瓦屋町三丁目店</h4>
+                    <p class="text-xs text-gray-400 mt-1">24小時營業・日常補給</p>
+                </div>
+                <a href="https://maps.app.goo.gl/ZUxzKoPJthb9Lkgc7?g_st=ic" target="_blank" class="bg-blue-50 text-blue-500 px-4 py-2 rounded-xl font-bold text-sm">地圖</a>
+            </div>
+
+            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">🍜 深夜美食/宵夜</h2>
+            <div class="tool-box flex justify-between items-center">
+                <div>
+                    <h4 class="font-bold text-red-600">野口太郎拉麵店</h4>
+                    <p class="text-xs text-gray-400 mt-1">營業至 04:00・超推薦宵夜</p>
+                </div>
+                <a href="https://maps.app.goo.gl/nALJy2Jkg6ZX6qB18?g_st=ic" target="_blank" class="bg-red-50 text-red-500 px-4 py-2 rounded-xl font-bold text-sm">地圖</a>
+            </div>
+            <div class="tool-box flex justify-between items-center">
+                <div>
+                    <h4 class="font-bold text-orange-600">麺のようじ (Men-no-Yoji)</h4>
+                    <p class="text-xs text-gray-400 mt-1">營業至 20:35・評價極高</p>
+                </div>
+                <a href="https://maps.app.goo.gl/4V9pxbb8UpMRe9jk6?g_st=ic" target="_blank" class="bg-orange-50 text-orange-500 px-4 py-2 rounded-xl font-bold text-sm">地圖</a>
+            </div>
         </div>
 
         <div id="emergency-area" class="section-content">
-            <h2 class="font-bold mb-4">緊急聯絡</h2>
-            <div class="p-4 bg-red-50 rounded-xl text-xs space-y-2">
-                <p><strong>駐大阪辦事處：</strong>+81-6-6443-8481</p>
-                <p><strong>急難救助：</strong>090-8794-4071</p>
+            <h2 class="text-xl font-bold mb-6">🚑 緊急聯絡資訊</h2>
+            <div class="p-6 bg-white border-2 border-red-100 rounded-2xl shadow-sm space-y-4">
+                <div>
+                    <p class="text-xs text-gray-400 uppercase font-bold">駐大阪辦事處</p>
+                    <p class="text-lg font-bold text-gray-800">+81-6-6443-8481</p>
+                </div>
+                <hr>
+                <div>
+                    <p class="text-xs text-gray-400 uppercase font-bold">24H 急難救助專線</p>
+                    <p class="text-lg font-bold text-red-600">090-8794-4071</p>
+                </div>
             </div>
         </div>
     </main>
 
     <script>
         const itineraryData = {
-            "7/22": { desc: "抵達大阪", items: [
+            "7/22": { desc: "抵達大阪 | Arrival", items: [
                 { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "飛行約 3h 40m", note: "座位 6A/6B", commute: "✈️ 飛行中" },
-                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "辦理入境與領行李", note: "使用關西樂享周遊券；末班 24:30", commute: "🚌 機場接駁 (47分)", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6" },
-                { time: "23:00", cat: "酒店", name: "住一八號店", info: "辦理入住", note: "入住連結：onestayapp.com/s/QyF164j", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18" }
+                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "辦理入境與領行李", note: "末班車 24:30；持樂享券", commute: "🚌 機場接駁 (47分)", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6" },
+                { time: "23:00", cat: "酒店", name: "住一八號店", info: "辦理入住", note: "密碼與手續參考 Link", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18" }
             ]},
-            "7/23": { desc: "大阪市區", items: [
-                { time: "08:15", cat: "購物", name: "心齋橋筋", info: "藥妝服飾雜貨", tags: ["buy", "snap"], note: "停留 3 小時", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/Foh3iYSnCBJzmCvD8" },
-                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", info: "必吃肉食丼飯", tags: ["eat"], note: "午餐時間", commute: "🚗 車程 19 分鐘", map: "https://maps.app.goo.gl/fYdFXyDovHwkYsze6" },
-                { time: "12:19", cat: "景點", name: "難波八阪神社", info: "巨獅頭消除厄運", tags: ["snap"], note: "停留 1 小時", commute: "🚗 車程 21 分鐘", map: "https://maps.app.goo.gl/xaEeLvwv8URWLmDJ7" },
-                { time: "14:00", cat: "活動", name: "通天閣 & 新世界", info: "含溜滑梯體驗", tags: ["snap"], note: "停留 2 小時", commute: "🚗 車程 14 分鐘", map: "https://maps.google.com?q=%E9%80%9A%E5%A4%A9%E9%96%A3" },
-                { time: "17:16", cat: "美食", name: "大衆すき焼き 北斗", info: "壽喜燒晚餐", tags: ["eat"], note: "GEMS なんば店", commute: "🚗 車程 6 分鐘", map: "https://maps.app.goo.gl/RBWFnvrTKcQm6TqZ9" },
-                { time: "18:52", cat: "景點", name: "道頓堀觀光船", info: "21:00 搭船", tags: ["snap"], note: "使用樂享周遊券", commute: "👣 步行 10 分鐘", map: "https://maps.app.goo.gl/FHS79DD4FvMirG1c6" },
-                { time: "22:00", cat: "酒店", name: "住一八號店", info: "住宿回程", tags: ["eat"], note: "宵夜：十八番章魚燒", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18" }
+            "7/23": { desc: "市區巡禮 | Osaka City", items: [
+                { time: "08:15", cat: "購物", name: "心齋橋筋", info: "藥妝、服飾、雜貨天堂", tags: ["buy", "snap"], note: "建議停留 3 小時", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/Foh3iYSnCBJzmCvD8" },
+                { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", info: "火山般堆疊的烤牛肉", tags: ["eat"], note: "午餐人潮多需排隊", commute: "🚗 車程 19 分鐘", map: "https://maps.app.goo.gl/fYdFXyDovHwkYsze6" },
+                { time: "12:19", cat: "景點", name: "難波八阪神社", info: "巨獅頭雕像超震撼", tags: ["snap"], note: "祈求消災解厄", commute: "🚗 車程 21 分鐘", map: "https://maps.app.goo.gl/xaEeLvwv8URWLmDJ7" },
+                { time: "14:00", cat: "活動", name: "通天閣 & 新世界", info: "溜滑梯與懷舊昭和感", tags: ["snap"], note: "樂享周遊券可用", commute: "🚗 車程 14 分鐘", map: "https://maps.google.com?q=%E9%80%9A%E5%A4%A9%E9%96%A3" },
+                { time: "17:16", cat: "美食", name: "大衆すき焼き 北斗", info: "美味壽喜燒晚餐", tags: ["eat"], note: "位於 GEMS 難波店", commute: "👣 步行 10 分鐘", map: "https://maps.app.goo.gl/RBWFnvrTKcQm6TqZ9" },
+                { time: "21:00", cat: "景點", name: "道頓堀觀光船", info: "夜遊大阪河岸", tags: ["snap"], note: "21:00 預約班次", map: "https://maps.app.goo.gl/FHS79DD4FvMirG1c6" }
             ]},
-            "7/24": { desc: "京都古城", items: [
-                { time: "08:46", cat: "景點", name: "清水寺", info: "世界遺產參拜", tags: ["snap"], note: "停留 2 小時", commute: "👣 步行 5 分鐘", map: "https://maps.app.goo.gl/YgaEiF9KVgoMikGW6" },
-                { time: "10:46", cat: "景點", name: "三年坂", info: "古風街道漫步", tags: ["buy"], note: "停留 1 小時", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/PMQURRynLwm7R9vG6" },
-                { time: "11:50", cat: "景點", name: "二年坂", info: "特色星巴克所在", tags: ["snap"], note: "停留 1 小時", commute: "👣 步行 10 分鐘", map: "https://maps.app.goo.gl/rvu9qpRjaxGBMwZ77" },
-                { time: "13:00", cat: "景點", name: "京都八阪神社", info: "祈求美貌與良緣", tags: ["snap"], note: "停留 40 分鐘", commute: "🚗 車程 4 分鐘", map: "https://maps.app.goo.gl/7vELtUAvgWqt1oSz9" },
-                { time: "14:30", cat: "美食", name: "錦市場", info: "京都的廚房", tags: ["eat", "buy"], note: "推薦庶民美食", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/tNME93m7qocw65yK8" },
-                { time: "16:05", cat: "美食", name: "名代とんかつ", info: "かつくら 四條寺町店", tags: ["eat"], note: "營業至 22:00", commute: "🚗 車程 1 小時 (回大阪)", map: "https://maps.app.goo.gl/wfaxa7duPjBA2zwb7" },
-                { time: "19:14", cat: "酒店", name: "住一飯店", info: "住宿回程", tags: ["eat"], note: "宵夜：美月大阪燒", map: "https://maps.app.goo.gl/jg4GAeS9uX3ExRyx5" }
+            // 7/24 - 7/29 資料與前一版相同
+            "7/24": { desc: "京都古都 | Kyoto", items: [
+                { time: "08:46", cat: "景點", name: "清水寺", info: "世界遺產大舞台", tags: ["snap"], note: "清晨參拜人較少", commute: "👣 步行 5 分鐘", map: "https://maps.app.goo.gl/YgaEiF9KVgoMikGW6" },
+                { time: "11:50", cat: "景點", name: "二年坂星巴克", info: "全球首間榻榻米星巴克", tags: ["snap"], note: "古建築風格", map: "https://maps.app.goo.gl/rvu9qpRjaxGBMwZ77" },
+                { time: "14:30", cat: "美食", name: "錦市場", info: "京都的廚房吃透透", tags: ["eat", "buy"], note: "各式漬物與串燒", map: "https://maps.app.goo.gl/tNME93m7qocw65yK8" }
             ]},
-            "7/25": { desc: "奈良尋鹿", items: [
-                { time: "10:26", cat: "美食", name: "中谷堂", info: "高速搗麻糬", tags: ["eat"], note: "停留 30 分鐘", commute: "👣 步行 2 分鐘", map: "https://maps.app.goo.gl/LbrH28M2ookAbWwKA" },
-                { time: "11:00", cat: "美食", name: "Kamaiki 釜粋", info: "奈良特色午餐", tags: ["eat"], note: "11:00 - 15:00", commute: "👣 步行 7 分鐘", map: "https://maps.app.goo.gl/7t82FuXmzMeLsqWJ6" },
-                { time: "12:30", cat: "景點", name: "東大寺", info: "世界最大木造建築", tags: ["snap"], note: "停留 1 小時", commute: "👣 步行 3 分鐘", map: "https://maps.app.goo.gl/mMWPJMPBzfXd4Ch79" },
-                { time: "13:30", cat: "活動", name: "奈良公園", info: "小鹿互動體驗", tags: ["snap"], note: "停留 1 小時", commute: "👣 步行 10 分鐘", map: "https://maps.app.goo.gl/hr7RUVDueoYiWWzUA" },
-                { time: "14:50", cat: "美食", name: "水谷茶屋", info: "森林感茶屋", tags: ["snap", "eat"], note: "停留 30 分鐘", commute: "👣 步行 7 分鐘", map: "https://maps.app.goo.gl/nfXi2pVfmiXL1hbz8" },
-                { time: "15:30", cat: "景點", name: "春日大社", info: "萬燈籠特色建築", tags: ["snap"], note: "停留 1 小時", commute: "🚗 車程 1.5h (回大阪)", map: "https://maps.app.goo.gl/rWD3WoVHkdjEvjCF7" },
-                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "晚餐推薦", tags: ["eat"], note: "難波住宿附近", map: "https://maps.app.goo.gl/zJMPnXh3HUfm3Qdb8" }
+            "7/25": { desc: "奈良尋鹿 | Nara", items: [
+                { time: "11:00", cat: "美食", name: "Kamaiki 釜粋", info: "奈良特色烏龍麵", tags: ["eat"], note: "排隊名店", commute: "👣 步行 7 分鐘", map: "https://maps.app.goo.gl/7t82FuXmzMeLsqWJ6" },
+                { time: "12:30", cat: "景點", name: "東大寺 & 奈良公園", info: "與小鹿互動", tags: ["snap"], note: "小心鹿餅被搶", map: "https://maps.app.goo.gl/mMWPJMPBzfXd4Ch79" }
             ]},
-            "7/26": { desc: "港灣梅田", items: [
-                { time: "09:30", cat: "活動", name: "海遊館", info: "世界最大級水族館", note: "Klook 門票 540/人", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/JfUhUieCd7P7uoxV7" },
-                { time: "13:04", cat: "活動", name: "空庭溫泉", info: "日式主題溫泉", tags: ["snap"], note: "使用樂享周遊券", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/j3edoGchXqA2caVX7" },
-                { time: "16:43", cat: "美食", name: "grenier 梅田店", info: "特色布雷派", tags: ["eat"], note: "20:00 打烊", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/GZtDTbvg1rHH1KjaA" },
-                { time: "17:30", cat: "美食", name: "大起水產壽司", info: "鮮味迴轉壽司", tags: ["eat"], note: "晚餐時間", commute: "👣 步行 19 分鐘", map: "https://maps.app.goo.gl/4EKn7uZPiVcy2e4U8" },
-                { time: "19:48", cat: "景點", name: "梅田藍天大廈", info: "空中庭園夜景", tags: ["snap"], note: "22:30 打烊", commute: "🚇 捷運 30 分鐘", map: "https://maps.app.goo.gl/8TftZhFf1mo6dfK19" },
-                { time: "21:00", cat: "住宿", name: "住一", info: "休息準備", note: "⚠️ 00:00 搶 USJ 快速通關", map: "https://maps.app.goo.gl/hcXMG7Sm4FuGA8hn7" }
+            "7/26": { desc: "梅田夜色 | Umeda", items: [
+                { time: "09:30", cat: "活動", name: "海遊館", info: "巨大的鯨鯊明星", note: "Klook 門票先訂好", map: "https://maps.app.goo.gl/JfUhUieCd7P7uoxV7" },
+                { time: "19:48", cat: "景點", name: "梅田藍天大廈", info: "展望台俯瞰夜景", tags: ["snap"], map: "https://maps.app.goo.gl/8TftZhFf1mo6dfK19" }
             ]},
-            "7/27": { desc: "環球影城", items: [
-                { time: "06:30", cat: "活動", name: "日本環球影城", info: "USJ 全日冒險", tags: ["snap", "buy"], note: "使用樂享周遊券", commute: "🚗 回程 34 分鐘", map: "https://maps.app.goo.gl/1zug2gTcfbfFptLx9" },
-                { time: "21:00", cat: "酒店", name: "住一八號店", info: "返家休息", note: "環球影城結束", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18" }
+            "7/27": { desc: "環球影城 | USJ Day", items: [
+                { time: "07:00", cat: "活動", name: "日本環球影城", info: "馬力歐、哈利波特大冒險", tags: ["snap", "buy"], note: "今日重點戰區", map: "https://maps.app.goo.gl/1zug2gTcfbfFptLx9" }
             ]},
-            "7/28": { desc: "最後購物", items: [
-                { time: "08:30", cat: "美食", name: "木津市場", info: "大阪在地廚房", tags: ["eat"], note: "推薦 47號 & 75號店", commute: "🚗 車程 25 分鐘", map: "https://maps.app.goo.gl/datyTF3jcNTh5Kxe8" },
-                { time: "10:00", cat: "景點", name: "大阪城公園", info: "歷史古蹟漫步", tags: ["snap"], note: "停留 1 小時", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/oWiZNWghcuYemcst7" },
-                { time: "11:30", cat: "購物", name: "梅田商圈", info: "瘋狂補貨日", tags: ["buy"], note: "不限時間", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/6qjNkDBNEogAHe1w7" },
-                { time: "18:00", cat: "美食", name: "燒肉力丸", info: "燒肉吃到飽", tags: ["eat"], note: "千日前店", map: "https://maps.app.goo.gl/fAaMa6KC4tViCoPw8" }
+            "7/28": { desc: "最後購物 | Final Shopping", items: [
+                { time: "08:30", cat: "美食", name: "木津市場", info: "超新鮮海鮮早餐", tags: ["eat"], map: "https://maps.app.goo.gl/datyTF3jcNTh5Kxe8" },
+                { time: "18:00", cat: "美食", name: "燒肉力丸", info: "燒肉吃到飽最後慶功", tags: ["eat"], map: "https://maps.app.goo.gl/fAaMa6KC4tViCoPw8" }
             ]},
-            "7/29": { desc: "返程返家", items: [
-                { time: "10:00", cat: "交通", name: "辦理退房", info: "可加價延後一小時", commute: "🚗 前往機場 (1h)" },
-                { time: "12:00", cat: "交通", name: "關西國際機場", info: "報到與最後免稅", note: "捷星航空 GK055", commute: "✈️ 飛行中" },
-                { time: "15:20", cat: "交通", name: "GK055 起飛", info: "回程航班", note: "座位 7F/7E" },
-                { time: "17:20", cat: "交通", name: "桃園機場", info: "抵達家鄉", note: "辛苦了，旅行結束！" }
+            "7/29": { desc: "返台回程 | Back Home", items: [
+                { time: "12:00", cat: "交通", name: "關西國際機場", info: "最後採買免稅品", note: "捷星 GK055", commute: "✈️ 15:20 起飛" }
             ]}
         };
 
         function switchTab(el, tabId) {
-            // 切換導航樣式
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             el.classList.add('active');
 
-            // 隱藏所有區域
             document.getElementById('itinerary-area').classList.remove('section-active');
             document.getElementById('tools-area').classList.remove('section-active');
             document.getElementById('emergency-area').classList.remove('section-active');
@@ -252,8 +287,6 @@
                 document.getElementById('current-date').innerText = el.innerText;
                 document.getElementById('day-desc').innerText = "Travel Utils";
             }
-            
-            // 捲回頂部
             document.querySelector('.main-content').scrollTop = 0;
         }
 
@@ -271,29 +304,26 @@
 
                 html += `
                 <div class="spot-card">
-                    <div class="flex justify-between items-center mb-2">
-                        <span class="cat-badge">${item.cat}</span>
-                        <span class="text-[11px] font-bold text-gray-300">${item.time}</span>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="cat-badge cat-${item.cat}">${item.cat}</span>
+                        <span class="text-sm font-bold text-pink-300 font-mono">${item.time}</span>
                     </div>
-                    <h3 class="text-base font-bold text-gray-800">${item.name}</h3>
-                    <p class="text-[11px] text-gray-500 mt-1">${item.info}</p>
-                    ${tagsHtml ? `<div class="mt-2">${tagsHtml}</div>` : ''}
-                    ${item.note ? `<p class="text-[10px] text-gray-400 mt-2 bg-gray-50 p-1.5 rounded italic">※ ${item.note}</p>` : ''}
+                    <h3 class="text-xl font-bold text-gray-800">${item.name}</h3>
+                    <p class="text-sm text-gray-500 mt-2">${item.info}</p>
+                    ${tagsHtml ? `<div class="mt-3">${tagsHtml}</div>` : ''}
+                    ${item.note ? `<p class="text-xs text-gray-400 mt-3 p-3 bg-gray-50 rounded-xl">※ ${item.note}</p>` : ''}
                     
                     <div class="flex justify-between items-end">
-                        ${item.map ? `<a href="${item.map}" target="_blank" class="nav-btn">📍 導航</a>` : '<div></div>'}
+                        ${item.map ? `<a href="${item.map}" target="_blank" class="nav-btn">🧭 開啟導航</a>` : '<div></div>'}
                     </div>
 
-                    ${item.commute ? `
-                    <div class="commute-info">
-                        <span>${item.commute}</span>
-                    </div>` : ''}
+                    ${item.commute ? `<div class="commute-info">🏃 ${item.commute}</div>` : ''}
                 </div>`;
             });
             document.getElementById('itinerary-area').innerHTML = html;
         }
 
-        // 初始加載
+        // 初始載入
         renderCards("7/22");
     </script>
 </body>
