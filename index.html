@@ -209,6 +209,14 @@
         }
         .weather-item:last-child { border-right: none; }
         .weather-item:active { background: rgba(255, 255, 255, 0.1); }
+        
+        .spot-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
     </style>
 </head>
 <body>
@@ -510,39 +518,39 @@
         const itineraryData = {
             "7/22": { desc: "啟程：抵達關西機場", items: [
                 { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "飛行約 3h 40m", story: "座位 6A/6B。帶著期待的心情出發！", commute: "✈️ 飛行中", note: "建議起飛前 2.5 小時抵達櫃檯。記得在機上填寫 Visit Japan Web 截圖。", voucher: "https://drive.google.com/file/d/1IeZ-IKcyThnSy0YcHWSLAR13V5uf5AHv/view?usp=drivesdk" },
-                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "辦理入境與領行李", story: "使用關西樂享周遊券；末班 24:30。趕快搭上接駁車前往市區吧。", commute: "🚌 機場接駁 (47分)", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6", note: "晚班機出關人潮較多，行李轉盤附近有自動販賣機可先買水。" },
+                { time: "22:00", cat: "交通", name: "關西機場 T1", img: "https://images.unsplash.com/photo-1570698473651-b2de99bae12f?q=80&w=1000&auto=format&fit=crop", info: "辦理入境與領行李", story: "使用關西樂享周遊券；末班 24:30。趕快搭上接駁車前往市區吧。", commute: "🚌 機場接駁 (47分)", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6", note: "晚班機出關人潮較多，行李轉盤附近有自動販賣機可先買水。" },
                 { time: "23:00", cat: "酒店", name: "住一八號店", info: "辦理入住", story: "入住連結：onestayapp.com/s/QyF164j。這幾天的大本營，辛苦了！", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18", note: "大廳有免費備品（牙刷/梳子），記得檢查房間內的熱水器開關。", voucher: "https://drive.google.com/file/d/1VW5fk54ZLKToKpaCs6HwekDOQv9B0Gc4/view?usp=drivesdk" }
             ]},
             "7/23": { desc: "大阪市區", items: [
-                { time: "08:15", cat: "購物", name: "心齋橋筋", info: "藥妝服飾雜貨", tags: ["buy", "snap"], story: "停留 3 小時。大阪最強商店街，記得貨比三家。", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/Foh3iYSnCBJzmCvD8", note: "大國藥妝通常最便宜，Parco 百貨內的龍貓共和國跟 Jump Shop 必逛！" },
+                { time: "08:15", cat: "購物", name: "心齋橋筋", img: "https://images.unsplash.com/photo-1628108427901-526487e41b9d?q=80&w=1000&auto=format&fit=crop", info: "藥妝服飾雜貨", tags: ["buy", "snap"], story: "停留 3 小時。大阪最強商店街，記得貨比三家。", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/Foh3iYSnCBJzmCvD8", note: "大國藥妝通常最便宜，Parco 百貨內的龍貓共和國跟 Jump Shop 必逛！" },
                 { time: "11:19", cat: "美食", name: "Red Rock 和牛丼", info: "必吃肉食丼飯", tags: ["eat"], story: "午餐時間。超澎湃的和牛山絕對值得拍照紀念。", commute: "🚗 車程 19 分鐘", map: "https://maps.app.goo.gl/fYdFXyDovHwkYsze6", note: "推『黑毛和牛丼』，肉質更嫩！點餐機在門口，記得先買券再排隊。" },
-                { time: "12:19", cat: "景點", name: "難波八阪神社", info: "巨獅頭消除厄運", tags: ["snap"], story: "停留 1 小時。非常有氣勢的神社，進來求個好運。", commute: "🚗 車程 21 分鐘", map: "https://maps.app.goo.gl/xaEeLvwv8URWLmDJ7", note: "獅子頭張大嘴代表吸走厄運。站在獅子正對面拍照最震撼！" },
+                { time: "12:19", cat: "景點", name: "難波八阪神社", img: "https://images.unsplash.com/photo-1594220317415-4673322d7671?q=80&w=1000&auto=format&fit=crop", info: "巨獅頭消除厄運", tags: ["snap"], story: "停留 1 小時。非常有氣勢的神社，進來求個好運。", commute: "🚗 車程 21 分鐘", map: "https://maps.app.goo.gl/xaEeLvwv8URWLmDJ7", note: "獅子頭張大嘴代表吸走厄運。站在獅子正對面拍照最震撼！" },
                 { time: "14:00", cat: "活動", name: "通天閣 & 新世界", info: "含溜滑梯體驗", tags: ["snap"], story: "停留 2 小時。新舊交融的大績味，挑戰一下高空溜滑梯！", commute: "🚗 車程 14 分鐘", map: "https://maps.google.com?q=%E9%80%9A%E5%A4%A9%E9%96%A3", note: "溜滑梯大排長龍的話可先去拍招牌串炸大燈籠。觸摸 Billiken 神像腳底會好運。" },
                 { time: "17:16", cat: "美食", name: "大衆すき焼き 北斗", info: "壽喜燒晚餐", tags: ["eat"], story: "位於 GEMS なんば店。犒賞自己的豐盛晚餐。", commute: "🚗 車程 6 分鐘", map: "https://maps.app.goo.gl/RBWFnvrTKcQm6TqZ9", note: "牛肉油脂豐富，建議配一顆生雞蛋沾著吃最對味！建議預約。" },
                 { time: "18:52", cat: "景點", name: "道頓堀觀光船", info: "21:00 搭船", tags: ["snap"], story: "使用樂享周遊券。從河面欣賞跑跑人的燦爛燈光。", commute: "👣 步行 10 分鐘", map: "http://googleusercontent.com/maps.google.門/10", note: "船經過固力果跑跑人時，導覽員會留時間讓大家拍照，建議坐右側位子。" },
                 { time: "22:00", cat: "酒店", name: "住一八號店", info: "住宿回程", tags: ["eat"], story: "宵夜推薦：十八番章魚燒。完美的結尾。", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18", note: "這間章魚燒口感偏軟嫩，撒上天婦羅碎渣超香。別忘了在 Lawson 買一瓶生茶配。" }
             ]},
             "7/24": { desc: "京都古城", items: [
-                { time: "08:46", cat: "景點", name: "清水寺", info: "世界遺產參拜", tags: ["snap"], story: "停留 2 小時。京都最經典地標，感受木造建築的宏偉。", commute: "👣 步行 5 分鐘", map: "https://maps.app.goo.gl/YgaEiF9KVgoMikGW6", note: "清水舞台維護中仍可拍出遠景。記得喝音羽之瀑的三股泉水（只能選一邊喝喔）。" },
+                { time: "08:46", cat: "景點", name: "清水寺", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1000&auto=format&fit=crop", info: "世界遺產參拜", tags: ["snap"], story: "停留 2 小時。京都最經典地標，感受木造建築的宏偉。", commute: "👣 步行 5 分鐘", map: "https://maps.app.goo.gl/YgaEiF9KVgoMikGW6", note: "清水舞台維護中仍可拍出遠景。記得喝音羽之瀑的三股泉水（只能選一邊喝喔）。" },
                 { time: "10:46", cat: "景點", name: "三年坂", info: "古風街道漫步", tags: ["buy"], story: "停留 1 小時。充滿傳統工藝品與伴手禮的小徑。", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/PMQURRynLwm7R9vG6", note: "傳說在三年坂跌倒會倒霉三年，走路要小心！這裡的七味粉老店必買。" },
                 { time: "11:50", cat: "景點", name: "二年坂", info: "特色星巴克所在", tags: ["snap"], story: "停留 1 小時。一定要去那間充滿日式風情的星巴克看看。", commute: "👣 步行 10 分鐘", map: "https://maps.app.goo.gl/rvu9qpRjaxGBMwZ77", note: "這家星巴克是塌塌米座席，進入需脫鞋。外面這條街是拍和服最美的地點。" },
                 { time: "13:00", cat: "景點", name: "京都八阪神社", info: "祈求美貌與良緣", tags: ["snap"], story: "停留 40 分鐘。在祇園地區漫步，感受古都靈氣。", commute: "🚗 車程 4 分鐘", map: "https://maps.app.goo.gl/7vELtUAvgWqt1oSz9", note: "正門（西樓門）是拍照聖地。這裡的美御前社「美容水」滴兩滴在臉上保佑變漂亮。" },
                 { time: "14:30", cat: "美食", name: "錦市場", info: "京都的廚房", tags: ["eat", "buy"], story: "推薦庶民美食。沿路吃吃喝喝最道地。", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/tNME93m7qocw65yK8", note: "⚠️重要：嚴禁邊走邊吃！請在店家攤位前吃完再移動。推薦豆乳甜甜圈。" },
-                { time: "16:05", cat: "美食", name: "名代とんかつ", info: "かつくら 四條寺町店", tags: ["eat"], story: "營業至 22:00。京都超人氣炸豬排。", commute: "🚗 車程 1 小時 (回大阪)", map: "https://maps.app.goo.gl/wfaxa7duPjBA2zwb7", note: "麥飯、高麗菜、味噌湯都可無限續。推薦自己磨芝麻加入特製豬排醬。" },
+                { time: "16:05", cat: "美食", name: "名代とんかつ", img: "https://images.unsplash.com/photo-1615557960916-5f4791effe9d?q=80&w=1000&auto=format&fit=crop", info: "かつくら 四條寺町店", tags: ["eat"], story: "營業至 22:00。京都超人氣炸豬排。", commute: "🚗 車程 1 小時 (回大阪)", map: "https://maps.app.goo.gl/wfaxa7duPjBA2zwb7", note: "麥飯、高麗菜、味噌湯都可無限續。推薦自己磨芝麻加入特製豬排醬。" },
                 { time: "19:14", cat: "酒店", name: "住一飯店", info: "住宿回程", tags: ["eat"], story: "宵夜：美月大阪燒。回到大阪繼續吃！", map: "https://maps.app.goo.gl/jg4GAeS9uX3ExRyx5", note: "如果胃還有空間，這裡的大阪燒配一杯梅酒是今日最棒的 Ending。" }
             ]},
             "7/25": { desc: "奈良尋鹿", items: [
                 { time: "10:26", cat: "美食", name: "中谷堂", info: "高速搗麻糬", tags: ["eat"], story: "停留 30 分鐘。運氣好可以看到震撼的搗麻糬表演。", commute: "👣 步行 2 分鐘", map: "https://maps.app.goo.gl/LbrH28M2ookAbWwKA", note: "艾草麻糬（Yomogi Mochi）超軟 Q。剛搗好的口感最棒，不要帶回飯店吃。" },
                 { time: "11:00", cat: "美食", name: "Kamaiki 釜粋", info: "奈良特色午餐", tags: ["eat"], story: "11:00 - 15:00。享受奈良在地風味。", commute: "👣 步行 7 分鐘", map: "https://maps.app.goo.gl/7t82FuXmzMeLsqWJ6", note: "烏龍麵非常 Q 彈，炸雞肉塊（雞天）外脆內多汁，是店內的隱藏冠軍。" },
                 { time: "12:30", cat: "景點", name: "東大寺", info: "世界最大木造建築", tags: ["snap"], story: "停留 1 小時。見識巨大的大佛像，感受歷史莊嚴。", commute: "👣 步行 3 分鐘", map: "https://maps.app.goo.gl/mMWPJMPBzfXd4Ch79", note: "大佛殿後面有一根柱子，中間有個洞（大佛的鼻孔），穿過去據說能消災解厄。" },
-                { time: "13:30", cat: "活動", name: "奈良公園", info: "小鹿互動體驗", tags: ["snap"], story: "停留 1 小時。拿著鹿餅要小心被小鹿包圍喔！", commute: "👣 步行 10 分鐘", map: "https://maps.app.goo.gl/hr7RUVDueoYiWWzUA", note: "看到鹿先點頭，牠們也會回禮。但如果鹿群太激動，記得舉雙手示意『沒餅了』。" },
+                { time: "13:30", cat: "活動", name: "奈良公園", img: "https://images.unsplash.com/photo-1542640244-7e672d6cef21?q=80&w=1000&auto=format&fit=crop", info: "小鹿互動體驗", tags: ["snap"], story: "停留 1 小時。拿著鹿餅要小心被小鹿包圍喔！", commute: "👣 步行 10 分鐘", map: "https://maps.app.goo.gl/hr7RUVDueoYiWWzUA", note: "看到鹿先點頭，牠們也會回禮。但如果鹿群太激動，記得舉雙手示意『沒餅了』。" },
                 { time: "14:50", cat: "美食", name: "水谷茶屋", info: "森林感茶屋", tags: ["snap", "eat"], story: "停留 30 分鐘。像宮崎駿世界的復古茶屋，拍照超正點。", commute: "👣 步行 7 分鐘", map: "https://maps.app.goo.gl/nfXi2pVfmiXL1hbz8", note: "坐在戶外紅色塌塌米席拍照最美。推薦點一碗熱紅豆麻糬湯消磨時間。" },
                 { time: "15:30", cat: "景點", name: "春日大社", info: "萬燈籠特色建築", tags: ["snap"], story: "停留 1 小時。掛滿燈籠的長廊充滿神秘美感。", commute: "🚗 車程 1.5h (回大阪)", map: "https://maps.app.goo.gl/rWD3WoVHkdjEvjCF7", note: "這裡的鹿籤（鹿嘴裡咬著籤詩）非常有紀念價值，記得求一尊帶回家。" },
                 { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "晚餐推薦", tags: ["eat"], story: "超強雞白湯拉麵，炸牛蒡絲是精髓。", map: "https://maps.app.goo.gl/zJMPnXh3HUfm3Qdb8", note: "雞湯底濃郁得像濃湯，如果不喜歡太鹹，可以點餐時跟店員說調整濃度。" }
             ]},
             "7/26": { desc: "港灣梅田", items: [
                 { time: "09:30", cat: "活動", name: "海遊館", info: "世界最大級水族館", story: "Klook 門票 540/人。來看看大鯨鯊悠游的模樣。", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/JfUhUieCd7P7uoxV7", note: "建議從頂層沿著螺旋通道往下逛。出口處的『鯨鯊冰淇淋』是必拍的網美美食。" },
-                { time: "13:04", cat: "活動", name: "空庭溫泉", info: "日式主題溫泉", tags: ["snap"], story: "使用樂享周遊券。換上浴衣在屋頂公園漫步泡湯。", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/j3edoGchXqA2caVX7", note: "入場前可以先挑選喜歡的浴衣花色。屋頂的足湯區夕陽時分拍照光線最好。" },
+                { time: "13:04", cat: "活動", name: "空庭溫泉", img: "https://images.unsplash.com/photo-1590559899731-3974bc544062?q=80&w=1000&auto=format&fit=crop", info: "日式主題溫泉", tags: ["snap"], story: "使用樂享周遊券。換上浴衣在屋頂公園漫步泡湯。", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/j3edoGchXqA2caVX7", note: "入場前可以先挑選喜歡的浴衣花色。屋頂的足湯區夕陽時分拍照光線最好。" },
                 { time: "16:43", cat: "美食", name: "grenier 梅田店", info: "特色布雷派", tags: ["eat"], story: "20:00 打烊。外殼超脆內餡豐富的布雷派，甜點控必去。", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/GZtDTbvg1rHH1KjaA", note: "強烈推薦『草莓焦糖口味』。店內只有少數立位，多數人是拿到百貨走廊吃。" },
                 { time: "17:30", cat: "美食", name: "大起水產壽司", info: "鮮味迴轉壽司", tags: ["eat"], story: "晚餐時間。價格平實但海味十足的選擇。", commute: "👣 步行 19 分鐘", map: "https://maps.app.goo.gl/4EKn7uZPiVcy2e4U8", note: "藍色盤子通常是當日限定。如果不習慣看盤子選，可以用平板直接點餐確保新鮮。" },
                 { time: "19:48", cat: "景點", name: "梅田藍天大廈", info: "空中庭園夜景", tags: ["snap"], story: "22:30 打烊。從高空俯瞰大阪城市燈海。", commute: "🚇 捷運 30 分鐘", map: "https://maps.app.goo.gl/8TftZhFf1mo6dfK19", note: "使用周遊券的朋友，必須在 18:00 前入場才有免費優惠，之後需加價。" },
@@ -560,7 +568,7 @@
             ]},
             "7/29": { desc: "返程返家", items: [
                 { time: "10:00", cat: "交通", name: "辦理退房", info: "可加價延後一小時", story: "確認行李跟護照，準備前往機場。", commute: "🚗 前往機場 (1h)", note: "最後檢查充電頭、水杯跟雨傘。房間鑰鑰依指示歸還，不要帶走了喔。" },
-                { time: "12:00", cat: "交通", name: "關西國際機場", info: "報到與最後免稅", story: "捷星航空 GK055。買最後的伴手禮吧。", commute: "✈️ 飛行中", note: "入關後還有免稅店可以買薯條三兄弟跟白色戀人，液體伴手禮記得托運。" },
+                { time: "12:00", cat: "交通", name: "關西國際機場", img: "https://images.unsplash.com/photo-1570698473651-b2de99bae12f?q=80&w=1000&auto=format&fit=crop", info: "報到與最後免稅", story: "捷星航空 GK055。買最後的伴手禮吧。", commute: "✈️ 飛行中", note: "入關後還有免稅店可以買薯條三兄弟跟白色戀人，液體伴手禮記得托運。" },
                 { time: "15:20", cat: "交通", name: "GK055 起飛", info: "回程航班", story: "座位 7F/7E。再見大阪！", commute: "✈️ 回程", note: "捷星限重較嚴格，若超重可現場買額度。航行中可以整理照片消磨時間。" },
                 { time: "17:20", cat: "交通", name: "桃園機場", info: "抵達家鄉", story: "辛苦了，這是一段美好的旅行！", note: "回家後記得喝碗熱湯，好好休息。期待下一趟冒險！" }
             ]}
@@ -604,6 +612,10 @@
             items.forEach((item) => {
                 const typeClass = { '交通': 'card-transport', '美食': 'card-food', '活動': 'card-activity', '景點': 'card-spot', '購物': 'card-shop', '酒店': 'card-hotel', '住宿': 'card-hotel' }[item.cat] || 'card-spot';
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag}">${tag.toUpperCase()}</span>`).join('');
+                
+                // 處理照片 HTML
+                const imgHtml = item.img ? `<img src="${item.img}" class="spot-img" alt="${item.name}">` : '';
+
                 html += `
                 <div class="spot-card ${typeClass}" onclick="this.classList.toggle('expanded')">
                     <div class="flex justify-between items-start">
@@ -616,6 +628,7 @@
                         <div class="text-pink-500 text-xs font-bold whitespace-nowrap pt-1">MORE ▼</div>
                     </div>
                     <div class="details-content">
+                        ${imgHtml}
                         <div class="text-sm text-gray-600 leading-relaxed mb-4">
                             <div class="font-bold text-gray-800 mb-1">📖 導遊小故事</div>
                             ${item.story}
