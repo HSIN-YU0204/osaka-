@@ -114,6 +114,23 @@
             padding-top: 15px; 
         }
 
+        /* 行李清單專屬樣式 */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .checklist-item:last-child { border-bottom: none; }
+        .checklist-item input[type="checkbox"] {
+            width: 20px; height: 20px; margin-right: 12px;
+            cursor: pointer; accent-color: #20BF6B;
+        }
+        .checklist-item input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            color: #AAA;
+        }
+
         .tool-box {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px); border-radius: 24px; padding: 20px;
@@ -212,6 +229,7 @@
 
     <aside class="sidebar">
         <div class="mb-6 font-bold text-3xl">🏯</div>
+        <div class="nav-item" onclick="switchTab(this, 'checklist')" style="background:#E8F5E9; color:#2E7D32;">行前準備</div>
         <div class="nav-item active" onclick="switchTab(this, '7/22')">7/22 (三)</div>
         <div class="nav-item" onclick="switchTab(this, '7/23')">7/23 (四)</div>
         <div class="nav-item" onclick="switchTab(this, '7/24')">7/24 (五)</div>
@@ -248,6 +266,67 @@
         </header>
 
         <div id="itinerary-area"></div>
+
+        <div id="checklist-area" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🧳 行李準備清單</h2>
+            
+            <div class="tool-box mb-6">
+                <h3 class="font-bold text-blue-600 mb-3 flex items-center">🪪 證件，文件，卡片</h3>
+                <div class="checklist-item"><input type="checkbox"><span>護照</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>機票</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>多張不同銀行信用卡 (Visa/Master/JCB/AE)</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>身分證件</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>兩張 2 吋證件照</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>足夠的當地貨幣 (日幣)</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>跨國提款金融卡</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>事先購買的各式票券</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>飯店訂房證明</span></div>
+            </div>
+
+            <div class="tool-box mb-6">
+                <h3 class="font-bold text-orange-600 mb-3 flex items-center">🧴 生活用品</h3>
+                <div class="checklist-item"><input type="checkbox"><span>數個醫療級口罩</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>隨身酒精瓶</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>換洗衣物（內衣內褲）</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>浴巾 / 毛巾</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>襪子</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>化妝品 / 保養品</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>防曬乳 / 防蚊液</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>卸妝水</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>雨具 / 遮陽帽 / 太陽眼鏡</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>拖鞋</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>牙刷、牙膏 / 洗面乳</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>刮鬍刀</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>隱形眼鏡及保養液</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>女性生理期相關用品</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>帽子 / 戒指項鍊</span></div>
+            </div>
+
+            <div class="tool-box mb-6">
+                <h3 class="font-bold text-red-600 mb-3 flex items-center">💊 醫藥相關</h3>
+                <div class="checklist-item"><input type="checkbox"><span>常備藥品 / 感冒藥</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>暈車藥 / 腸胃藥</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>跌打損傷藥膏 / OK蹦</span></div>
+            </div>
+
+            <div class="tool-box mb-6">
+                <h3 class="font-bold text-purple-600 mb-3 flex items-center">🔌 隨身電子設備</h3>
+                <div class="checklist-item"><input type="checkbox"><span>手機充電線 / 充電頭</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>萬用插座 / 行動電源</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>手機 / 小風扇</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>腳架</span></div>
+            </div>
+
+            <div class="tool-box mb-6">
+                <h3 class="font-bold text-gray-600 mb-3 flex items-center">🎁 其他</h3>
+                <div class="checklist-item"><input type="checkbox"><span>要淘汰的內衣褲 (穿完即丟)</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>壓縮袋 / 收納袋</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>行李套 (區隔辨識)</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>塑膠袋數個</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>義美小泡芙 (伴手禮)</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>衛生紙 / 濕紙巾 / 餐具</span></div>
+            </div>
+        </div>
 
         <div id="language-area" class="hidden">
             <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🗣️ 常用禮貌日語</h2>
@@ -424,7 +503,6 @@
             window.speechSynthesis.speak(uttr);
         }
 
-        // --- 修正天氣樣式，使其在連續面板中顯示更好 ---
         async function fetchWeather() {
             const weatherArea = document.getElementById('weather-area');
             try {
@@ -567,14 +645,20 @@
             const tools = document.getElementById('tools-area');
             const emergency = document.getElementById('emergency-area');
             const language = document.getElementById('language-area');
+            const checklist = document.getElementById('checklist-area');
             
-            area.classList.add('hidden'); tools.classList.add('hidden'); emergency.classList.add('hidden'); language.classList.add('hidden');
+            area.classList.add('hidden'); tools.classList.add('hidden'); emergency.classList.add('hidden'); 
+            language.classList.add('hidden'); checklist.classList.add('hidden');
             
             if (itineraryData[tabId]) {
                 area.classList.remove('hidden');
                 document.getElementById('current-date').innerText = yobiMap[tabId] || tabId;
                 document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
                 renderCards(tabId);
+            } else if (tabId === 'checklist') {
+                checklist.classList.remove('hidden');
+                document.getElementById('current-date').innerText = "行前準備";
+                document.getElementById('day-desc').innerText = "Packing Checklist";
             } else if (tabId === 'language') {
                 language.classList.remove('hidden');
                 document.getElementById('current-date').innerText = "常用日語";
