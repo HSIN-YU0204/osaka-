@@ -83,6 +83,28 @@
         .bg-buy { background-color: #54A0FF; }
         .bg-snap { background-color: #1DD1A1; }
 
+        /* 樂享周遊券動態標籤 */
+        .joy-pass-tag {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: #6B4E71;
+            background: linear-gradient(110deg, #E0D1FF 30%, #ffffff 50%, #E0D1FF 70%);
+            background-size: 200% 100%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 6px rgba(107, 78, 113, 0.15);
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
         .spot-card {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px; padding: 18px; margin-bottom: 15px;
@@ -450,7 +472,7 @@
             ]},
             { cat: "🚆 交通/問路", phrases: [
                 { zh: "請問車站在哪裡呢？", jp: "駅はどこですか？", romaji: "Eki wa doko desu ka?" },
-                { zh: "這班車有到大阪嗎？", jp: "この電車は大阪に行きますか？", romaji: "Kono densha wa Osaka ni ikimasu ka?" },
+                { zh: "這班車有到大阪嗎？", jp: "この電車は大阪に行きますか？", romaji: "Kono densha wa Osaka ni ikきますか？", romaji: "Kono densha wa Osaka ni ikimasu ka?" },
                 { zh: "請給我一張地圖。", jp: "地図をください。", romaji: "Chizu o kudasai" },
                 { zh: "請問這裡可以寄放行李嗎？", jp: "荷物を預かっていただけますか？", romaji: "Nimotsu o azukatte itadakemasu ka?" }
             ]},
@@ -583,7 +605,7 @@
         const itineraryData = {
             "7/22": { desc: "啟程：抵達關西機場", items: [
                 { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "飛行約 3h 40m", story: "座位 6A/6B。帶著期待的心情出發！", commute: "✈️ 飛行中", note: "建議起飛前 2.5 小時抵達櫃檯。記得在機上填寫 Visit Japan Web 截圖。", voucher: "https://drive.google.com/file/d/1IeZ-IKcyThnSy0YcHWSLAR13V5uf5AHv/view?usp=drivesdk" },
-                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "辦理入境與領行李", story: "使用關西樂享周遊券；末班 24:30。趕快搭上接駁車前往市區吧。", commute: "🚌 機場接駁 (47分)", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6", note: "晚班機出關人潮較多，行李轉盤附近有自動販賣機可先買水。" },
+                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "辦理入境與領行李", story: "使用關西樂享周遊券；末班 24:30。趕快搭上接駁車前往市區吧。", commute: "🚌 機場接駁 (47分)", map: "https://maps.app.goo.gl/w3gjdur5NwJeFU5B6", note: "晚班機出關人潮較多，行李轉盤附近有自動販賣機可先買水。", joyPass: true },
                 { time: "23:00", cat: "酒店", name: "住一八號店", info: "辦理入住", story: "入住連結：onestayapp.com/s/QyF164j。這幾天的大本營，辛苦了！", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18", note: "大廳有免費備品（牙刷/梳子），記得檢查房間內的熱水器開關。", voucher: "https://drive.google.com/file/d/1VW5fk54ZLKToKpaCs6HwekDOQv9B0Gc4/view?usp=drivesdk" }
             ]},
             "7/23": { desc: "大阪市區", items: [
@@ -592,7 +614,7 @@
                 { time: "12:19", cat: "景點", name: "難波八阪神社", info: "巨獅頭消除厄運", tags: ["snap"], story: "停留 1 小時。非常有氣勢的神社，進來求個好運。", commute: "🚗 車程 21 分鐘", map: "https://maps.app.goo.gl/xaEeLvwv8URWLmDJ7", note: "獅子頭張大嘴代表吸走厄運。站在獅子正對面拍照最震撼！" },
                 { time: "14:00", cat: "活動", name: "通天閣 & 新世界", info: "含溜滑梯體驗", tags: ["snap"], story: "停留 2 小時。新舊交融的大績味，挑戰一下高空溜滑梯！", commute: "🚗 車程 14 分鐘", map: "https://maps.google.com?q=%E9%80%9A%E5%A4%A9%E9%96%A3", note: "溜滑梯大排長龍的話可先去拍招牌串炸大燈籠。觸摸 Billiken 神像腳底會好運。" },
                 { time: "17:16", cat: "美食", name: "大衆すき焼き 北斗", info: "壽喜燒晚餐", tags: ["eat"], story: "位於 GEMS なんば店。犒賞自己的豐盛晚餐。", commute: "🚗 車程 6 分鐘", map: "https://maps.app.goo.gl/RBWFnvrTKcQm6TqZ9", note: "牛肉油脂豐富，建議配一顆生雞蛋沾著吃最對味！建議預約。" },
-                { time: "18:52", cat: "景點", name: "道頓堀觀光船", info: "21:00 搭船", tags: ["snap"], story: "使用樂享周遊券。從河面欣賞跑跑人的燦爛燈光。", commute: "👣 步行 10 分鐘", map: "http://googleusercontent.com/maps.google.門/10", note: "船經過固力果跑跑人時，導覽員會留時間讓大家拍照，建議坐右側位子。" },
+                { time: "18:52", cat: "景點", name: "道頓堀觀光船", info: "21:00 搭船", tags: ["snap"], story: "使用樂享周遊券。從河面欣賞跑跑人的燦爛燈光。", commute: "👣 步行 10 分鐘", map: "http://googleusercontent.com/maps.google.門/10", note: "船經過固力果跑跑人時，導覽員會留時間讓大家拍照，建議坐右側位子。", joyPass: true },
                 { time: "22:00", cat: "酒店", name: "住一八號店", info: "住宿回程", tags: ["eat"], story: "宵夜推薦：十八番章魚燒。完美的結尾。", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18", note: "這間章魚燒口感偏軟嫩，撒上天婦羅碎渣超香。別忘了在 Lawson 買一瓶生茶配。" }
             ]},
             "7/24": { desc: "京都古城", items: [
@@ -615,7 +637,7 @@
             ]},
             "7/26": { desc: "港灣梅田", items: [
                 { time: "09:30", cat: "活動", name: "海遊館", info: "世界最大級水族館", story: "Klook 門票 540/人。來看看大鯨鯊悠游的模樣。", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/JfUhUieCd7P7uoxV7", note: "建議從頂層沿著螺旋通道往下逛。出口處的『鯨鯊冰淇淋』是必拍的網美美食。" },
-                { time: "13:04", cat: "活動", name: "空庭溫泉", info: "日式主題溫泉", tags: ["snap"], story: "使用樂享周遊券。換上浴衣在屋頂公園漫步泡湯。", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/j3edoGchXqA2caVX7", note: "入場前可以先挑選喜歡的浴衣花色。屋頂的足湯區夕陽時分拍照光線最好。" },
+                { time: "13:04", cat: "活動", name: "空庭溫泉", info: "日式主題溫泉", tags: ["snap"], story: "使用樂享周遊券。換上浴衣在屋頂公園漫步泡湯。", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/j3edoGchXqA2caVX7", note: "入場前可以先挑選喜歡的浴衣花色。屋頂的足湯區夕陽時分拍照光線最好。", joyPass: true },
                 { time: "16:43", cat: "美食", name: "grenier 梅田店", info: "特色布雷派", tags: ["eat"], story: "20:00 打烊。外殼超脆內餡豐富的布雷派，甜點控必去。", commute: "👣 步行 4 分鐘", map: "https://maps.app.goo.gl/GZtDTbvg1rHH1KjaA", note: "強烈推薦『草莓焦糖口味』。店內只有少數立位，多數人是拿到百貨走廊吃。" },
                 { time: "17:30", cat: "美食", name: "大起水產壽司", info: "鮮味迴轉壽司", tags: ["eat"], story: "晚餐時間。價格平實但海味十足的選擇。", commute: "👣 步行 19 分鐘", map: "https://maps.app.goo.gl/4EKn7uZPiVcy2e4U8", note: "藍色盤子通常是當日限定。如果不習慣看盤子選，可以用平板直接點餐確保新鮮。" },
                 { time: "19:48", cat: "景點", name: "梅田藍天大廈", info: "空中庭園夜景", tags: ["snap"], story: "22:30 打烊。從高空俯瞰大阪城市燈海。", commute: "🚇 捷運 30 分鐘", map: "https://maps.app.goo.gl/8TftZhFf1mo6dfK19", note: "使用周遊券的朋友，必須在 18:00 前入場才有免費優惠，之後需加價。" },
@@ -688,6 +710,10 @@
             items.forEach((item) => {
                 const typeClass = { '交通': 'card-transport', '美食': 'card-food', '活動': 'card-activity', '景點': 'card-spot', '購物': 'card-shop', '酒店': 'card-hotel', '住宿': 'card-hotel' }[item.cat] || 'card-spot';
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag}">${tag.toUpperCase()}</span>`).join('');
+                
+                // 檢查是否需要顯示樂享周遊券標籤
+                const joyPassHtml = item.joyPass ? `<div class="joy-pass-tag">樂享周遊券</div>` : '';
+
                 html += `
                 <div class="spot-card ${typeClass}" onclick="this.classList.toggle('expanded')">
                     <div class="flex justify-between items-start">
@@ -699,6 +725,7 @@
                         </div>
                         <div class="text-pink-500 text-xs font-bold whitespace-nowrap pt-1">MORE ▼</div>
                     </div>
+                    ${joyPassHtml}
                     <div class="details-content">
                         <div class="text-sm text-gray-600 leading-relaxed mb-4">
                             <div class="font-bold text-gray-800 mb-1">📖 導遊小故事</div>
