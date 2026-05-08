@@ -173,8 +173,9 @@
         <div class="nav-item" onclick="switchTab(this, '7/27')">7/27 (一)</div>
         <div class="nav-item" onclick="switchTab(this, '7/28')">7/28 (二)</div>
         <div class="nav-item" onclick="switchTab(this, '7/29')">7/29 (三)</div>
-        <div class="nav-item" onclick="switchTab(this, 'emergency')" style="background:#FFEBEE; color:#C62828;">緊急聯絡</div>
+        <!-- 調整順序：小工具在上 -->
         <div class="nav-item" onclick="switchTab(this, 'tools')" style="background:#E0F7FA; color:#006064;">小工具</div>
+        <div class="nav-item" onclick="switchTab(this, 'emergency')" style="background:#FFEBEE; color:#C62828;">緊急聯絡</div>
         <div class="h-20"></div>
     </aside>
 
@@ -193,10 +194,7 @@
             <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🧮 旅行小工具</h2>
             <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-6 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-2xl mb-8 text-center font-bold text-xl shadow-lg">開啟 LINE 記帳</a>
 
-            <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🇯🇵 大阪即時天氣</h2>
-            <div class="tool-box">
-                <iframe src="https://www.meteoblue.com/en/weather/widget/three/osaka_japan_1853909?geoloc=fixed&nocurrent=0&noforecast=0&days=4&tempunit=CELSIUS&windunit=KILOMETER_PER_HOUR&layout=light" frameborder="0" scrolling="NO" style="width: 100%; height: 230px; border-radius: 12px;"></iframe>
-            </div>
+            <!-- 已刪除即時天氣區塊 -->
 
             <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🏪 住宿附近商家</h2>
             <div class="tool-box flex justify-between items-center">
@@ -372,7 +370,7 @@
                 { time: "18:00", cat: "美食", name: "燒肉力丸", info: "燒肉吃到飽", tags: ["eat"], story: "千日前店。旅行最後一晚大口吃肉就對了！", map: "https://maps.app.goo.gl/fAaMa6KC4tViCoPw8", note: "推薦『牛舌』跟『厚切橫隔膜』。這家人氣極高，一定要先在網路預約。" }
             ]},
             "7/29": { desc: "返程返家", items: [
-                { time: "10:00", cat: "交通", name: "辦理退房", info: "可加價延後一小時", story: "確認行李跟護照，準備前往機場。", commute: "🚗 前往機場 (1h)", note: "最後檢查充電頭、水杯跟雨傘。房間鑰匙依指示歸還，不要帶走了喔。" },
+                { time: "10:00", cat: "交通", name: "辦理退房", info: "可加價延後一小時", story: "確認行李跟護照，準備前往機場。", commute: "🚗 前往機場 (1h)", note: "最後檢查充電頭、水杯跟雨傘。房間鑰鑰依指示歸還，不要帶走了喔。" },
                 { time: "12:00", cat: "交通", name: "關西國際機場", info: "報到與最後免稅", story: "捷星航空 GK055。買最後的伴手禮吧。", commute: "✈️ 飛行中", note: "入關後還有免稅店可以買薯條三兄弟跟白色戀人，液體伴手禮記得托運。" },
                 { time: "15:20", cat: "交通", name: "GK055 起飛", info: "回程航班", story: "座位 7F/7E。再見大阪！", commute: "✈️ 回程", note: "捷星限重較嚴格，若超重可現場買額度。航行中可以整理照片消磨時間。" },
                 { time: "17:20", cat: "交通", name: "桃園機場", info: "抵達家鄉", story: "辛苦了，這是一段美好的旅行！", note: "回家後記得喝碗熱湯，好好休息。期待下一趟冒險！" }
