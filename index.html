@@ -83,7 +83,7 @@
         .bg-buy { background-color: #54A0FF; }
         .bg-snap { background-color: #1DD1A1; }
 
-        /* 樂享周遊券動態標籤 */
+        /* 樂享周遊券動態標籤 (紫白) */
         .joy-pass-tag {
             position: absolute;
             bottom: 12px;
@@ -98,6 +98,23 @@
             border: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 2px 6px rgba(107, 78, 113, 0.15);
             animation: shine 3s linear infinite;
+        }
+
+        /* 豪華周遊券動態標籤 (金色) */
+        .premium-pass-tag {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: #784a00;
+            background: linear-gradient(110deg, #FFD700 30%, #fff9e6 50%, #FFD700 70%);
+            background-size: 200% 100%;
+            border: 1px solid rgba(218, 165, 32, 0.6);
+            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
+            animation: shine 2.5s linear infinite;
         }
 
         @keyframes shine {
@@ -452,7 +469,7 @@
     </div>
 
     <script>
-        // --- 保持原有邏輯 ---
+        // --- 語言資料 ---
         const languageData = [
             { cat: "🍴 餐廳用餐", phrases: [
                 { zh: "我有預約。", jp: "予約しています。", romaji: "Yoyaku shite imasu" },
@@ -633,7 +650,7 @@
                 { time: "13:30", cat: "活動", name: "奈良公園", info: "小鹿互動體驗", tags: ["snap"], story: "停留 1 小時。拿著鹿餅要小心被小鹿包圍喔！", commute: "👣 步行 10 分鐘", map: "https://maps.app.goo.gl/hr7RUVDueoYiWWzUA", note: "看到鹿先點頭，牠們也會回禮。但如果鹿群太激動，記得舉雙手示意『沒餅了』。" },
                 { time: "14:50", cat: "美食", name: "水谷茶屋", info: "森林感茶屋", tags: ["snap", "eat"], story: "停留 30 分鐘。像宮崎駿世界的復古茶屋，拍照超正點。", commute: "👣 步行 7 分鐘", map: "https://maps.app.goo.gl/nfXi2pVfmiXL1hbz8", note: "坐在戶外紅色塌塌米席拍照最美。推薦點一碗熱紅豆麻糬湯消磨時間。" },
                 { time: "15:30", cat: "景點", name: "春日大社", info: "萬燈籠特色建築", tags: ["snap"], story: "停留 1 小時。掛滿燈籠的長廊充滿神秘美感。", commute: "🚗 車程 1.5h (回大阪)", map: "https://maps.app.goo.gl/rWD3WoVHkdjEvjCF7", note: "這裡的鹿籤（鹿嘴裡咬著籤詩）非常有紀念價值，記得求一尊帶回家。" },
-                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "晚餐推薦", tags: ["eat"], story: "超強雞白湯拉麵，炸牛蒡絲是精髓。", map: "https://maps.app.goo.gl/zJMPnXh3HUfm3Qdb8", note: "雞湯底濃郁得像濃湯，如果不喜歡太鹹，可以點餐時跟店員說調整濃度。" }
+                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "晚餐推薦", tags: ["eat"], story: "超強雞白湯拉麵，炸牛蒡絲是精髓。", map: "https://maps.app.goo.gl/zJMPnXh3HUfm3Qdb8", note: "雞湯底濃育得像濃湯，如果不喜歡太鹹，可以點餐時跟店員說調整濃度。" }
             ]},
             "7/26": { desc: "港灣梅田", items: [
                 { time: "09:30", cat: "活動", name: "海遊館", info: "世界最大級水族館", story: "Klook 門票 540/人。來看看大鯨鯊悠游的模樣。", commute: "🚗 車程 20 分鐘", map: "https://maps.app.goo.gl/JfUhUieCd7P7uoxV7", note: "建議從頂層沿著螺旋通道往下逛。出口處的『鯨鯊冰淇淋』是必拍的網美美食。" },
@@ -644,7 +661,7 @@
                 { time: "21:00", cat: "住宿", name: "住一", info: "休息準備", story: "⚠️ 00:00 搶 USJ 快速通關！這非常關鍵。", map: "https://maps.app.goo.gl/hcXMG7Sm4FuGA8hn7", note: "先確認信用卡海外刷卡功能正常。搶到快速通關後，這趟旅程就成功一半了。" }
             ]},
             "7/27": { desc: "環球影城", items: [
-                { time: "06:30", cat: "活動", name: "日本環球影城", info: "USJ 全日冒險", tags: ["snap", "buy"], story: "整天的魔法與冒險，瑪利歐世界我來了！", commute: "🚗 回程 34 分鐘", map: "https://maps.app.goo.gl/1zug2gTcfbfFptLx9", note: "提早一小時到門口排隊抽瑪利歐整理券。記得買限定的無敵星星爆米花桶！" },
+                { time: "06:30", cat: "活動", name: "日本環球影城", info: "USJ 全日冒險", tags: ["snap", "buy"], story: "整天的魔法與冒險，瑪利歐世界我來了！", commute: "🚗 回程 34 分鐘", map: "https://maps.app.goo.gl/1zug2gTcfbfFptLx9", note: "提早一小時到門口排隊抽瑪利歐整理券。記得買限定的無敵星星爆米花桶！", premiumPass: true },
                 { time: "21:00", cat: "酒店", name: "住一八號店", info: "返家休息", story: "戰鬥了一整天，好好睡一覺。", map: "https://maps.app.goo.gl/bh2bAv3TtiEZEvw18", note: "休足時間或是蒸氣眼罩絕對是今晚的救星，睡覺前記得貼在小腿上。" }
             ]},
             "7/28": { desc: "最後購物", items: [
@@ -674,12 +691,11 @@
             area.classList.add('hidden'); tools.classList.add('hidden'); emergency.classList.add('hidden'); 
             language.classList.add('hidden'); checklist.classList.add('hidden');
             
-            // 預設隱藏天氣，只有行程頁面會開啟
             weather.classList.add('hidden');
 
             if (itineraryData[tabId]) {
                 area.classList.remove('hidden');
-                weather.classList.remove('hidden'); // 行程頁面顯示天氣
+                weather.classList.remove('hidden'); 
                 document.getElementById('current-date').innerText = yobiMap[tabId] || tabId;
                 document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
                 renderCards(tabId);
@@ -711,8 +727,13 @@
                 const typeClass = { '交通': 'card-transport', '美食': 'card-food', '活動': 'card-activity', '景點': 'card-spot', '購物': 'card-shop', '酒店': 'card-hotel', '住宿': 'card-hotel' }[item.cat] || 'card-spot';
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag}">${tag.toUpperCase()}</span>`).join('');
                 
-                // 檢查是否需要顯示樂享周遊券標籤
-                const joyPassHtml = item.joyPass ? `<div class="joy-pass-tag">樂享周遊券</div>` : '';
+                // 動態判斷標籤
+                let passTagHtml = '';
+                if (item.joyPass) {
+                    passTagHtml = `<div class="joy-pass-tag">樂享周遊券</div>`;
+                } else if (item.premiumPass) {
+                    passTagHtml = `<div class="premium-pass-tag">豪華周遊券</div>`;
+                }
 
                 html += `
                 <div class="spot-card ${typeClass}" onclick="this.classList.toggle('expanded')">
@@ -725,7 +746,7 @@
                         </div>
                         <div class="text-pink-500 text-xs font-bold whitespace-nowrap pt-1">MORE ▼</div>
                     </div>
-                    ${joyPassHtml}
+                    ${passTagHtml}
                     <div class="details-content">
                         <div class="text-sm text-gray-600 leading-relaxed mb-4">
                             <div class="font-bold text-gray-800 mb-1">📖 導遊小故事</div>
