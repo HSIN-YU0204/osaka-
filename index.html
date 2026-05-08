@@ -254,7 +254,7 @@
                 <button class="quick-tool-btn" onclick="toggleToolModal()">蒟蒻</button>
             </div>
             
-            <div class="weather-panel">
+            <div id="weather-panel-container" class="weather-panel">
                 <div class="flex items-center gap-2 mb-2 px-1">
                     <span class="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full font-bold">LIVE</span>
                     <span class="text-xs text-white/80 font-bold">大阪市即時天氣預報</span>
@@ -647,12 +647,17 @@
             const emergency = document.getElementById('emergency-area');
             const language = document.getElementById('language-area');
             const checklist = document.getElementById('checklist-area');
+            const weather = document.getElementById('weather-panel-container');
             
             area.classList.add('hidden'); tools.classList.add('hidden'); emergency.classList.add('hidden'); 
             language.classList.add('hidden'); checklist.classList.add('hidden');
             
+            // 預設隱藏天氣，只有行程頁面會開啟
+            weather.classList.add('hidden');
+
             if (itineraryData[tabId]) {
                 area.classList.remove('hidden');
+                weather.classList.remove('hidden'); // 行程頁面顯示天氣
                 document.getElementById('current-date').innerText = yobiMap[tabId] || tabId;
                 document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
                 renderCards(tabId);
