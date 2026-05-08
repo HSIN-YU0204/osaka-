@@ -724,7 +724,7 @@
             const items = itineraryData[day].items;
             let html = '';
             items.forEach((item) => {
-                const typeClass = { '交通': 'card-transport', '美食': 'card-food', '活動': 'card-activity', '景點': 'card-spot', '購物': 'card-shop', '酒店': 'card-hotel', '住宿': 'card-hotel' }[item.cat] || 'card-spot';
+                const typeClass = { '🚄交通': 'card-transport', '🍜美食': 'card-food', '🎡活動': 'card-activity', '🗺️景點': 'card-spot', '👛購物': 'card-shop', '🏨酒店': 'card-hotel', '住宿': 'card-hotel' }[item.cat] || 'card-spot';
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag}">${tag.toUpperCase()}</span>`).join('');
                 
                 // 動態判斷標籤
