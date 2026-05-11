@@ -26,14 +26,18 @@
             font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
             margin: 0;
             overflow: hidden;
-            background: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop') no-repeat center center fixed;
+            background: url('https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=80&w=2071&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
         }
 
         #sakura-canvas {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 99;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99;
         }
 
         .glass-overlay {
@@ -50,7 +54,8 @@
             background: #DED8CE;
             display: flex; flex-direction: column; align-items: center; 
             padding-top: 25px; z-index: 100;
-            overflow-y: auto; scrollbar-width: none;
+            overflow-y: auto; 
+            scrollbar-width: none;
         }
         .sidebar::-webkit-scrollbar { display: none; }
 
@@ -78,21 +83,35 @@
         .bg-snap { background-color: #1DD1A1; }
 
         .joy-pass-tag {
-            position: absolute; top: 12px; right: 12px;
-            font-size: 10px; font-weight: bold; padding: 2px 8px;
-            border-radius: 20px; color: #6B4E71;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: #6B4E71;
             background: linear-gradient(110deg, #E0D1FF 30%, #ffffff 50%, #E0D1FF 70%);
-            background-size: 200% 100%; border: 1px solid rgba(255, 255, 255, 0.5);
-            animation: shine 3s linear infinite; z-index: 10;
+            background-size: 200% 100%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 6px rgba(107, 78, 113, 0.15);
+            animation: shine 3s linear infinite;
         }
 
         .premium-pass-tag {
-            position: absolute; top: 12px; right: 12px;
-            font-size: 10px; font-weight: bold; padding: 2px 8px;
-            border-radius: 20px; color: #784a00;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: #784a00;
             background: linear-gradient(110deg, #FFD700 30%, #fff9e6 50%, #FFD700 70%);
-            background-size: 200% 100%; border: 1px solid rgba(218, 165, 32, 0.6);
-            animation: shine 2.5s linear infinite; z-index: 10;
+            background-size: 200% 100%;
+            border: 1px solid rgba(218, 165, 32, 0.6);
+            box-shadow: 0 2px 8px rgba(184, 134, 11, 0.3);
+            animation: shine 2.5s linear infinite;
         }
 
         @keyframes shine {
@@ -102,12 +121,12 @@
 
         .spot-card {
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px; padding: 18px; margin-bottom: 20px;
+            border-radius: 20px; padding: 18px; margin-bottom: 15px;
             border-left: 8px solid #DDD;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: transform 0.2s ease;
-            cursor: pointer; position: relative;
-            overflow: hidden;
+            cursor: pointer;
+            position: relative;
         }
 
         .card-transport { border-left-color: var(--cat-transport); }
@@ -117,41 +136,102 @@
         .card-shop { border-left-color: var(--cat-shop); }
         .card-hotel { border-left-color: var(--cat-hotel); }
 
-        /* 照片不再隱藏於展開內容中 */
-        .spot-img-top {
-            width: 100%; height: 160px; object-fit: cover;
-            border-radius: 12px; margin-bottom: 12px;
+        /* 修改：讓照片在外部直接顯示 */
+        .card-preview-img {
+            width: 100%;
+            height: 160px;
+            object-cover: cover;
+            border-radius: 12px;
+            margin-top: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .details-content { 
-            max-height: 0; overflow: hidden; 
+            max-height: 0; 
+            overflow: hidden; 
             transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
         }
         .spot-card.expanded .details-content { 
-            max-height: 1000px; margin-top: 15px; 
-            border-top: 1px solid #EEE; padding-top: 15px; 
+            max-height: 1000px; 
+            margin-top: 15px; 
+            border-top: 1px solid #EEE; 
+            padding-top: 15px; 
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .checklist-item input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            color: #AAA;
+        }
+
+        .tool-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px); border-radius: 24px; padding: 20px;
+            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .jp-card {
+            background: white; border-radius: 16px; padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        #jp-full-screen {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: var(--milktea-bg); z-index: 2000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 40px; text-align: center; display: none;
+        }
+
+        .quick-tool-btn {
+            background: rgba(255, 249, 196, 0.9); 
+            border-radius: 12px;
+            padding: 8px 12px;
+            color: #856404;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        #modal-container { z-index: 3000; position: fixed; }
+        #tool-modal {
+            position: fixed;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 85%; max-width: 350px;
+            background: var(--milktea-bg);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
         .weather-panel {
-            background: rgba(255, 255, 255, 0.12); backdrop-filter: blur(12px);
-            border-radius: 24px; padding: 15px; margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 15px;
+            margin-bottom: 25px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .weather-scroll { display: flex; overflow-x: auto; gap: 0; scrollbar-width: none; }
+        .weather-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 0;
+            scrollbar-width: none;
+        }
         .weather-scroll::-webkit-scrollbar { display: none; }
 
-        .weather-item { min-width: 90px; border-right: 1px solid rgba(255, 255, 255, 0.1); padding: 5px 10px; text-align: center; color: white; }
-
-        .checklist-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .checklist-item input[type="checkbox"] { width: 20px; height: 20px; margin-right: 12px; accent-color: #20BF6B; }
-
-        .tool-box { background: rgba(255, 255, 255, 0.85); border-radius: 24px; padding: 20px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.6); }
-
-        .jp-card { background: white; border-radius: 16px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-
-        #jp-full-screen { position: fixed; top:0; left:0; width:100%; height:100%; background: var(--milktea-bg); z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; text-align: center; display: none; }
+        .weather-item {
+            min-width: 90px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            text-align: center;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -183,6 +263,7 @@
                     <h1 class="text-4xl font-bold text-white drop-shadow-md" id="current-date">7/22 水曜日</h1>
                     <p id="day-desc" class="text-lg text-pink-100 font-bold mt-1 drop-shadow-sm">Osaka Trip Start!</p>
                 </div>
+                <button class="quick-tool-btn" onclick="toggleToolModal()">蒟蒻</button>
             </div>
             
             <div id="weather-panel-container" class="weather-panel">
@@ -190,7 +271,9 @@
                     <span class="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full font-bold">LIVE</span>
                     <span class="text-xs text-white/80 font-bold">大阪市即時天氣預報</span>
                 </div>
-                <div id="weather-area" class="weather-scroll"></div>
+                <div id="weather-area" class="weather-scroll">
+                    <div class="text-white text-xs animate-pulse p-2">正在取得最新氣象資料...</div>
+                </div>
             </div>
         </header>
 
@@ -200,70 +283,125 @@
             <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🧳 行李準備清單</h2>
             <div class="tool-box mb-6">
                 <h3 class="font-bold text-blue-600 mb-3 flex items-center">🪪 證件，文件，卡片</h3>
-                <div class="checklist-item"><input type="checkbox"><span>護照 / 機票 / 信用卡 / 日幣現鈔</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>護照/機票/外幣</span></div>
+                <div class="checklist-item"><input type="checkbox"><span>保險/訂房憑證</span></div>
             </div>
-            <!-- ... 其他清單保持不變 ... -->
+            <div class="tool-box mb-6">
+                <h3 class="font-bold text-orange-600 mb-3 flex items-center">🧴 生活用品</h3>
+                <div class="checklist-item"><input type="checkbox"><span>衣物/保養品/雨具</span></div>
+            </div>
         </div>
 
-        <!-- 常用日語、工具、緊急聯絡區域保持原本結構 -->
         <div id="language-area" class="hidden">
             <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🗣️ 常用禮貌日語</h2>
             <div id="jp-list"></div>
         </div>
+
+        <div id="tools-area" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🧮 旅行小工具</h2>
+            <a href="https://liff.line.me/1655320992-Y8GowEpw/g/kA72aawT1nVFmLhE63QALK" target="_blank" class="block p-6 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-2xl mb-8 text-center font-bold">開啟 LINE 記帳</a>
+        </div>
+
+        <div id="emergency-area" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 text-white drop-shadow-md">🆘 緊急聯絡資訊</h2>
+            <div class="tool-box border-l-8 border-red-500">
+                <p class="font-bold text-red-600 text-lg mb-3">🇯🇵 日本當地緊急電話</p>
+                <div class="flex justify-between items-center mb-3"><span>警察局 110</span><a href="tel:110" class="bg-red-100 px-4 py-1 rounded-full font-bold">撥打</a></div>
+            </div>
+        </div>
     </main>
 
+    <div id="jp-full-screen" onclick="this.style.display='none'">
+        <div id="full-text-zh" class="text-xl text-amber-900 mb-4 font-bold">中文意思</div>
+        <div id="full-text-jp" class="text-4xl text-gray-900 font-bold mb-8 leading-tight">日本語內容</div>
+        <button id="full-speak-btn" class="w-20 h-20 bg-white rounded-full shadow-lg flex items-center justify-center text-3xl">🔊</button>
+    </div>
+
+    <div id="modal-container" class="hidden">
+        <div class="modal-overlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);" onclick="toggleToolModal()"></div>
+        <div id="tool-modal">
+            <h3 class="text-xl font-bold text-amber-900 mb-4">🧳 旅行工具箱</h3>
+            <textarea class="w-full bg-white/50 p-3 rounded-xl mb-4" placeholder="輸入要翻譯的文字..." id="trans-input"></textarea>
+            <div class="flex gap-2">
+                <button onclick="openTranslate('zh-TW','ja')" class="flex-1 bg-amber-800 text-white py-2 rounded-xl">中翻日</button>
+            </div>
+            <button onclick="toggleToolModal()" class="w-full mt-6 border border-amber-800 py-2 rounded-xl">返回行程</button>
+        </div>
+    </div>
+
     <script>
-        // --- 行程資料 (更新照片連結) ---
         const itineraryData = {
             "7/22": { desc: "啟程：抵達關西機場", items: [
-                { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "飛行約 3h 40m", story: "帶著期待的心情出發！", commute: "✈️ 飛行中", note: "建議起飛前 2.5 小時抵達櫃檯。", voucher: "#", img: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?q=80&w=2070&auto=format&fit=crop" },
-                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "辦理入境與領行李", story: "使用關西樂享周遊券；末班 24:30。", commute: "🚌 機場接駁", map: "#", note: "出關人潮較多，行李轉盤附近有販賣機。", joyPass: true, img: "https://images.unsplash.com/photo-1569335559005-021946e38487?q=80&w=2070&auto=format&fit=crop" },
-                { time: "23:00", cat: "酒店", name: "住一八號店", info: "辦理入住", story: "這幾天的大本營，辛苦了！", map: "#", note: "大廳有免費備品，檢查房間熱水開關。", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop" }
+                { time: "18:20", cat: "交通", name: "桃園機場 (GK054)", info: "飛行約 3h 40m", story: "帶著期待的心情出發！", commute: "✈️ 飛行中", note: "建議起飛前 2.5 小時抵達櫃檯。", img: "https://images.unsplash.com/photo-1436491865332-7a61a109c053?q=80&w=2070&auto=format&fit=crop" },
+                { time: "22:00", cat: "交通", name: "關西機場 T1", info: "辦理入境", story: "末班 24:30。趕快搭上接駁車前往市區。", commute: "🚌 接駁", joyPass: true, img: "https://images.unsplash.com/photo-1570116905202-040941916323?q=80&w=2070&auto=format&fit=crop" },
+                { time: "23:00", cat: "酒店", name: "住一八號店", info: "辦理入住", story: "這幾天的大本營，辛苦了！", note: "大廳有免費備品可領取。", img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop" }
             ]},
             "7/23": { desc: "大阪市區", items: [
-                { time: "08:00", cat: "景點", name: "難波八阪神社", info: "巨獅頭消除厄運", tags: ["snap"], story: "非常震撼的獅子頭神社。", commute: "🚶‍➡️步行10分鐘", map: "#", note: "站在正對面拍照最震撼！", img: "https://images.unsplash.com/photo-1590559899731-3972fca6fd39?q=80&w=2070&auto=format&fit=crop" },
-                { time: "09:30", cat: "美食", name: "木津市場", info: "大阪在地廚房", tags: ["eat"], story: "海鮮丼非常驚艷，推薦47號店。", commute: "🚶‍➡️步行10分鐘", map: "#", note: "海鮮湯必點，鮮甜不可思議。", img: "https://images.unsplash.com/photo-1582450871972-ab5ca641643d?q=80&w=1974&auto=format&fit=crop" },
-                { time: "11:00", cat: "活動", name: "通天閣 & 新世界", info: "含溜滑梯體驗", tags: ["snap"], story: "新舊交融的大阪味。", commute: "🚗 車程 20 分鐘", map: "#", note: "觸摸 Billiken 神像腳底會好運。", img: "https://images.unsplash.com/photo-1542358935821-e4e9f3f3c15d?q=80&w=1974&auto=format&fit=crop" },
-                { time: "13:40", cat: "購物", name: "心齋橋筋", info: "藥妝服飾雜貨", tags: ["buy", "snap"], story: "大阪最強商店街。", commute: "👣 步行 8 分鐘", map: "#", note: "Parco 百貨內龍貓與 Jump Shop 必逛！", img: "https://images.unsplash.com/photo-1605345759728-66236b22295d?q=80&w=2070&auto=format&fit=crop" },
-                { time: "18:00", cat: "美食", name: "大眾すき焼き 北斗", info: "壽喜燒晚餐", tags: ["eat"], story: "位於 GEMS なんば店。", commute: "🚶‍➡️步行 5 分鐘", map: "#", note: "建議預約，牛肉沾生雞蛋最對味。", img: "https://images.unsplash.com/photo-1591814448473-b39177a3d6ba?q=80&w=1964&auto=format&fit=crop" },
-                { time: "18:52", cat: "景點", name: "道頓堀觀光船", info: "21:00 搭船", tags: ["snap"], story: "欣賞跑跑人的燦爛燈光。", joyPass: true, img: "https://images.unsplash.com/photo-1590248671300-349071569769?q=80&w=1974&auto=format&fit=crop" }
+                { time: "08:00", cat: "景點", name: "難波八阪神社", info: "巨獅頭消除厄運", tags: ["snap"], story: "非常有氣勢的神社，進來求個好運。", img: "https://images.unsplash.com/photo-1590559899731-a382839e5549?q=80&w=1974&auto=format&fit=crop" },
+                { time: "09:30", cat: "美食", name: "木津市場", info: "海鮮丼專門", tags: ["eat"], story: "海鮮非常驚艷，在地人的廚房。", img: "https://images.unsplash.com/photo-1534422298391-e4f8c170db06?q=80&w=2069&auto=format&fit=crop" },
+                { time: "11:00", cat: "活動", name: "通天閣", info: "高空溜滑梯", tags: ["snap"], story: "新舊交融的大阪味，挑戰一下！", img: "https://images.unsplash.com/photo-1542358935821-e4e9f3f3c15d?q=80&w=1974&auto=format&fit=crop" },
+                { time: "13:40", cat: "購物", name: "心齋橋筋", info: "藥妝雜貨", tags: ["buy"], story: "大阪最強商店街，記得貨比三家。", img: "https://images.unsplash.com/photo-1610419353982-f0464f89d53c?q=80&w=2070&auto=format&fit=crop" },
+                { time: "18:00", cat: "美食", name: "大眾すき焼き 北斗", info: "壽喜燒晚餐", tags: ["eat"], story: "牛肉油脂豐富，建議配一顆生雞蛋。", img: "https://images.unsplash.com/photo-1621915675348-f73855735ba3?q=80&w=2070&auto=format&fit=crop" }
             ]},
             "7/24": { desc: "京都古城", items: [
-                { time: "08:46", cat: "景點", name: "清水寺", info: "世界遺產參拜", tags: ["snap"], story: "感受木造建築的宏偉。", img: "https://images.unsplash.com/photo-1624253321171-1be53e12f5f4?q=80&w=1974&auto=format&fit=crop" },
-                { time: "10:46", cat: "景點", name: "三年坂", info: "古風街道漫步", tags: ["buy"], story: "傳統工藝品與伴手禮小徑。", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop" },
-                { time: "10:46", cat: "美食", name: "京都勝牛", info: "炸牛排午餐", tags: ["eat"], story: "五星推薦炸牛排。", img: "https://images.unsplash.com/photo-1616235889753-4632f05ba862?q=80&w=2071&auto=format&fit=crop" },
-                { time: "14:30", cat: "美食", name: "錦市場", info: "京都的廚房", tags: ["eat"], story: "豆乳甜甜圈必買。", img: "https://images.unsplash.com/photo-1552089123-2d26226fc2b7?q=80&w=1964&auto=format&fit=crop" },
-                { time: "16:05", cat: "美食", name: "麵屋豬一", info: "熱門拉麵店", tags: ["eat"], story: "提早排隊領號碼牌。", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=2080&auto=format&fit=crop" }
+                { time: "08:46", cat: "景點", name: "清水寺", info: "世界遺產", tags: ["snap"], story: "京都最經典地標，感受建築宏偉。", img: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=2070&auto=format&fit=crop" },
+                { time: "10:46", cat: "美食", name: "京都勝牛", info: "炸牛排午餐", tags: ["eat"], story: "外皮酥脆，內部軟嫩的炸牛排。", img: "https://images.unsplash.com/photo-1604467794349-0b74285de7e7?q=80&w=2070&auto=format&fit=crop" },
+                { time: "14:30", cat: "美食", name: "錦市場", info: "京都的廚房", tags: ["eat"], story: "沿路吃吃喝喝，豆乳甜甜圈必買。", img: "https://images.unsplash.com/photo-1512411476140-5712170cc3bc?q=80&w=2071&auto=format&fit=crop" },
+                { time: "16:05", cat: "美食", name: "麵屋豬一", info: "清爽拉麵", tags: ["eat"], story: "超人氣排隊店，湯頭非常清甜。", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=2080&auto=format&fit=crop" }
             ]},
             "7/25": { desc: "奈良尋鹿", items: [
-                { time: "10:26", cat: "美食", name: "中谷堂", info: "高速搗麻糬", tags: ["eat"], story: "震撼的搗麻糬表演。", img: "https://images.unsplash.com/photo-1632709282367-27b9c9f91a58?q=80&w=2070&auto=format&fit=crop" },
-                { time: "11:00", cat: "美食", name: "Kamaiki 釜粹", info: "奈良特色午餐", tags: ["eat"], story: "烏龍麵非常 Q 彈。", img: "https://images.unsplash.com/photo-1618841557871-b4664fbf0c5a?q=80&w=2070&auto=format&fit=crop" },
-                { time: "13:30", cat: "活動", name: "奈良公園", info: "小鹿互動體驗", tags: ["snap"], story: "小心被小鹿包圍喔！", img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=2080&auto=format&fit=crop" },
-                { time: "14:50", cat: "美食", name: "水谷茶屋", info: "森林感茶屋", tags: ["snap", "eat"], story: "宮崎駿世界的復古茶屋。", img: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=2070&auto=format&fit=crop" },
-                { time: "21:00", cat: "景點", name: "Harukas300展望台", info: "大阪最強夜景", tags: ["snap"], story: "高空夜景與空庭溫泉互換。", img: "https://images.unsplash.com/photo-1543731068-7e0f5beff43a?q=80&w=2072&auto=format&fit=crop" }
+                { time: "11:00", cat: "美食", name: "釜粹 Kamaiki", info: "特色烏龍麵", tags: ["eat"], story: "烏龍麵非常 Q 彈，炸雞肉塊必點。", img: "https://images.unsplash.com/photo-1548943487-a2e4e43b4853?q=80&w=2070&auto=format&fit=crop" },
+                { time: "13:30", cat: "活動", name: "奈良公園", info: "小鹿互動", tags: ["snap"], story: "拿著鹿餅要小心被小鹿包圍喔！", img: "https://images.unsplash.com/photo-1528659160533-3172e2702755?q=80&w=1964&auto=format&fit=crop" },
+                { time: "18:30", cat: "美食", name: "雞 Soba 座銀", info: "雞白湯拉麵", tags: ["eat"], story: "湯頭像濃湯一樣好喝，牛蒡絲是精髓。", img: "https://images.unsplash.com/photo-1591814448473-7f47c2117db7?q=80&w=2070&auto=format&fit=crop" },
+                { time: "21:00", cat: "景點", name: "Harukas300", info: "最強夜景", tags: ["snap"], story: "從高空俯瞰大阪城市燈海。", img: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1974&auto=format&fit=crop" }
             ]},
             "7/26": { desc: "港灣梅田", items: [
-                { time: "09:30", cat: "活動", name: "海遊館", info: "世界最大級水族館", story: "來看看大鯨鯊悠游。", img: "https://images.unsplash.com/photo-1509721142513-492c80ef6410?q=80&w=2070&auto=format&fit=crop" },
-                { time: "13:04", cat: "活動", name: "空庭溫泉", info: "日式主題溫泉", tags: ["snap"], story: "換上浴衣泡湯漫步。", joyPass: true, img: "https://images.unsplash.com/photo-1625464161875-f76150b07164?q=80&w=2070&auto=format&fit=crop" },
-                { time: "16:43", cat: "美食", name: "grenier 梅田店", info: "特色布雷派", tags: ["eat"], story: "草莓焦糖口味必試。", img: "https://images.unsplash.com/photo-1517427677506-229f373918a5?q=80&w=2070&auto=format&fit=crop" },
-                { time: "17:30", cat: "美食", name: "大起水產壽司", info: "鮮味迴轉壽司", tags: ["eat"], story: "價格平實海味十足。", img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop" },
-                { time: "21:00", cat: "景點", name: "梅田藍天大廈", info: "空中庭園夜景", tags: ["snap"], story: "18:00前入場免費。", img: "https://images.unsplash.com/photo-1601058320499-10651910609b?q=80&w=1974&auto=format&fit=crop" }
+                { time: "09:30", cat: "活動", name: "海遊館", info: "世界最大級水族館", story: "來看看大鯨鯊悠游的模樣。", img: "https://images.unsplash.com/photo-1533497197925-903678280688?q=80&w=2070&auto=format&fit=crop" },
+                { time: "13:04", cat: "活動", name: "空庭溫泉", info: "日式主題溫泉", tags: ["snap"], joyPass: true, img: "https://images.unsplash.com/photo-1520004434532-66841620bd00?q=80&w=2070&auto=format&fit=crop" },
+                { time: "16:43", cat: "美食", name: "grenier 布雷派", info: "甜點控必去", tags: ["eat"], img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=1964&auto=format&fit=crop" },
+                { time: "17:30", cat: "美食", name: "大起水產", info: "迴轉壽司", tags: ["eat"], img: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop" }
             ]},
             "7/27": { desc: "環球影城", items: [
-                { time: "06:30", cat: "活動", name: "日本環球影城", info: "USJ 全日冒險", tags: ["snap"], story: "瑪利歐世界我來了！", premiumPass: true, img: "https://images.unsplash.com/photo-1632731557500-f9472e90c681?q=80&w=1964&auto=format&fit=crop" }
+                { time: "06:30", cat: "活動", name: "日本環球影城", info: "USJ 全日冒險", tags: ["snap"], premiumPass: true, img: "https://images.unsplash.com/photo-1501166073351-be7430215039?q=80&w=2070&auto=format&fit=crop" }
             ]},
             "7/28": { desc: "最後購物", items: [
-                { time: "10:00", cat: "美食", name: "黑門市場", info: "在地市場小吃", tags: ["eat"], story: "最後的美食巡禮。", img: "https://images.unsplash.com/photo-1596791003882-90f772ba6f73?q=80&w=1974&auto=format&fit=crop" },
-                { time: "14:00", cat: "景點", name: "大阪城公園", info: "歷史古蹟漫步", tags: ["snap"], story: "宏偉天守閣與古城。", img: "https://images.unsplash.com/photo-1590559899731-3972fca6fd39?q=80&w=2070&auto=format&fit=crop" },
-                { time: "18:00", cat: "美食", name: "燒肉力丸", info: "燒肉吃到飽", tags: ["eat"], story: "大口吃肉慶祝最後一晚。", img: "https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?q=80&w=2070&auto=format&fit=crop" }
+                { time: "10:00", cat: "美食", name: "黑門市場", info: "在地美食", tags: ["eat"], img: "https://images.unsplash.com/photo-1504416285472-eccf03dd31eb?q=80&w=2072&auto=format&fit=crop" },
+                { time: "14:00", cat: "景點", name: "大阪城公園", info: "天守閣", tags: ["snap"], img: "https://images.unsplash.com/photo-1558862107-d49ef2a04d72?q=80&w=2070&auto=format&fit=crop" },
+                { time: "18:00", cat: "美食", name: "燒肉力丸", info: "吃到飽", tags: ["eat"], img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1974&auto=format&fit=crop" }
             ]},
             "7/29": { desc: "返程返家", items: [
-                { time: "12:00", cat: "交通", name: "關西機場", info: "最後免稅購物", story: "買最後伴手禮。", img: "https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=2070&auto=format&fit=crop" },
-                { time: "17:20", cat: "交通", name: "桃園機場", info: "抵達溫暖的家", story: "下次冒險見！", img: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?q=80&w=2070&auto=format&fit=crop" }
+                { time: "12:00", cat: "交通", name: "關西國際機場", info: "報到與免稅", img: "https://images.unsplash.com/photo-1504150558240-0b4fd8946624?q=80&w=2070&auto=format&fit=crop" },
+                { time: "15:20", cat: "交通", name: "GK055 起飛", info: "回程航班", img: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?q=80&w=2070&auto=format&fit=crop" }
             ]}
         };
 
         const yobiMap = { "7/22": "7/22 水曜日", "7/23": "7/23 木曜日", "7/24": "7/24 金曜日", "7/25": "7/25 土曜日", "7/26": "7/26 日曜日", "7/27": "7/27 月曜日", "7/28": "7/28 火曜日", "7/29": "7/29 水曜日" };
+
+        function switchTab(el, tabId) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+            const area = document.getElementById('itinerary-area');
+            const checklist = document.getElementById('checklist-area');
+            const language = document.getElementById('language-area');
+            const tools = document.getElementById('tools-area');
+            const emergency = document.getElementById('emergency-area');
+            const weather = document.getElementById('weather-panel-container');
+            
+            [area, checklist, language, tools, emergency, weather].forEach(a => a.classList.add('hidden'));
+
+            if (itineraryData[tabId]) {
+                area.classList.remove('hidden'); weather.classList.remove('hidden');
+                document.getElementById('current-date').innerText = yobiMap[tabId];
+                document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
+                renderCards(tabId);
+            } else if (tabId === 'checklist') {
+                checklist.classList.remove('hidden');
+                document.getElementById('current-date').innerText = "行前準備";
+            } else if (tabId === 'language') {
+                language.classList.remove('hidden');
+                document.getElementById('current-date').innerText = "常用日語";
+            }
+        }
 
         function renderCards(day) {
             const items = itineraryData[day].items;
@@ -271,64 +409,47 @@
             items.forEach((item) => {
                 const typeClass = { '交通': 'card-transport', '美食': 'card-food', '活動': 'card-activity', '景點': 'card-spot', '購物': 'card-shop', '酒店': 'card-hotel' }[item.cat] || 'card-spot';
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag}">${tag.toUpperCase()}</span>`).join('');
-                let passTagHtml = item.joyPass ? `<div class="joy-pass-tag">樂享券</div>` : (item.premiumPass ? `<div class="premium-pass-tag">豪華券</div>` : '');
+                const passTag = item.joyPass ? `<div class="joy-pass-tag">樂享周遊券</div>` : (item.premiumPass ? `<div class="premium-pass-tag">豪華周遊券</div>` : '');
 
                 html += `
                 <div class="spot-card ${typeClass}" onclick="this.classList.toggle('expanded')">
-                    ${passTagHtml}
-                    <!-- 圖片現在直接顯現，位於卡片頂部 -->
-                    ${item.img ? `<img src="${item.img}" class="spot-img-top" alt="${item.name}">` : ''}
                     <div class="flex justify-between items-start">
                         <div>
-                            <div class="text-[10px] font-bold text-gray-400 mb-1">${item.cat} | ${item.time}</div>
-                            <h3 class="text-lg font-bold text-gray-800">${item.name}</h3>
-                            <div class="text-xs text-pink-500 font-bold mt-1">${item.info}</div>
+                            <div class="text-xs font-bold text-gray-400 mb-1">${item.cat} | ${item.time}</div>
+                            <h3 class="text-xl font-bold text-gray-800">${item.name}</h3>
+                            <div class="text-sm text-pink-500 font-bold mt-1">${item.info}</div>
                             <div class="mt-2 flex flex-wrap gap-1">${tagsHtml}</div>
                         </div>
-                        <div class="text-pink-500 text-[10px] font-bold pt-1">建議 ▼</div>
+                        <div class="text-pink-500 text-xs font-bold pt-1">點擊展開 ▼</div>
                     </div>
+                    ${passTag}
+                    <!-- 照片直接顯示 -->
+                    ${item.img ? `<img src="${item.img}" class="card-preview-img" alt="${item.name}">` : ''}
+                    
                     <div class="details-content">
-                        <div class="text-xs text-gray-600 mb-4">📖 ${item.story}</div>
-                        <div class="text-xs text-orange-600 bg-orange-50 p-3 rounded-lg mb-2">📌 ${item.note || '無特別說明'}</div>
+                        <div class="text-sm text-gray-600 mb-4 font-bold">📖 導遊小故事：${item.story}</div>
+                        <div class="text-sm text-orange-600 bg-orange-50 p-3 rounded-lg mb-4">📌 建議：${item.note || '享受旅程！'}</div>
+                        ${item.commute ? `<div class="mt-4 text-xs text-blue-500 font-bold">➡️ 下一站：${item.commute}</div>` : ''}
                     </div>
                 </div>`;
             });
             document.getElementById('itinerary-area').innerHTML = html;
         }
 
-        // --- 以下功能維持不變 ---
-        function switchTab(el, tabId) {
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            el.classList.add('active');
-            const sections = ['itinerary-area', 'checklist-area', 'language-area', 'tools-area', 'emergency-area', 'weather-panel-container'];
-            sections.forEach(id => document.getElementById(id)?.classList.add('hidden'));
-
-            if (itineraryData[tabId]) {
-                document.getElementById('itinerary-area').classList.remove('hidden');
-                document.getElementById('weather-panel-container').classList.remove('hidden');
-                document.getElementById('current-date').innerText = yobiMap[tabId];
-                document.getElementById('day-desc').innerText = itineraryData[tabId].desc;
-                renderCards(tabId);
-            } else {
-                document.getElementById(`${tabId}-area`)?.classList.remove('hidden');
-                document.getElementById('current-date').innerText = el.innerText;
-            }
-            document.querySelector('.main-content').scrollTop = 0;
-        }
-
         async function fetchWeather() {
-            const weatherArea = document.getElementById('weather-area');
             try {
-                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=34.69&longitude=135.50&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo');
-                const data = await response.json();
-                let html = '';
-                data.daily.time.forEach((date, i) => {
-                    const icon = data.daily.weathercode[i] <= 3 ? '☀️' : '☁️';
-                    html += `<div class="weather-item"><div class="text-[10px] opacity-70">${date.split('-')[2]}</div><div class="text-xl">${icon}</div><div class="text-[11px] font-bold">${Math.round(data.daily.temperature_2m_min[i])}°/${Math.round(data.daily.temperature_2m_max[i])}°</div></div>`;
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=34.69&longitude=135.50&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo');
+                const data = await res.json();
+                let h = '';
+                data.daily.time.forEach((d, i) => {
+                    h += `<div class="weather-item"><div class="text-[10px] opacity-70">${d.split('-')[2]}</div><div class="text-xl">☀️</div><div class="text-[11px] font-bold">${Math.round(data.daily.temperature_2m_min[i])}°/${Math.round(data.daily.temperature_2m_max[i])}°</div></div>`;
                 });
-                weatherArea.innerHTML = html;
-            } catch (e) { weatherArea.innerHTML = '<div class="text-white text-xs">載入失敗</div>'; }
+                document.getElementById('weather-area').innerHTML = h;
+            } catch(e) { document.getElementById('weather-area').innerText = '載入失敗'; }
         }
+
+        function toggleToolModal() { document.getElementById('modal-container').classList.toggle('hidden'); }
+        function openTranslate(f,t) { window.open(`https://translate.google.com/?sl=${f}&tl=${t}&text=${encodeURIComponent(document.getElementById('trans-input').value)}&op=translate`, '_blank'); }
 
         const canvas = document.getElementById('sakura-canvas');
         const ctx = canvas.getContext('2d');
@@ -336,11 +457,11 @@
         function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resizeCanvas); resizeCanvas();
         class Sakura {
-            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 5 + 2; this.speed = Math.random() * 1 + 0.5; this.angle = Math.random() * 360; }
-            draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); ctx.beginPath(); ctx.ellipse(0, 0, this.size, this.size/2, 0, 0, Math.PI*2); ctx.fillStyle = '#FFC0CB'; ctx.fill(); ctx.restore(); }
-            update() { this.y += this.speed; if (this.y > canvas.height) this.y = -10; this.angle += 0.02; }
+            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 5 + 2; this.speed = Math.random() * 1 + 0.5; this.wind = Math.random() * 0.5 - 0.25; }
+            draw() { ctx.beginPath(); ctx.ellipse(this.x, this.y, this.size, this.size/2, 45, 0, Math.PI*2); ctx.fillStyle = '#FFC0CB'; ctx.fill(); }
+            update() { this.y += this.speed; this.x += this.wind; if (this.y > canvas.height) this.y = -20; }
         }
-        for(let i=0; i<30; i++) sakuraArray.push(new Sakura());
+        for (let i=0; i<30; i++) sakuraArray.push(new Sakura());
         function animate() { ctx.clearRect(0,0,canvas.width,canvas.height); sakuraArray.forEach(s => { s.draw(); s.update(); }); requestAnimationFrame(animate); }
         animate();
 
