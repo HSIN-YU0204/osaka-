@@ -50,14 +50,14 @@
             z-index: -1;
         }
 
-             /* 全新深色科技風側邊欄 */
+                   /* 全新深色科技風側邊欄 - 已換成暗夜富士藍 */
         .sidebar {
             width: 85px; 
             height: 100vh; 
             position: fixed; 
             left: 0; 
             top: 0;
-            background: #3D3530; /* 改為深色背景 */
+            background: #1B263B; /* 🌟 核心修改：改為暗夜富士藍 */
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -65,7 +65,7 @@
             z-index: 100;
             overflow-y: auto; 
             scrollbar-width: none;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.08); /* 微調邊框透明度 */
         }
         .sidebar::-webkit-scrollbar { display: none; }
 
@@ -81,7 +81,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all 0.25s ease;
-            color: #C2B4AA; /* 未選中時的文字顏色 */
+            color: #A0AEC0; /* 🌟 核心修改：未選中文字改為清爽的冰藍灰 */
             background: transparent;
             flex-shrink: 0;
             padding: 4px;
@@ -109,12 +109,13 @@
             transform: scale(0.92);
         }
 
-        /* 啟用中（Active）選取狀態：亮橘紅色高亮 */
+        /* 啟用中（Active）選取狀態：改為高級霧粉櫻色，在深藍底色下非常美麗 */
         .nav-item.active {
             color: #FFF !important;
-            background: #A36B65 !important; /* 呼應右圖的橘紅按鈕感 */
-            box-shadow: 0 4px 12px rgba(163, 107, 101, 0.35);
+            background: #E8A7A1 !important; /* 🌟 核心修改：溫柔的霧粉櫻 */
+            box-shadow: 0 4px 14px rgba(232, 167, 161, 0.4); /* 讓按鈕微微發光 */
         }
+
 
         .main-content {
             margin-left: 85px; height: 100vh; overflow-y: auto;
@@ -355,7 +356,7 @@
 
       <aside class="sidebar">
         <div class="mb-4 text-center">
-            <span class="text-gray-500 text-[10px] block font-bold tracking-wider">3Y TRIP</span>
+            <span class="text-slate-400 text-[10px] block font-bold tracking-wider">3Y TRIP</span>
         </div>
         
         <div class="nav-item" onclick="switchTab(this, 'checklist')" style="background: rgba(46,125,50,0.15); color: #81C784;">
