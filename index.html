@@ -226,6 +226,49 @@
             border: none; border-radius: 10px; padding: 10px;
             margin-top: 5px; font-size: 14px;
         }
+        /* 路線跑跑圖片彈出視窗 */
+        .route-modal {
+            position: fixed;
+            bottom: -100%; /* 預設藏在螢幕下方 */
+            left: 0; right: 0;
+            background: #FFF;
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            z-index: 2001; /* 確保在最上層 */
+            transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.3);
+        }
+
+        /* 當啟動 active 時，從底部滑上來 */
+        .route-modal.active {
+            bottom: 0;
+        }
+
+        .route-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .route-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* 隱藏圖片左右滾動條 */
+        #route-scroll-container {
+            scrollbar-width: none; /* Firefox */
+        }
+        #route-scroll-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari */
+        }
 
         /* 優化後的天氣欄位樣式 */
         .weather-panel {
@@ -480,6 +523,38 @@
             </div>
 
             <button onclick="toggleToolModal()" class="w-full mt-6 bg-amber-800 text-white py-3 rounded-xl font-bold">返回行程</button>
+        </div>
+    </div>
+    <div id="route-overlay" class="route-modal-overlay" onclick="toggleRouteModal(false)"></div>
+    <div id="route-modal" class="route-modal">
+        <div class="flex justify-between items-center px-6 py-4 border-b border-gray-100">
+            <div class="flex items-center gap-2">
+                <h3 class="text-xl font-bold text-gray-800">🏃‍♂️ USJ 路線跑跑攻略</h3>
+                <span id="route-page-indicator" class="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full font-bold">1 / 3</span>
+            </div>
+            <button onclick="toggleRouteModal(false)" class="text-3xl text-gray-400 active:text-gray-600">×</button>
+        </div>
+        
+        <div class="overflow-x-auto flex snap-x snap-mandatory scroll-smooth p-4 gap-4" id="route-scroll-container" onscroll="updateRouteDots()">
+            <div class="min-w-full snap-center flex justify-center">
+                <img src="./IMG_1761.jpeg" alt="路線圖 1" class="w-full h-auto rounded-xl shadow-md max-h-[55vh] object-contain">
+            </div>
+            <div class="min-w-full snap-center flex justify-center">
+                <img src="./IMG_1764.jpeg" alt="路線圖 2" class="w-full h-auto rounded-xl shadow-md max-h-[55vh] object-contain">
+            </div>
+            <div class="min-w-full snap-center flex justify-center">
+                <img src="./IMG_1765.jpeg" alt="路線圖 3" class="w-full h-auto rounded-xl shadow-md max-h-[55vh] object-contain">
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-2 pb-4">
+            <span class="w-4 h-2 rounded-full bg-orange-500 transition-all duration-300" id="dot-0"></span>
+            <span class="w-2 h-2 rounded-full bg-gray-300 transition-all duration-300" id="dot-1"></span>
+            <span class="w-2 h-2 rounded-full bg-gray-300 transition-all duration-300" id="dot-2"></span>
+        </div>
+
+        <div class="p-4 bg-gray-50 border-t border-gray-100 text-center text-xs text-gray-400">
+            左右滑動可切換圖片 🗺️ 點擊空白處關閉
         </div>
     </div>
 
@@ -815,7 +890,6 @@
             const items = itineraryData[day].items;
             let html = '';
             items.forEach((item) => {
-                // 修正物件對應表，確保 '酒店' 也能讀取到正確顏色
                 const typeClass = { 
                     '交通': 'card-transport', 
                     '美食': 'card-food', 
@@ -829,12 +903,22 @@
 
                 const tagsHtml = (item.tags || []).map(tag => `<span class="guide-tag bg-${tag}">${tag.toUpperCase()}</span>`).join('');
                 
-                // 動態判斷標籤
                 let passTagHtml = '';
                 if (item.joyPass) {
                     passTagHtml = `<div class="joy-pass-tag">樂享周遊券</div>`;
                 } else if (item.premiumPass) {
                     passTagHtml = `<div class="premium-pass-tag">豪華周遊券</div>`;
+                }
+
+                // 判斷：如果是環球影城，就生成「路線跑跑」按鈕
+                let routeBtnHtml = '';
+                if (item.name === "日本環球影城") {
+                    routeBtnHtml = `
+                        <button class="block w-full bg-gradient-to-r from-amber-500 to-orange-600 text-white text-center py-3 rounded-xl text-sm font-bold active:from-amber-600 active:to-orange-700 transition-colors mt-2" 
+                                onclick="event.stopPropagation(); toggleRouteModal(true)">
+                            🏃‍♂️ 路線跑跑地圖
+                        </button>
+                    `;
                 }
 
                 html += `
@@ -860,11 +944,49 @@
                         </div>
                         ${item.map ? `<a href="${item.map}" target="_blank" class="block w-full bg-gray-800 text-white text-center py-3 rounded-xl text-sm font-bold active:bg-black transition-colors" onclick="event.stopPropagation()">🧭 開啟 Google Map 導航</a>` : ''}
                         ${item.voucher ? `<a href="${item.voucher}" target="_blank" class="block w-full bg-blue-600 text-white text-center py-3 rounded-xl text-sm font-bold active:bg-blue-800 transition-colors mt-2" onclick="event.stopPropagation()">📄 查看電子憑證 / 截圖</a>` : ''}
-                        ${item.commute ? `<div class="mt-4 text-xs text-blue-500 font-bold flex items-center"><span class="mr-1">➡️</span> 下一站：${item.commute}</div>` : ''}
+                        ${routeBtnHtml} ${item.commute ? `<div class="mt-4 text-xs text-blue-500 font-bold flex items-center"><span class="mr-1">➡️</span> 下一站：${item.commute}</div>` : ''}
                     </div>
                 </div>`;
             });
             document.getElementById('itinerary-area').innerHTML = html;
+        }
+
+        // 控制路線跑跑視窗滑入滑出
+        function toggleRouteModal(show) {
+            const modal = document.getElementById('route-modal');
+            const overlay = document.getElementById('route-overlay');
+            if (show) {
+                modal.classList.add('active');
+                overlay.classList.add('active');
+                // 打開時強制將圖片回滾到第一張
+                document.getElementById('route-scroll-container').scrollLeft = 0;
+                updateRouteDots();
+            } else {
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        // 計算目前左右滑到第幾張圖，並更新點點與文字
+        function updateRouteDots() {
+            const container = document.getElementById('route-scroll-container');
+            const width = container.clientWidth;
+            const page = Math.round(container.scrollLeft / width);
+            
+            // 更新上方數字指標
+            document.getElementById('route-page-indicator').innerText = `${page + 1} / 3`;
+            
+            // 更新下方分頁圓點
+            for (let i = 0; i < 3; i++) {
+                const dot = document.getElementById(`dot-${i}`);
+                if (i === page) {
+                    dot.classList.remove('bg-gray-300', 'w-2');
+                    dot.classList.add('bg-orange-500', 'w-4');
+                } else {
+                    dot.classList.remove('bg-orange-500', 'w-4');
+                    dot.classList.add('bg-gray-300', 'w-2');
+                }
+            }
         }
 
         window.onload = () => { 
