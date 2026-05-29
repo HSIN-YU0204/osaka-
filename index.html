@@ -22,24 +22,37 @@
             --milktea-bg: #E7D7C1; /* 奶茶色 */
         }
 
-        body {
+                body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #1A191D; /* 深色基底 */
-            
-            /* 利用多重漸層在原本的背景上疊加「日本夜都市」的霓虹微醺感 */
-            background-image: 
-                linear-gradient(135deg, rgba(26, 25, 41, 0.88) 20%, rgba(46, 32, 59, 0.85) 60%, rgba(94, 60, 66, 0.75) 100%),
-                var(--bg-url, none); 
-                
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             margin: 0;
             padding: 0;
             color: #FFFFFF;
             overflow: hidden;
             position: relative;
+            min-height: 100vh;
+
+            /* 核心修改：利用多重放射狀漸層，模擬深夜都市中失焦的霓虹燈光暈 */
+            background: 
+                radial-gradient(circle at 85% 15%, rgba(212, 165, 184, 0.18), transparent 45%), /* 右上方粉色夜櫻霓虹 */
+                radial-gradient(circle at 15% 75%, rgba(74, 144, 226, 0.15), transparent 50%),  /* 左下方新宿藍色車燈 */
+                radial-gradient(circle at 50% 40%, rgba(138, 43, 226, 0.12), transparent 60%),  /* 中間隱約的東京紫光 */
+                linear-gradient(135deg, #121115 0%, #1a1921 100%); /* 基底的日本深夜墨黑 */
+            
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
+
+        /* 核心修改：將原本疊加在 body 上方的深色遮罩移除，否則會把漂亮的霓虹光暈全部蓋掉 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent; /* 改為透明，釋放底層的霓虹光 */
+            z-index: -1;
+            pointer-events: none;
+        }
+
 
         /* 如果你有一個專門放模糊背景圖的偽元素（例如 body::before），請把它的遮罩也一併加深 */
         body::before {
