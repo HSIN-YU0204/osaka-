@@ -809,7 +809,7 @@
             draw() { ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle); ctx.beginPath(); ctx.ellipse(0, 0, this.size, this.size / 2, 0, 0, Math.PI * 2); ctx.fillStyle = '#FFC0CB'; ctx.fill(); ctx.restore(); }
             update() { this.y += this.speed; this.x += this.wind; this.angle += this.spin; if (this.y > canvas.height) { this.y = -20; this.x = Math.random() * canvas.width; } }
         }
-        function initSakura() { sakuraArray = []; for (let i = 0; i < 50; i++) { sakuraArray.push(new Sakura()); } }
+        function initSakura() { sakuraArray = []; for (let i = 0; i < 15; i++) { sakuraArray.push(new Sakura()); } }
         function animateSakura() { ctx.clearRect(0, 0, canvas.width, canvas.height); sakuraArray.forEach(s => { s.draw(); s.update(); }); requestAnimationFrame(animateSakura); }
         initSakura(); animateSakura();
 
